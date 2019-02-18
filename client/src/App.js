@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Navbar from './components/NavBar'
-import HomeScreen from './screens/HomeScreen'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 import { palette } from './styles/styles'
+import SecondPage from './screens/SecondPage'
+import Navbar from './components/NavBar'
+import HomeScreen from './screens/HomeScreen'
 
 const GlobalStyle = createGlobalStyle`
   @import url(//fonts.googleapis.com/css?family=Open+Sans:400|Raleway:300);
@@ -28,9 +29,10 @@ class App extends Component {
       <Router>
         <div>
           <Navbar />
-          <Switch>
-            <Route path='/' component={HomeScreen} />
-          </Switch>
+
+          <Route path='/' component={HomeScreen} />
+          <Route path='/second-page' component={SecondPage} />
+
           <GlobalStyle />
         </div>
       </Router>

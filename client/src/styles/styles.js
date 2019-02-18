@@ -5,6 +5,7 @@ export const fonts = {
 
 export const fontSizes = {
   title: 32,
+  subTitle: 22,
   regular: 14
 }
 

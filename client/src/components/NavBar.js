@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { palette, spaces } from '../styles/styles'
+import { Link } from 'react-router-dom'
+import { palette, spaces, fontSizes } from '../styles/styles'
 import styled from 'styled-components'
 
 const StyledNavBar = styled.div`
@@ -12,13 +13,24 @@ const StyledNavBar = styled.div`
   justify-content: space-between;
   border-bottom: 5px solid ${palette.accentColor};
 `
-const StyledPar = styled.h1`
-  color: ${palette.text};
+
+const StyledLinks = styled.div`
+  display: flex;
+  flex-direction: row;
 `
+
+const StyledLink = styled(Link)`
+  padding-right: ${spaces.medium}px;
+  color: ${palette.text};
+  text-decoration: none;
+  font-size: ${fontSizes.subTitle}px;
+`
+
 const StyledLogo = styled.img`
   height: 50px;
   width: 50px;
 `
+
 const BorderNavBar = styled.div`
   height: 10px;
   background-color: ${palette.primaryColor}
@@ -30,7 +42,10 @@ class NavBar extends Component {
       <div>
         <StyledNavBar>
           <StyledLogo src={require('../assets/images/logo_small.png')} />
-          <StyledPar>Hello there</StyledPar>
+          <StyledLinks>
+            <StyledLink to='/'>Home</StyledLink>
+            <StyledLink to='/second-page'>Second</StyledLink>
+          </StyledLinks>
         </StyledNavBar>
         <BorderNavBar />
       </div>
