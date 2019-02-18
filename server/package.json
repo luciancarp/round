@@ -4,10 +4,11 @@
   "description": "Template NodeJS server",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "client-install": "npm install --prefix ../client",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "npm start --prefix client",
+    "client": "npm start --prefix ../client",
+    "full-install": "npm install & npm run client-install",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Lucian Carp",
