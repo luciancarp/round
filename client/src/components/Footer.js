@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { palette, spaces, fontSizes, device } from '../styles/styles'
 import styled from 'styled-components'
+import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'
 
 const StyledNavBar = styled.div`
-  margin: 0px;
   display: flex;
+  margin: 0px;
   background-color: ${palette.darkBackgroundColor};
-  height: 75px;
+  height: 150px;
   padding: ${spaces.medium}px;
   flex-direction: row;
   align-items: center;
@@ -33,16 +34,18 @@ const StyledNavBarContent = styled.div`
   }
 `
 
+const StyledCopy = styled.span`
+  font-size: ${fontSizes.regular}px;
+  color: ${palette.darkTextSecundary};
+`
+
 const StyledLinks = styled.div`
   display: flex;
   flex-direction: row;
 `
 
-const StyledLink = styled(Link)`
-  margin-left: ${spaces.medium}px;
-  color: ${palette.darkText};
-  text-decoration: none;
-  font-size: ${fontSizes.subTitle}px;
+const StyledSocial = styled.div`
+  margin-left: ${spaces.wide}px;
 `
 
 const StyledLogo = styled.img`
@@ -50,8 +53,9 @@ const StyledLogo = styled.img`
   width: 50px;
 `
 
-class NavBar extends Component {
+class Footer extends Component {
   render () {
+    let currentYear = new Date().getFullYear()
     return (
       <div>
         <StyledNavBar>
@@ -59,10 +63,17 @@ class NavBar extends Component {
             <Link to='/'>
               <StyledLogo src={require('../assets/images/logo_small.png')} />
             </Link>
+            <StyledCopy>© Copyright {currentYear}.<br />All right reserved.</StyledCopy>
             <StyledLinks>
-              <StyledLink to='/'>Home</StyledLink>
-              <StyledLink to='/second-page'>Second</StyledLink>
-              <StyledLink to='/third-page'>Third</StyledLink>
+              <StyledSocial>
+                <FaFacebookF size='30px' color={palette.darkTextSecundary} />
+              </StyledSocial>
+              <StyledSocial>
+                <FaTwitter size='30px' color={palette.darkTextSecundary} />
+              </StyledSocial>
+              <StyledSocial>
+                <FaInstagram size='30px' color={palette.darkTextSecundary} />
+              </StyledSocial>
             </StyledLinks>
           </StyledNavBarContent>
         </StyledNavBar>
@@ -71,4 +82,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar
+export default Footer

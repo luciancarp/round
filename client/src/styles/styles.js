@@ -18,6 +18,30 @@ export const spaces = {
 export const palette = {
   primaryColor: '#ff4500',
   accentColor: '#00eaff',
-  backgroundColor: '#1f1f1f',
-  text: '#d3d3d3'
+  darkBackgroundColor: '#1f1f1f',
+  BackgroundColor: '#fff',
+  text: '#333333',
+  darkText: '#d3d3d3',
+  darkTextSecundary: '#808080'
+}
+
+const size = {
+  mobileS: '320px',
+  mobileM: '375px',
+  mobileL: '425px',
+  tablet: '768px',
+  laptop: '1024px',
+  laptopL: '1440px',
+  desktop: '2560px'
+}
+
+export const device = {
+  mobileS: `(min-width: ${size.mobileS})`,
+  mobileM: `(min-width: ${size.mobileM})`,
+  mobileL: `(min-width: ${size.mobileL})`,
+  tablet: `(min-width: ${size.tablet})`,
+  laptop: `(min-width: ${size.laptop})`,
+  laptopL: `(min-width: ${size.laptopL})`,
+  desktop: `(min-width: ${size.desktop})`,
+  desktopL: `(min-width: ${size.desktop})`
 }
