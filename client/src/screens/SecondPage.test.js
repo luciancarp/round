@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import NavBar from './NavBar'
+import SecondPage from './SecondPage'
 
 it('should render correctly with no props', () => {
-  const component = shallow(<NavBar />)
+  const component = shallow(<SecondPage />)
   expect(component).toMatchSnapshot()
 })

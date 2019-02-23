@@ -1,0 +1,1059 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly with no props 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Footer />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <ForwardRef>
+        <ForwardRef>
+          <Link
+            replace={false}
+            to="/"
+          >
+            <ForwardRef
+              src="logo_small.png"
+            />
+          </Link>
+          <ForwardRef>
+            © Copyright 
+            2019
+            .
+            <br />
+            All right reserved.
+          </ForwardRef>
+          <ForwardRef>
+            <ForwardRef>
+              <FaFacebookF
+                color="#808080"
+                size="30px"
+              />
+            </ForwardRef>
+            <ForwardRef>
+              <FaTwitter
+                color="#808080"
+                size="30px"
+              />
+            </ForwardRef>
+            <ForwardRef>
+              <FaInstagram
+                color="#808080"
+                size="30px"
+              />
+            </ForwardRef>
+          </ForwardRef>
+        </ForwardRef>
+      </ForwardRef>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": <ForwardRef>
+          <Link
+            replace={false}
+            to="/"
+          >
+            <ForwardRef
+              src="logo_small.png"
+            />
+          </Link>
+          <ForwardRef>
+            © Copyright 
+            2019
+            .
+            <br />
+            All right reserved.
+          </ForwardRef>
+          <ForwardRef>
+            <ForwardRef>
+              <FaFacebookF
+                color="#808080"
+                size="30px"
+              />
+            </ForwardRef>
+            <ForwardRef>
+              <FaTwitter
+                color="#808080"
+                size="30px"
+              />
+            </ForwardRef>
+            <ForwardRef>
+              <FaInstagram
+                color="#808080"
+                size="30px"
+              />
+            </ForwardRef>
+          </ForwardRef>
+        </ForwardRef>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": Array [
+            <Link
+              replace={false}
+              to="/"
+            >
+              <ForwardRef
+                src="logo_small.png"
+              />
+            </Link>,
+            <ForwardRef>
+              © Copyright 
+              2019
+              .
+              <br />
+              All right reserved.
+            </ForwardRef>,
+            <ForwardRef>
+              <ForwardRef>
+                <FaFacebookF
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+              <ForwardRef>
+                <FaTwitter
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+              <ForwardRef>
+                <FaInstagram
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+            </ForwardRef>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": <ForwardRef
+                src="logo_small.png"
+              />,
+              "replace": false,
+              "to": "/",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "src": "logo_small.png",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-EHOje",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  height: 50px;
+  width: 50px;
+",
+                  ],
+                },
+                "displayName": "styled.img",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-EHOje",
+                "target": "img",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              },
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": Array [
+                "© Copyright ",
+                2019,
+                ".",
+                <br />,
+                "All right reserved.",
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              "© Copyright ",
+              2019,
+              ".",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": "br",
+              },
+              "All right reserved.",
+            ],
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "attrs": Array [],
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-htpNat",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  font-size: ",
+                  "14",
+                  "px;
+  color: ",
+                  "#808080",
+                  ";
+",
+                ],
+              },
+              "displayName": "styled.span",
+              "foldedComponentIds": Array [],
+              "render": [Function],
+              "styledComponentId": "sc-htpNat",
+              "target": "span",
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+            },
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": Array [
+                <ForwardRef>
+                  <FaFacebookF
+                    color="#808080"
+                    size="30px"
+                  />
+                </ForwardRef>,
+                <ForwardRef>
+                  <FaTwitter
+                    color="#808080"
+                    size="30px"
+                  />
+                </ForwardRef>,
+                <ForwardRef>
+                  <FaInstagram
+                    color="#808080"
+                    size="30px"
+                  />
+                </ForwardRef>,
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "children": <FaFacebookF
+                    color="#808080"
+                    size="30px"
+                  />,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "color": "#808080",
+                    "size": "30px",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-ifAKCX",
+                    "isStatic": true,
+                    "rules": Array [
+                      "
+  margin-left: ",
+                      "22",
+                      "px;
+",
+                    ],
+                  },
+                  "displayName": "styled.div",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "sc-ifAKCX",
+                  "target": "div",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                },
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "children": <FaTwitter
+                    color="#808080"
+                    size="30px"
+                  />,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "color": "#808080",
+                    "size": "30px",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-ifAKCX",
+                    "isStatic": true,
+                    "rules": Array [
+                      "
+  margin-left: ",
+                      "22",
+                      "px;
+",
+                    ],
+                  },
+                  "displayName": "styled.div",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "sc-ifAKCX",
+                  "target": "div",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                },
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "children": <FaInstagram
+                    color="#808080"
+                    size="30px"
+                  />,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "color": "#808080",
+                    "size": "30px",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-ifAKCX",
+                    "isStatic": true,
+                    "rules": Array [
+                      "
+  margin-left: ",
+                      "22",
+                      "px;
+",
+                    ],
+                  },
+                  "displayName": "styled.div",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "sc-ifAKCX",
+                  "target": "div",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                },
+              },
+            ],
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "attrs": Array [],
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-bxivhb",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  display: flex;
+  flex-direction: row;
+",
+                ],
+              },
+              "displayName": "styled.div",
+              "foldedComponentIds": Array [],
+              "render": [Function],
+              "styledComponentId": "sc-bxivhb",
+              "target": "div",
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+            },
+          },
+        ],
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bwzfXH",
+            "isStatic": true,
+            "rules": Array [
+              "
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  @media ",
+              "(min-width: 320px)",
+              " {  
+    min-width: 100%;
+  }
+
+    @media ",
+              "(min-width: 1024px)",
+              " {  
+    min-width: 1000px;
+  }
+
+  @media ",
+              "(min-width: 2560px)",
+              " {
+    min-width: 1400px;
+  }
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bwzfXH",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        },
+      },
+      "type": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bdVaJa",
+          "isStatic": true,
+          "rules": Array [
+            "
+  display: flex;
+  margin: 0px;
+  background-color: ",
+            "#1f1f1f",
+            ";
+  height: 150px;
+  padding: ",
+            "14",
+            "px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+",
+          ],
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bdVaJa",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      },
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <ForwardRef>
+          <ForwardRef>
+            <Link
+              replace={false}
+              to="/"
+            >
+              <ForwardRef
+                src="logo_small.png"
+              />
+            </Link>
+            <ForwardRef>
+              © Copyright 
+              2019
+              .
+              <br />
+              All right reserved.
+            </ForwardRef>
+            <ForwardRef>
+              <ForwardRef>
+                <FaFacebookF
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+              <ForwardRef>
+                <FaTwitter
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+              <ForwardRef>
+                <FaInstagram
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+            </ForwardRef>
+          </ForwardRef>
+        </ForwardRef>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": <ForwardRef>
+            <Link
+              replace={false}
+              to="/"
+            >
+              <ForwardRef
+                src="logo_small.png"
+              />
+            </Link>
+            <ForwardRef>
+              © Copyright 
+              2019
+              .
+              <br />
+              All right reserved.
+            </ForwardRef>
+            <ForwardRef>
+              <ForwardRef>
+                <FaFacebookF
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+              <ForwardRef>
+                <FaTwitter
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+              <ForwardRef>
+                <FaInstagram
+                  color="#808080"
+                  size="30px"
+                />
+              </ForwardRef>
+            </ForwardRef>
+          </ForwardRef>,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              <Link
+                replace={false}
+                to="/"
+              >
+                <ForwardRef
+                  src="logo_small.png"
+                />
+              </Link>,
+              <ForwardRef>
+                © Copyright 
+                2019
+                .
+                <br />
+                All right reserved.
+              </ForwardRef>,
+              <ForwardRef>
+                <ForwardRef>
+                  <FaFacebookF
+                    color="#808080"
+                    size="30px"
+                  />
+                </ForwardRef>
+                <ForwardRef>
+                  <FaTwitter
+                    color="#808080"
+                    size="30px"
+                  />
+                </ForwardRef>
+                <ForwardRef>
+                  <FaInstagram
+                    color="#808080"
+                    size="30px"
+                  />
+                </ForwardRef>
+              </ForwardRef>,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <ForwardRef
+                  src="logo_small.png"
+                />,
+                "replace": false,
+                "to": "/",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "src": "logo_small.png",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-EHOje",
+                    "isStatic": true,
+                    "rules": Array [
+                      "
+  height: 50px;
+  width: 50px;
+",
+                    ],
+                  },
+                  "displayName": "styled.img",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "sc-EHOje",
+                  "target": "img",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                },
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": Array [
+                  "© Copyright ",
+                  2019,
+                  ".",
+                  <br />,
+                  "All right reserved.",
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                "© Copyright ",
+                2019,
+                ".",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": "br",
+                },
+                "All right reserved.",
+              ],
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-htpNat",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  font-size: ",
+                    "14",
+                    "px;
+  color: ",
+                    "#808080",
+                    ";
+",
+                  ],
+                },
+                "displayName": "styled.span",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-htpNat",
+                "target": "span",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              },
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": Array [
+                  <ForwardRef>
+                    <FaFacebookF
+                      color="#808080"
+                      size="30px"
+                    />
+                  </ForwardRef>,
+                  <ForwardRef>
+                    <FaTwitter
+                      color="#808080"
+                      size="30px"
+                    />
+                  </ForwardRef>,
+                  <ForwardRef>
+                    <FaInstagram
+                      color="#808080"
+                      size="30px"
+                    />
+                  </ForwardRef>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "children": <FaFacebookF
+                      color="#808080"
+                      size="30px"
+                    />,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "color": "#808080",
+                      "size": "30px",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-ifAKCX",
+                      "isStatic": true,
+                      "rules": Array [
+                        "
+  margin-left: ",
+                        "22",
+                        "px;
+",
+                      ],
+                    },
+                    "displayName": "styled.div",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "sc-ifAKCX",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  },
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "children": <FaTwitter
+                      color="#808080"
+                      size="30px"
+                    />,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "color": "#808080",
+                      "size": "30px",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-ifAKCX",
+                      "isStatic": true,
+                      "rules": Array [
+                        "
+  margin-left: ",
+                        "22",
+                        "px;
+",
+                      ],
+                    },
+                    "displayName": "styled.div",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "sc-ifAKCX",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  },
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "children": <FaInstagram
+                      color="#808080"
+                      size="30px"
+                    />,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "color": "#808080",
+                      "size": "30px",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-ifAKCX",
+                      "isStatic": true,
+                      "rules": Array [
+                        "
+  margin-left: ",
+                        "22",
+                        "px;
+",
+                      ],
+                    },
+                    "displayName": "styled.div",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "sc-ifAKCX",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  },
+                },
+              ],
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bxivhb",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  display: flex;
+  flex-direction: row;
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-bxivhb",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              },
+            },
+          ],
+          "type": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-bwzfXH",
+              "isStatic": true,
+              "rules": Array [
+                "
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  @media ",
+                "(min-width: 320px)",
+                " {  
+    min-width: 100%;
+  }
+
+    @media ",
+                "(min-width: 1024px)",
+                " {  
+    min-width: 1000px;
+  }
+
+  @media ",
+                "(min-width: 2560px)",
+                " {
+    min-width: 1400px;
+  }
+",
+              ],
+            },
+            "displayName": "styled.div",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "sc-bwzfXH",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          },
+        },
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": true,
+            "rules": Array [
+              "
+  display: flex;
+  margin: 0px;
+  background-color: ",
+              "#1f1f1f",
+              ";
+  height: 150px;
+  padding: ",
+              "14",
+              "px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        },
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+  Symbol(enzyme.__childContext__): null,
+}
+`;

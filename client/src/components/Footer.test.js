@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import NavBar from './NavBar'
+import Footer from './Footer'
 
 it('should render correctly with no props', () => {
-  const component = shallow(<NavBar />)
+  const component = shallow(<Footer />)
   expect(component).toMatchSnapshot()
 })
