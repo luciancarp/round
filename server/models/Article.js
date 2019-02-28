@@ -15,6 +15,9 @@ const ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  text: {
+    type: String
+  },
   avatar: {
     type: String
   },
