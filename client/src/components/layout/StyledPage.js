@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { device, spaces } from '../styles/styles'
+import { device, spaces } from '../../styles/styles'
 
 const StyledPage = styled.div`
   /* margin: auto; */

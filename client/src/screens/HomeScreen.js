@@ -1,19 +1,49 @@
 import React, { Component } from 'react'
-import StyledPage from '../styles/StyledPage'
-import StyledTitle from '../styles/StyledTitle'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
+import StyledPage from '../components/layout/StyledPage'
+import StyledTitle from '../components/layout/StyledTitle'
+import IssuesItem from '../components/home/IssuesItem'
+
+import { getIssues } from '../actions/issuesActions'
 
 class HomeScreen extends Component {
+  componentDidMount () {
+    this.props.getIssues()
+  }
+
   render () {
+    const { issues } = this.props.issues
     return (
       <StyledPage>
         <StyledTitle>Home</StyledTitle>
-        <p>Maecenas lacinia efficitur ante eget facilisis. Maecenas sed varius quam, eget cursus nisi. In sit amet auctor dui, id iaculis elit. Nunc placerat odio ut suscipit lobortis. Nam rutrum mattis eros, a mollis odio egestas ut. Ut tempus eros at ex ullamcorper dapibus. Nunc sed consequat urna. Aliquam enim dolor, vehicula nec diam eget, ornare tincidunt nunc. Nam tempor venenatis tellus id tristique. Sed laoreet diam et molestie venenatis.
-
-Integer posuere, ligula et iaculis malesuada, diam nulla pellentesque lorem, non vestibulum purus ligula non felis. In hac habitasse platea dictumst. Cras interdum tempor ultrices. Mauris in tempor nunc. Duis lacinia nunc non nibh porta, eget vulputate purus sagittis. Quisque ultricies pulvinar turpis at dignissim. In volutpat massa at leo maximus, a suscipit ex faucibus. Nullam eu ante in sem lacinia faucibus. Sed non eros eu enim lobortis laoreet.
-        </p>
+        {
+          issues.map(issue => <IssuesItem
+            key={issue._id}
+            id={issue._id}
+            name={issue.name}
+            description={issue.description}
+            date={issue.date}
+          />)
+        }
       </StyledPage>
     )
   }
 }
 
-export default HomeScreen
+HomeScreen.propTypes = {
+  auth: PropTypes.object.isRequired,
+  issues: PropTypes.object.isRequired,
+  getIssues: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+  issues: state.issues,
+  auth: state.auth
+})
+
+export default connect(
+  mapStateToProps,
+  { getIssues }
+)(HomeScreen)

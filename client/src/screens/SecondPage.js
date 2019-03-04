@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import StyledPage from '../styles/StyledPage'
-import StyledTitle from '../styles/StyledTitle'
+import StyledPage from '../components/layout/StyledPage'
+import StyledTitle from '../components/layout/StyledTitle'
 
 class SecondPage extends Component {
   constructor (props) {
