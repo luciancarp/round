@@ -12,6 +12,7 @@ import Navbar from './components/NavBar'
 import HomeScreen from './screens/HomeScreen'
 import ThirdPage from './screens/ThirdPage'
 import IssueScreen from './screens/issue/IssueScreen'
+import IssueNew from './screens/profile/IssueNew'
 import Footer from './components/Footer'
 
 import { Provider } from 'react-redux'
@@ -64,6 +65,7 @@ class App extends Component {
             <Route exact path='/second-page' component={SecondPage} />
             <Route exact path='/third-page' component={ThirdPage} />
             <Route exact path='/issue/:id' component={IssueScreen} />
+            <Route exact path='/new-issue' component={IssueNew} />
 
             <Footer />
             <GlobalStyle />

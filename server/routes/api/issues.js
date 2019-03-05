@@ -31,7 +31,7 @@ router.post(
         const newIssue = new Issue({
           name: req.body.name,
           description: req.body.description,
-          avatar: req.body.avatar,
+          avatar: req.user.avatar,
           user: req.user.id
         })
 

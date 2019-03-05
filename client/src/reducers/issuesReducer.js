@@ -1,4 +1,4 @@
-import { GET_ISSUES } from '../actions/types'
+import { GET_ISSUES, CREATE_ISSUE } from '../actions/types'
 
 const initialState = {
   issues: []
@@ -10,6 +10,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         issues: action.payload
+      }
+    case CREATE_ISSUE:
+      return {
+        ...state,
+        issues: [action.payload, ...state.posts]
       }
     default:
       return state
