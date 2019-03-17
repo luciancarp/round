@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
     case CREATE_ISSUE:
       return {
         ...state,
-        issues: [action.payload, ...state.posts]
+        issues: [action.payload, ...state.issues]
       }
     default:
       return state

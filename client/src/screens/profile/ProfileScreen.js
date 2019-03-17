@@ -13,7 +13,9 @@ class ProfileScreen extends Component {
   render () {
     return (
       <StyledPage>
-        <a onClick={e => this.onLogoutClick(e)}>Log Out</a>
+        <button onClick={e => this.onLogoutClick(e)}>Log Out</button>
+        <button onClick={() => this.props.history.push('/new-article')}>New Article</button>
+        <button onClick={() => this.props.history.push('/new-issue')}>New Issue</button>
       </StyledPage>
     )
   }

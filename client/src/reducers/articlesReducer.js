@@ -1,4 +1,7 @@
-import { GET_ARTICLES_BY_ISSUE } from '../actions/types'
+import {
+  GET_ARTICLES_BY_ISSUE,
+  CREATE_ARTICLE
+} from '../actions/types'
 
 const initialState = {
   articles: [],
@@ -11,6 +14,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         articlesByIssue: action.payload
+      }
+    case CREATE_ARTICLE:
+      return {
+        ...state,
+        articlesByIssue: [action.payload, ...state.articlesByIssue]
       }
     default:
       return state

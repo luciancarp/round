@@ -13,6 +13,7 @@ import HomeScreen from './screens/HomeScreen'
 import ThirdPage from './screens/ThirdPage'
 import IssueScreen from './screens/issue/IssueScreen'
 import IssueNew from './screens/profile/IssueNew'
+import ArticleNew from './screens/profile/ArticleNew'
 import Footer from './components/Footer'
 import LoginScreen from './screens/auth/LoginScreen'
 import RegisterScreen from './screens/auth/RegisterScreen'
@@ -75,7 +76,12 @@ class App extends Component {
               <PrivateRoute exact path='/profile' component={ProfileScreen} />
             </Switch>
             <Route exact path='/issue/:id' component={IssueScreen} />
-            <Route exact path='/new-issue' component={IssueNew} />
+            <Switch>
+              <PrivateRoute exact path='/new-issue' component={IssueNew} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path='/new-article' component={ArticleNew} />
+            </Switch>
 
             <Footer />
             <GlobalStyle />
