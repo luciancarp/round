@@ -61,6 +61,9 @@ class NavBar extends Component {
             </Link>
             <StyledLinks>
               <StyledLink to='/'>Home</StyledLink>
+              <StyledLink to='/login'>Login</StyledLink>
+              <StyledLink to='/register'>Register</StyledLink>
+              <StyledLink to='/profile'>Profile</StyledLink>
               <StyledLink to='/second-page'>Second</StyledLink>
               <StyledLink to='/third-page'>Third</StyledLink>
             </StyledLinks>

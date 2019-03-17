@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
 import { setCurrentUser, logOutUser } from './actions/authActions'
@@ -14,10 +14,14 @@ import ThirdPage from './screens/ThirdPage'
 import IssueScreen from './screens/issue/IssueScreen'
 import IssueNew from './screens/profile/IssueNew'
 import Footer from './components/Footer'
+import LoginScreen from './screens/auth/LoginScreen'
+import RegisterScreen from './screens/auth/RegisterScreen'
+import ProfileScreen from './screens/profile/ProfileScreen'
+
+import PrivateRoute from './components/common/PrivateRoute'
 
 import { Provider } from 'react-redux'
 import store from './store'
-import LoginScreen from './screens/auth/LoginScreen'
 
 if (window.localStorage.jwtToken) {
   // Set the auth token header auth
@@ -66,6 +70,10 @@ class App extends Component {
             <Route exact path='/second-page' component={SecondPage} />
             <Route exact path='/third-page' component={ThirdPage} />
             <Route exact path='/login' component={LoginScreen} />
+            <Route exact path='/register' component={RegisterScreen} />
+            <Switch>
+              <PrivateRoute exact path='/profile' component={ProfileScreen} />
+            </Switch>
             <Route exact path='/issue/:id' component={IssueScreen} />
             <Route exact path='/new-issue' component={IssueNew} />
 
