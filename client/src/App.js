@@ -17,6 +17,7 @@ import Footer from './components/Footer'
 
 import { Provider } from 'react-redux'
 import store from './store'
+import LoginScreen from './screens/auth/LoginScreen'
 
 if (window.localStorage.jwtToken) {
   // Set the auth token header auth
@@ -64,6 +65,7 @@ class App extends Component {
             <Route exact path='/' component={HomeScreen} />
             <Route exact path='/second-page' component={SecondPage} />
             <Route exact path='/third-page' component={ThirdPage} />
+            <Route exact path='/login' component={LoginScreen} />
             <Route exact path='/issue/:id' component={IssueScreen} />
             <Route exact path='/new-issue' component={IssueNew} />
 
