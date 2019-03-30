@@ -79,7 +79,7 @@ class ArticleNew extends Component {
     const { errors } = this.state
 
     let issuesOptions = []
-    issues.map(issue => {
+    issues.forEach(issue => {
       issuesOptions.push({ label: `${issue.name}`, value: `${issue._id}` })
     })
     return (
