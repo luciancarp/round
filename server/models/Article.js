@@ -18,6 +18,10 @@ const ArticleSchema = new Schema({
   text: {
     type: String
   },
+  topic: {
+    type: String,
+    required: true
+  },
   avatar: {
     type: String
   },

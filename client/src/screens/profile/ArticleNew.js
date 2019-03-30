@@ -19,6 +19,7 @@ class ArticleNew extends Component {
       text: '',
       description: '',
       issue: '',
+      topic: '',
       errors: {}
     }
 
@@ -49,7 +50,8 @@ class ArticleNew extends Component {
       name: this.state.name,
       text: this.state.text,
       avatar: user.avatar,
-      issue: this.state.issue
+      issue: this.state.issue,
+      topic: this.state.topic
     }
 
     this.props.createArticle(newArticle)
@@ -100,6 +102,13 @@ class ArticleNew extends Component {
               value={this.state.name}
               onChange={this.onChange}
               error={errors.name}
+            />
+            <TextFieldGroup
+              placeholder='topic'
+              name='topic'
+              value={this.state.topic}
+              onChange={this.onChange}
+              error={errors.topic}
             />
             <TextFieldGroup
               placeholder='text'

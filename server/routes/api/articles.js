@@ -38,6 +38,7 @@ router.post(
           const newArticle = new Article({
             name: req.body.name,
             text: req.body.text,
+            topic: req.body.topic,
             avatar: req.body.avatar,
             user: req.user.id,
             issue: req.body.issue
