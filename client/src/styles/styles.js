@@ -1,6 +1,6 @@
 export const fonts = {
-  regular: 'Open Sans',
-  bold: 'Open Sans Bold'
+  regular: 'Acre-Medium'
+  // bold: 'Open Sans Bold'
 }
 
 export const fontSizes = {

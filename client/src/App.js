@@ -43,7 +43,14 @@ if (window.localStorage.jwtToken) {
 }
 
 const GlobalStyle = createGlobalStyle`
-  @import url(//fonts.googleapis.com/css?family=Open+Sans:400|Raleway:300);
+  @font-face {
+    font-family: 'Acre-Medium';
+    src: url('/fonts/Acre-Medium.woff2') format('woff2'), /* Super Modern Browsers */
+        url('/fonts/Acre-Medium.woff') format('woff'), /* Pretty Modern Browsers */
+        url('/fonts/Acre-Medium.ttf')  format('truetype'); /* Safari, Android, iOS */
+    font-weight: normal;
+    font-style: normal;
+}
   
   * {
     box-sizing: border-box;
@@ -52,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
   body, html, #root {
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans';
+    font-family: 'Acre-Medium';
     height: 100%;
     width: 100%;
     background-color: ${palette.backgroundColor};
