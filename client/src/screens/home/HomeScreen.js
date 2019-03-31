@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import StyledPage from '../components/layout/StyledPage'
-import StyledTitle from '../components/layout/StyledTitle'
-import IssuesItem from '../components/home/IssuesItem'
+import StyledPage from '../../components/layout/StyledPage'
+import StyledTitle from '../../components/layout/StyledTitle'
+import IssuesItem from '../../components/home/IssuesItem'
 
-import { getIssues } from '../actions/issuesActions'
+import { getIssues } from '../../actions/issuesActions'
 
 class HomeScreen extends Component {
   componentDidMount () {

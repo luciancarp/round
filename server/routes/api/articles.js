@@ -56,6 +56,10 @@ router.post(
 // @access Public
 router.get('/', (req, res) => {
   Article.find()
+    .populate({
+      path: 'user',
+      select: 'name'
+    })
     .sort({ date: -1 })
     .then(articles => res.json(articles))
     .catch(err => console.log(err))
@@ -80,9 +84,19 @@ router.get('/:id', (req, res) => {
 // @access Public
 router.get(
   '/from-issue/:id', (req, res) => {
-    Article.find({ issue: req.params.id }).then(articles => {
-      res.json(articles)
-    })
+    Article.find({ issue: req.params.id })
+      .populate({
+        path: 'user',
+        select: 'name'
+      })
+      .populate({
+        path: 'issue',
+        select: 'name'
+      })
+      .sort({ date: -1 })
+      .then(articles => {
+        res.json(articles)
+      })
       .catch(err => console.log(err))
   }
 )

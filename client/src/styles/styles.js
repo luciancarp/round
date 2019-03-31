@@ -16,11 +16,11 @@ export const spaces = {
 }
 
 export const palette = {
-  primaryColor: '#ff4500',
+  primaryColor: '#f8cb33',
   accentColor: '#00eaff',
   darkBackgroundColor: '#1f1f1f',
-  BackgroundColor: '#fff',
-  text: '#333333',
+  BackgroundColor: '#141315',
+  text: '#ffffff',
   darkText: '#d3d3d3',
   darkTextSecundary: '#808080'
 }

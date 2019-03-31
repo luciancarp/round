@@ -7,10 +7,8 @@ import { setCurrentUser, logOutUser } from './actions/authActions'
 import { createGlobalStyle } from 'styled-components'
 import { palette } from './styles/styles'
 
-import SecondPage from './screens/SecondPage'
 import Navbar from './components/NavBar'
-import HomeScreen from './screens/HomeScreen'
-import ThirdPage from './screens/ThirdPage'
+import HomeScreen from './screens/home/HomeScreen'
 import IssueScreen from './screens/issue/IssueScreen'
 import IssueNew from './screens/profile/IssueNew'
 import ArticleNew from './screens/profile/ArticleNew'
@@ -62,7 +60,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Acre-Medium';
     height: 100%;
     width: 100%;
-    background-color: ${palette.backgroundColor};
+    color: ${palette.text};
+    background-color: ${palette.BackgroundColor};
   }
 `
 
@@ -75,8 +74,6 @@ class App extends Component {
             <Navbar />
 
             <Route exact path='/' component={HomeScreen} />
-            <Route exact path='/second-page' component={SecondPage} />
-            <Route exact path='/third-page' component={ThirdPage} />
             <Route exact path='/login' component={LoginScreen} />
             <Route exact path='/register' component={RegisterScreen} />
             <Switch>

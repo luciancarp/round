@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
 // import { Link } from 'react-router-dom'
 
+import styled from 'styled-components'
+import { palette, spaces } from '../../styles/styles'
+
+const StyledTitleArticleWrapper = styled.div`
+  padding: ${spaces.medium}px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: ${props => props.selected ? `${palette.primaryColor}` : `${palette.text}`};
+`
+
 class ArticlesItem extends Component {
   render () {
     return (
-      <div>
+      <StyledTitleArticleWrapper selected={this.props.selected}>
         {/* <Link to={`/issues/${this.props.id}`}>{this.props.name}</Link> */}
-        <h1>{this.props.name}</h1>
-        <p>{this.props.text}</p>
-        <p>{this.props.date}</p>
-      </div>
+        <li>{this.props.name} • {this.props.author.name}</li>
+      </StyledTitleArticleWrapper>
     )
   }
 }
