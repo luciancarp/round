@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loginUser } from '../../actions/authActions'
-import TextFieldGroup from '../../components/common/TextFieldGroup'
-import StyledPage from '../../components/layout/StyledPage'
+import { registerUser } from '../actions/authActions'
+import TextFieldGroup from '../components/common/TextFieldGroup'
+import StyledPage from '../components/layout/StyledPage'
 
-class LoginScreen extends Component {
+class RegisterScreen extends Component {
   constructor () {
     super()
     this.state = {
+      name: '',
       email: '',
       password: '',
+      password2: '',
       errors: {}
     }
 
@@ -25,10 +28,6 @@ class LoginScreen extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/')
-    }
-
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -44,20 +43,34 @@ class LoginScreen extends Component {
 
   onSubmit (e) {
     e.preventDefault()
-
-    const userData = {
+    const newUser = {
+      name: this.state.name,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      password2: this.state.password2
     }
 
-    this.props.loginUser(userData)
+    this.props.registerUser(newUser, this.props.history)
   }
 
   render () {
     const { errors } = this.state
+
     return (
       <StyledPage>
-        <form onSubmit={this.onSubmit}>
+        <h1>Sign Up</h1>
+        <p>
+                Create your account
+        </p>
+        <form noValidate onSubmit={e => this.onSubmit(e)}>
+          <TextFieldGroup
+            placeholder='Name'
+            name='name'
+            value={this.state.name}
+            onChange={this.onChange}
+            error={errors.name}
+          />
+
           <TextFieldGroup
             placeholder='Email Address'
             name='email'
@@ -65,6 +78,8 @@ class LoginScreen extends Component {
             value={this.state.email}
             onChange={this.onChange}
             error={errors.email}
+            info='This site uses Gravatar so, if you want a profile image, use
+                  a Gravatar email'
           />
 
           <TextFieldGroup
@@ -76,6 +91,15 @@ class LoginScreen extends Component {
             error={errors.password}
           />
 
+          <TextFieldGroup
+            placeholder='Confirm Password'
+            name='password2'
+            type='password'
+            value={this.state.password2}
+            onChange={this.onChange}
+            error={errors.password2}
+          />
+
           <input type='submit' />
         </form>
       </StyledPage>
@@ -83,15 +107,15 @@ class LoginScreen extends Component {
   }
 }
 
-LoginScreen.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+RegisterScreen.propTypes = {
+  registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
-const mapStatetoProps = state => ({
+const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
 })
 
-export default connect(mapStatetoProps, { loginUser })(LoginScreen)
+export default connect(mapStateToProps, { registerUser })(withRouter(RegisterScreen))

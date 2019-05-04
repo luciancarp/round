@@ -21,7 +21,7 @@ export const getArticlesByIssue = id => dispatch => {
       console.log(err)
       dispatch({
         type: GET_ARTICLES_BY_ISSUE,
-        payload: null
+        payload: {}
       })
     })
 }

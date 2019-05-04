@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { logOutUser } from '../../actions/authActions'
-import StyledPage from '../../components/layout/StyledPage'
+import { logOutUser } from '../actions/authActions'
+import StyledPage from '../components/layout/StyledPage'
 
 class ProfileScreen extends Component {
   onLogoutClick (e) {

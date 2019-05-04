@@ -21,7 +21,7 @@ export const getIssues = () => dispatch => {
       console.log(err)
       dispatch({
         type: GET_ISSUES,
-        payload: null
+        payload: {}
       })
     })
 }

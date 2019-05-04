@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import StyledPage from '../../components/layout/StyledPage'
-import StyledTitle from '../../components/layout/StyledTitle'
-import IssuesItem from '../../components/home/IssuesItem'
-import TextFieldGroup from '../../components/common/TextFieldGroup'
+import StyledPage from '../components/layout/StyledPage'
+import StyledTitle from '../components/layout/StyledTitle'
+import IssuesItem from '../components/home/IssuesItem'
+import TextFieldGroup from '../components/common/TextFieldGroup'
 
-import { getIssues, createIssue } from '../../actions/issuesActions'
+import { getIssues, createIssue } from '../actions/issuesActions'
 
 class IssueNew extends Component {
   constructor (props) {

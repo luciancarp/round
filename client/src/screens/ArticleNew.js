@@ -2,15 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import StyledPage from '../../components/layout/StyledPage'
-import StyledTitle from '../../components/layout/StyledTitle'
-import IssuesItem from '../../components/home/IssuesItem'
-import TextFieldGroup from '../../components/common/TextFieldGroup'
-import SelectListGroup from '../../components/common/SelectListGroup'
-import ArticlesItem from '../../components/issue/ArticlesItem'
+import StyledPage from '../components/layout/StyledPage'
+import StyledTitle from '../components/layout/StyledTitle'
+import TextFieldGroup from '../components/common/TextFieldGroup'
+import SelectListGroup from '../components/common/SelectListGroup'
 
-import { getIssues, createIssue } from '../../actions/issuesActions'
-import { getArticlesByIssue, createArticle } from '../../actions/articlesActions'
+import { getIssues, createIssue } from '../actions/issuesActions'
+import { createArticle } from '../actions/articlesActions'
 
 class ArticleNew extends Component {
   constructor (props) {
@@ -24,21 +22,33 @@ class ArticleNew extends Component {
     }
 
     this.onChange = this.onChange.bind(this)
-    this.onChangeSelect = this.onChangeSelect.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  componentWillReceiveProps (newProps) {
-    if (newProps.errors) {
+  // componentWillReceiveProps (newProps) {
+  //   if (newProps.errors) {
+  //     this.setState({
+  //       errors: newProps.errors
+  //     })
+  //   }
+  // }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (prevProps.errors !== this.props.errors) {
       this.setState({
-        errors: newProps.errors
+        errors: this.props.errors
+      })
+    }
+
+    if (this.state.issue === '' && this.props.issues.issues.length > 0) {
+      this.setState({
+        issue: this.props.issues.issues[0]._id
       })
     }
   }
 
   componentDidMount () {
     this.props.getIssues()
-    this.props.getArticlesByIssue(this.state.issue)
   }
 
   onSubmit (e) {
@@ -57,7 +67,9 @@ class ArticleNew extends Component {
     this.props.createArticle(newArticle)
     this.setState({
       name: '',
-      text: ''
+      text: '',
+      description: '',
+      topic: ''
     })
   }
 
@@ -67,15 +79,8 @@ class ArticleNew extends Component {
     })
   }
 
-  onChangeSelect (e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    }, () => this.props.getArticlesByIssue(this.state.issue))
-  }
-
   render () {
     const { issues } = this.props.issues
-    const { articlesByIssue } = this.props.articles
     const { errors } = this.state
 
     let issuesOptions = []
@@ -89,7 +94,7 @@ class ArticleNew extends Component {
           placeholder='Issue'
           name='issue'
           value={this.state.issue}
-          onChange={this.onChangeSelect}
+          onChange={this.onChange}
           options={issuesOptions}
           error={errors.issue}
           info='Select the issue in which to post this article'
@@ -123,26 +128,6 @@ class ArticleNew extends Component {
                 Submit
           </button>
         </form>
-        <h1>Articles from selected issue</h1>
-        {
-          articlesByIssue.map(article => <ArticlesItem
-            key={article._id}
-            id={article._id}
-            name={article.name}
-            text={article.text}
-            date={article.date}
-          />)
-        }
-        <h1>All issues</h1>
-        {
-          issues.map(issue => <IssuesItem
-            key={issue._id}
-            id={issue._id}
-            name={issue.name}
-            description={issue.description}
-            date={issue.date}
-          />)
-        }
       </StyledPage>
     )
   }
@@ -152,9 +137,7 @@ ArticleNew.propTypes = {
   auth: PropTypes.object.isRequired,
   issues: PropTypes.object.isRequired,
   getIssues: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  articlesByIssue: PropTypes.object.isRequired,
-  getArticlesByIssue: PropTypes.func.isRequired
+  errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -164,4 +147,4 @@ const mapStateToProps = state => ({
   articles: state.articles
 })
 
-export default connect(mapStateToProps, { getIssues, createIssue, getArticlesByIssue, createArticle })(ArticleNew)
+export default connect(mapStateToProps, { getIssues, createIssue, createArticle })(ArticleNew)
