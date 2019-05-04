@@ -5,7 +5,7 @@ import setAuthToken from './utils/setAuthToken'
 import { setCurrentUser, logOutUser } from './actions/authActions'
 
 import { createGlobalStyle } from 'styled-components'
-import { palette } from './styles/styles'
+import { palette, spaces } from './styles/styles'
 
 import Navbar from './components/NavBar'
 import HomeScreen from './screens/HomeScreen'
@@ -64,6 +64,12 @@ const GlobalStyle = createGlobalStyle`
     color: ${palette.text};
     background-color: ${palette.BackgroundColor};
   }
+
+  input[type=text], select, textarea, button{
+  font-family: 'Acre-Medium';
+  padding: ${spaces.narrow};
+  font-size: 1em;
+}
 `
 
 class App extends Component {

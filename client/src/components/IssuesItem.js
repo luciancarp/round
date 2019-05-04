@@ -18,11 +18,13 @@ class IssuesItem extends Component {
   render () {
     return (
       <StyleTitleIssueWrapper>
-        <StyledLink
-          to={`/issue/${this.props.id}`}
-        >
-          {this.props.name} • {<DateText date={this.props.date} issue />}
-        </StyledLink>
+        <li>
+          <StyledLink
+            to={`/issue/${this.props.id}`}
+          >
+            {this.props.name} • {<DateText date={this.props.date} issue />}
+          </StyledLink>
+        </li>
       </StyleTitleIssueWrapper>
     )
   }

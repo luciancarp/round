@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import StyledSelect from './StyledSelect'
+
 const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
   const selectOptions = options.map(option => (
     <option key={option.label} value={option.value}>
@@ -9,13 +11,13 @@ const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
   ))
   return (
     <div >
-      <select
+      <StyledSelect
         name={name}
         value={value}
         onChange={onChange}
       >
         {selectOptions}
-      </select>
+      </StyledSelect>
       {info && <small >{info}</small>}
       {error && <div>{error}</div>}
     </div>

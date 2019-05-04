@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import StyledInput from './StyledInput'
+
 const TextFieldGroup = ({
   name,
   placeholder,
@@ -14,7 +16,7 @@ const TextFieldGroup = ({
 }) => {
   return (
     <div>
-      <input
+      <StyledInput
         type={type}
         placeholder={placeholder}
         name={name}
