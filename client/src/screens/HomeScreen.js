@@ -13,6 +13,7 @@ class HomeScreen extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      title: '',
       issues: [],
       loading: true
     }
@@ -26,6 +27,7 @@ class HomeScreen extends Component {
     if (prevProps.issues.issues !== this.props.issues.issues) {
       const { issues } = this.props.issues
       this.setState({
+        title: 'Home',
         issues: issues,
         loading: false
       })
@@ -37,6 +39,7 @@ class HomeScreen extends Component {
     return (
       <StyledPage>
         {this.state.loading && <Spinner />}
+        <StyledTitle>{this.state.title}</StyledTitle>
         {
           issues.map(issue => <IssuesItem
             key={issue._id}
