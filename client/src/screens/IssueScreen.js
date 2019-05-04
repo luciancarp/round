@@ -2,19 +2,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import isEmpty from '../../utils/isEmpty'
+import isEmpty from '../utils/isEmpty'
 
-import StyledPage from '../../components/layout/StyledPage'
-import StyledUnorderedList from '../../components/layout/StyledUnorderedList'
-import ArticlesItem from '../../components/issue/ArticlesItem'
+import StyledPage from '../components/layout/StyledPage'
+import StyledUnorderedList from '../components/layout/StyledUnorderedList'
+import ArticlesItem from '../components/ArticlesItem'
 
-import { getArticlesByIssue } from '../../actions/articlesActions'
+import { getArticlesByIssue } from '../actions/articlesActions'
 
 class IssueScreen extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      topicSelected: ''
+      topicSelected: '',
+      articlesByIssue: []
     }
   }
 
@@ -22,8 +23,17 @@ class IssueScreen extends Component {
     this.props.getArticlesByIssue(this.props.match.params.id)
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (prevProps.articles.articlesByIssue !== this.props.articles.articlesByIssue) {
+      const { articlesByIssue } = this.props.articles
+      this.setState({
+        articlesByIssue: articlesByIssue
+      })
+    }
+  }
+
   render () {
-    const { articlesByIssue } = this.props.articles
+    const { articlesByIssue } = this.state
 
     let issueName = 'Issue'
     if (!isEmpty(articlesByIssue)) {

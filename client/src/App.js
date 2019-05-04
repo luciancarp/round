@@ -9,13 +9,14 @@ import { palette } from './styles/styles'
 
 import Navbar from './components/NavBar'
 import HomeScreen from './screens/HomeScreen'
-import IssueScreen from './screens/issue/IssueScreen'
-import IssueNew from './screens/IssueNew'
-import ArticleNew from './screens/ArticleNew'
+import IssueScreen from './screens/IssueScreen'
+import IssueNew from './screens/IssueNewScreen'
+import ArticleNew from './screens/ArticleNewScreen'
 import Footer from './components/Footer'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import ArticleScreen from './screens/ArticleScreen'
 
 import PrivateRoute from './components/common/PrivateRoute'
 
@@ -80,6 +81,7 @@ class App extends Component {
               <PrivateRoute exact path='/profile' component={ProfileScreen} />
             </Switch>
             <Route exact path='/issue/:id' component={IssueScreen} />
+            <Route exact path='/article/:id' component={ArticleScreen} />
             <Switch>
               <PrivateRoute exact path='/new-issue' component={IssueNew} />
             </Switch>

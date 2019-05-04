@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
-import { palette, spaces } from '../../styles/styles'
+import { palette, spaces } from '../styles/styles'
 
 const StyledTitleArticleWrapper = styled.div`
   padding: ${spaces.medium}px;
@@ -16,8 +16,11 @@ class ArticlesItem extends Component {
   render () {
     return (
       <StyledTitleArticleWrapper selected={this.props.selected}>
-        {/* <Link to={`/issues/${this.props.id}`}>{this.props.name}</Link> */}
-        <li>{this.props.name} • {this.props.author.name}</li>
+        <li>
+          <Link to={`/article/${this.props.id}`}>
+            {this.props.name} • {this.props.author.name}
+          </Link>
+        </li>
       </StyledTitleArticleWrapper>
     )
   }

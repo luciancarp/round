@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import StyledPage from '../components/layout/StyledPage'
 import StyledTitle from '../components/layout/StyledTitle'
-import IssuesItem from '../components/home/IssuesItem'
+import IssuesItem from '../components/IssuesItem'
 
 import { getIssues } from '../actions/issuesActions'
 

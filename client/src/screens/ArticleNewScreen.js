@@ -4,17 +4,20 @@ import { connect } from 'react-redux'
 
 import StyledPage from '../components/layout/StyledPage'
 import StyledTitle from '../components/layout/StyledTitle'
-import IssuesItem from '../components/home/IssuesItem'
 import TextFieldGroup from '../components/common/TextFieldGroup'
+import SelectListGroup from '../components/common/SelectListGroup'
 
 import { getIssues, createIssue } from '../actions/issuesActions'
+import { createArticle } from '../actions/articlesActions'
 
-class IssueNew extends Component {
+class ArticleNew extends Component {
   constructor (props) {
     super(props)
     this.state = {
       text: '',
       description: '',
+      issue: '',
+      topic: '',
       errors: {}
     }
 
@@ -22,10 +25,16 @@ class IssueNew extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  componentWillReceiveProps (newProps) {
-    if (newProps.errors) {
+  componentDidUpdate (prevProps, prevState) {
+    if (prevProps.errors !== this.props.errors) {
       this.setState({
-        errors: newProps.errors
+        errors: this.props.errors
+      })
+    }
+
+    if (this.state.issue === '' && this.props.issues.issues.length > 0) {
+      this.setState({
+        issue: this.props.issues.issues[0]._id
       })
     }
   }
@@ -39,17 +48,21 @@ class IssueNew extends Component {
 
     const { user } = this.props.auth
 
-    const newIssue = {
+    const newArticle = {
       name: this.state.name,
-      description: this.state.description,
-      user: user.id,
-      avatar: user.avatar
+      text: this.state.text,
+      avatar: user.avatar,
+      issue: this.state.issue,
+      topic: this.state.topic
     }
 
-    this.props.createIssue(newIssue)
+    this.props.createArticle(newArticle)
     this.setState({
+      name: '',
       text: '',
-      description: '' })
+      description: '',
+      topic: ''
+    })
   }
 
   onChange (e) {
@@ -61,9 +74,23 @@ class IssueNew extends Component {
   render () {
     const { issues } = this.props.issues
     const { errors } = this.state
+
+    let issuesOptions = []
+    issues.forEach(issue => {
+      issuesOptions.push({ label: `${issue.name}`, value: `${issue._id}` })
+    })
     return (
       <StyledPage>
-        <StyledTitle>New Issue</StyledTitle>
+        <StyledTitle>New Article</StyledTitle>
+        <SelectListGroup
+          placeholder='Issue'
+          name='issue'
+          value={this.state.issue}
+          onChange={this.onChange}
+          options={issuesOptions}
+          error={errors.issue}
+          info='Select the issue in which to post this article'
+        />
         <form onSubmit={this.onSubmit}>
           <div>
             <TextFieldGroup
@@ -74,11 +101,18 @@ class IssueNew extends Component {
               error={errors.name}
             />
             <TextFieldGroup
-              placeholder='Description'
-              name='description'
-              value={this.state.description}
+              placeholder='topic'
+              name='topic'
+              value={this.state.topic}
               onChange={this.onChange}
-              error={errors.description}
+              error={errors.topic}
+            />
+            <TextFieldGroup
+              placeholder='text'
+              name='text'
+              value={this.state.text}
+              onChange={this.onChange}
+              error={errors.text}
             />
             <p>{JSON.stringify(errors)}</p>
           </div>
@@ -86,21 +120,12 @@ class IssueNew extends Component {
                 Submit
           </button>
         </form>
-        {
-          issues.map(issue => <IssuesItem
-            key={issue._id}
-            id={issue._id}
-            name={issue.name}
-            description={issue.description}
-            date={issue.date}
-          />)
-        }
       </StyledPage>
     )
   }
 }
 
-IssueNew.propTypes = {
+ArticleNew.propTypes = {
   auth: PropTypes.object.isRequired,
   issues: PropTypes.object.isRequired,
   getIssues: PropTypes.func.isRequired,
@@ -110,10 +135,8 @@ IssueNew.propTypes = {
 const mapStateToProps = state => ({
   issues: state.issues,
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  articles: state.articles
 })
 
-export default connect(
-  mapStateToProps,
-  { getIssues, createIssue }
-)(IssueNew)
+export default connect(mapStateToProps, { getIssues, createIssue, createArticle })(ArticleNew)
