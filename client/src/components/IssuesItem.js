@@ -1,19 +1,29 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 
 import StyledLink from './common/StyledLink'
+import DateText from './common/DateText'
+
+import { spaces } from '../styles/styles'
+
+const StyleTitleIssueWrapper = styled.div`
+  padding: ${spaces.medium}px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+`
 
 class IssuesItem extends Component {
   render () {
     return (
-      <div>
+      <StyleTitleIssueWrapper>
         <StyledLink
           to={`/issue/${this.props.id}`}
         >
-          {this.props.name}
+          {this.props.name} • {<DateText date={this.props.date} issue />}
         </StyledLink>
-        <p>{this.props.description}</p>
-        <p>{this.props.date}</p>
-      </div>
+      </StyleTitleIssueWrapper>
     )
   }
 }

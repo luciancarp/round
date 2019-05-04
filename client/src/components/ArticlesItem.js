@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import StyledLink from './common/StyledLink'
-import DateText from './common/DateText'
 
 import { palette, spaces } from '../styles/styles'
 
@@ -24,7 +23,7 @@ class ArticlesItem extends Component {
             to={`/article/${this.props.id}`}
             selected={this.props.selected}
           >
-            {this.props.name} • {this.props.author.name} • {<DateText date={this.props.date} />}
+            {this.props.name} • {this.props.author.name}
           </StyledLink>
         </li>
       </StyledTitleArticleWrapper>

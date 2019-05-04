@@ -6,6 +6,7 @@ import StyledPage from '../components/layout/StyledPage'
 import StyledTitle from '../components/layout/StyledTitle'
 import IssuesItem from '../components/IssuesItem'
 import Spinner from '../components/common/Spinner'
+import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 
 import { getIssues } from '../actions/issuesActions'
 
@@ -27,7 +28,7 @@ class HomeScreen extends Component {
     if (prevProps.issues.issues !== this.props.issues.issues) {
       const { issues } = this.props.issues
       this.setState({
-        title: 'Home',
+        title: 'Issues',
         issues: issues,
         loading: false
       })
@@ -40,15 +41,17 @@ class HomeScreen extends Component {
       <StyledPage>
         {this.state.loading && <Spinner />}
         <StyledTitle>{this.state.title}</StyledTitle>
-        {
-          issues.map(issue => <IssuesItem
-            key={issue._id}
-            id={issue._id}
-            name={issue.name}
-            description={issue.description}
-            date={issue.date}
-          />)
-        }
+        <StyledUnorderedList>
+          {
+            issues.map(issue => <IssuesItem
+              key={issue._id}
+              id={issue._id}
+              name={issue.name}
+              description={issue.description}
+              date={issue.date}
+            />)
+          }
+        </StyledUnorderedList>
       </StyledPage>
     )
   }

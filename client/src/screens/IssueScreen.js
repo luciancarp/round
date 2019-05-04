@@ -8,6 +8,7 @@ import StyledPage from '../components/layout/StyledPage'
 import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import ArticlesItem from '../components/ArticlesItem'
 import Spinner from '../components/common/Spinner'
+import StyledButton from '../components/common/StyledButton'
 
 import { getArticlesByIssue } from '../actions/articlesActions'
 
@@ -59,6 +60,21 @@ class IssueScreen extends Component {
       <StyledPage>
         {this.state.loading && <Spinner />}
         <h1>{issueName}</h1>
+        {/* <h5>Topics: </h5> */}
+        {
+          topicsInIssue.map(topic =>
+            <span>
+              <StyledButton
+                onClick={() => this.setState({ topicSelected: topic })}
+                selected={(this.state.topicSelected === topic)}
+              >
+                {topic}
+              </StyledButton>
+              <span> • </span>
+            </span>
+          )
+        }
+        <StyledButton onClick={() => this.setState({ topicSelected: '' })}>all</StyledButton>
         <StyledUnorderedList>
           {
             articlesByIssue.map(article => <ArticlesItem
@@ -72,10 +88,6 @@ class IssueScreen extends Component {
             />)
           }
         </StyledUnorderedList>
-        {
-          topicsInIssue.map(topic => <button onClick={() => this.setState({ topicSelected: topic })}>{topic}</button>)
-        }
-        <button onClick={() => this.setState({ topicSelected: '' })}>all</button>
       </StyledPage>
     )
   }
