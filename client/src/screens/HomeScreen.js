@@ -5,19 +5,38 @@ import { connect } from 'react-redux'
 import StyledPage from '../components/layout/StyledPage'
 import StyledTitle from '../components/layout/StyledTitle'
 import IssuesItem from '../components/IssuesItem'
+import Spinner from '../components/common/Spinner'
 
 import { getIssues } from '../actions/issuesActions'
 
 class HomeScreen extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      issues: [],
+      loading: true
+    }
+  }
+
   componentDidMount () {
     this.props.getIssues()
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (prevProps.issues.issues !== this.props.issues.issues) {
+      const { issues } = this.props.issues
+      this.setState({
+        issues: issues,
+        loading: false
+      })
+    }
+  }
+
   render () {
-    const { issues } = this.props.issues
+    const { issues } = this.state
     return (
       <StyledPage>
-        <StyledTitle>Home</StyledTitle>
+        {this.state.loading && <Spinner />}
         {
           issues.map(issue => <IssuesItem
             key={issue._id}

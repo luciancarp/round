@@ -7,6 +7,7 @@ import isEmpty from '../utils/isEmpty'
 import StyledPage from '../components/layout/StyledPage'
 import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import ArticlesItem from '../components/ArticlesItem'
+import Spinner from '../components/common/Spinner'
 
 import { getArticlesByIssue } from '../actions/articlesActions'
 
@@ -15,7 +16,8 @@ class IssueScreen extends Component {
     super(props)
     this.state = {
       topicSelected: '',
-      articlesByIssue: []
+      articlesByIssue: [],
+      loading: true
     }
   }
 
@@ -27,7 +29,8 @@ class IssueScreen extends Component {
     if (prevProps.articles.articlesByIssue !== this.props.articles.articlesByIssue) {
       const { articlesByIssue } = this.props.articles
       this.setState({
-        articlesByIssue: articlesByIssue
+        articlesByIssue: articlesByIssue,
+        loading: false
       })
     }
   }
@@ -35,7 +38,7 @@ class IssueScreen extends Component {
   render () {
     const { articlesByIssue } = this.state
 
-    let issueName = 'Issue'
+    let issueName = ''
     if (!isEmpty(articlesByIssue)) {
       issueName = articlesByIssue[0].issue.name
     }
@@ -54,6 +57,7 @@ class IssueScreen extends Component {
 
     return (
       <StyledPage>
+        {this.state.loading && <Spinner />}
         <h1>{issueName}</h1>
         <StyledUnorderedList>
           {
