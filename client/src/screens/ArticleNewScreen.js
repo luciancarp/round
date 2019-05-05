@@ -6,6 +6,7 @@ import StyledPage from '../components/layout/StyledPage'
 import StyledTitle from '../components/layout/StyledTitle'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import SelectListGroup from '../components/common/SelectListGroup'
+import TextEditor from '../components/TextEditor'
 
 import { getIssues, createIssue } from '../actions/issuesActions'
 import { createArticle } from '../actions/articlesActions'
@@ -120,6 +121,7 @@ class ArticleNew extends Component {
                 Submit
           </button>
         </form>
+        <TextEditor />
       </StyledPage>
     )
   }
