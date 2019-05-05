@@ -47,16 +47,17 @@ export const getArticlesByIssue = id => dispatch => {
 }
 
 // Create Article
-export const createArticle = articleData => dispatch => {
+export const createArticle = (articleData, history) => dispatch => {
   dispatch(clearErrors())
   axios
     .post('/api/articles', articleData)
-    .then(res =>
+    .then(res => {
       dispatch({
         type: CREATE_ARTICLE,
         payload: res.data
       })
-    )
+      history.push(`/article/${res.data._id}`)
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

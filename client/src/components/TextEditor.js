@@ -1,19 +1,30 @@
 import React from 'react'
-import { Editor, EditorState, RichUtils } from 'draft-js'
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js'
 import styled from 'styled-components'
+
+import StyledButton from './common/StyledButton'
 
 import { palette, spaces } from '../styles/styles'
 
 import 'draft-js/dist/Draft.css'
 
 const StyledEditorWrapper = styled.div`
-    border-style: solid;
-    border-width: 2px 2px 2px 2px;
-    border-radius: 5px 5px 5px 5px; 
-    border-color: ${palette.text};
-    background: ${palette.darkBackgroundColor};
-    min-height: 6em;
-    padding: ${spaces.medium}px;
+  border-style: solid;
+  border-width: 2px 2px 2px 2px;
+  border-radius: 5px 5px 5px 5px; 
+  border-color: ${palette.text};
+  background: ${palette.darkBackgroundColor};
+  min-height: 6em;
+  padding: ${spaces.medium}px;
+  min-width: 300px;
+
+  &:hover {
+  border-color: ${palette.primaryColor};
+  }
+  
+  -webkit-transition: border-color 0.2s; /* Safari */
+  transition: border-color 0.2s;
+  transition-timing-function: ease-out;
 `
 
 const blockTypes = [
@@ -43,6 +54,14 @@ class TextEditor extends React.Component {
     this.handleKeyCommand = this.handleKeyCommand.bind(this)
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (prevProps.sendContent !== this.props.sendContent &&
+       this.props.sendContent === true) {
+      const rawState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))
+      this.props.sendContentFunction(rawState)
+    }
+  }
+
   handleKeyCommand (command, editorState) {
     const newState = RichUtils.handleKeyCommand(editorState, command)
     if (newState) {
@@ -66,10 +85,10 @@ class TextEditor extends React.Component {
     return (
       <div>
         {inlineStyles.map(style => (
-          <button onMouseDown={(e) => this._onStyleClick(e, style.style)}>{style.label}</button>
+          <StyledButton type={'button'} onMouseDown={(e) => this._onStyleClick(e, style.style)}>{style.label}</StyledButton>
         ))}
         {blockTypes.map(block => (
-          <button onMouseDown={(e) => this._onBlockTypeClick(e, block.style)}>{block.label}</button>
+          <StyledButton type={'button'} onMouseDown={(e) => this._onBlockTypeClick(e, block.style)}>{block.label}</StyledButton>
         ))}
 
         <StyledEditorWrapper>

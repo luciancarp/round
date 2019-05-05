@@ -7,6 +7,8 @@ import StyledTitle from '../components/layout/StyledTitle'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import SelectListGroup from '../components/common/SelectListGroup'
 import TextEditor from '../components/TextEditor'
+import Spinner from '../components/common/Spinner'
+import StyledButton from '../components/common/StyledButton'
 
 import { getIssues, createIssue } from '../actions/issuesActions'
 import { createArticle } from '../actions/articlesActions'
@@ -32,16 +34,19 @@ class ArticleNew extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      text: '',
       description: '',
       issue: '',
-      topic: '',
+      topic: topics[0].value,
       topicOther: '',
-      errors: {}
+      errors: {},
+      getContent: false,
+      content: '',
+      loading: true
     }
 
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.getContent = this.getContent.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -53,7 +58,32 @@ class ArticleNew extends Component {
 
     if (this.state.issue === '' && this.props.issues.issues.length > 0) {
       this.setState({
-        issue: this.props.issues.issues[0]._id
+        issue: this.props.issues.issues[0]._id,
+        loading: false
+      })
+    }
+
+    // if content received from text editor, continue creating the article
+    if (prevState.getContent === true && this.state.getContent === false) {
+      const { user } = this.props.auth
+      const topic = this.state.topic === 'Other' ? this.state.topicOther : this.state.topic
+
+      const newArticle = {
+        name: this.state.name,
+        text: this.state.content,
+        avatar: user.avatar,
+        issue: this.state.issue,
+        topic: topic
+      }
+
+      this.props.createArticle(newArticle, this.props.history)
+      this.setState({
+        name: '',
+        description: '',
+        topic: '',
+        topicOther: '',
+        content: '',
+        loading: false
       })
     }
   }
@@ -65,30 +95,23 @@ class ArticleNew extends Component {
   onSubmit (e) {
     e.preventDefault()
 
-    const { user } = this.props.auth
-    const topic = this.state.topic === 'Other' ? this.state.topicOther : this.state.topic
-
-    const newArticle = {
-      name: this.state.name,
-      text: this.state.text,
-      avatar: user.avatar,
-      issue: this.state.issue,
-      topic: topic
-    }
-
-    this.props.createArticle(newArticle)
+    // enable to get content from TextEditor
     this.setState({
-      name: '',
-      text: '',
-      description: '',
-      topic: '',
-      topicOther: ''
+      getContent: true,
+      loading: true
     })
   }
 
   onChange (e) {
     this.setState({
       [e.target.name]: e.target.value
+    })
+  }
+
+  getContent (rawContent) {
+    this.setState({
+      content: rawContent,
+      getContent: false
     })
   }
 
@@ -102,6 +125,7 @@ class ArticleNew extends Component {
     })
     return (
       <StyledPage>
+        {this.state.loading && <Spinner />}
         <StyledTitle>New Article</StyledTitle>
         <SelectListGroup
           placeholder='Issue'
@@ -125,7 +149,7 @@ class ArticleNew extends Component {
               placeholder='Topic'
               name='topic'
               value={this.state.topic}
-              onChange={this.onChange}
+              sendContentFunction onChange={this.onChange}
               options={topics}
               error={errors.topic}
               info='Select a topic for this article'
@@ -139,20 +163,20 @@ class ArticleNew extends Component {
                 error={errors.topic}
               />
             )}
-            <TextFieldGroup
-              placeholder='text'
-              name='text'
-              value={this.state.text}
-              onChange={this.onChange}
-              error={errors.text}
-            />
             <p>{JSON.stringify(errors)}</p>
           </div>
-          <button type='submit'>
+
+          <TextEditor
+            sendContent={this.state.getContent}
+            sendContentFunction={this.getContent}
+          />
+
+          <StyledButton big type='submit'>
                 Submit
-          </button>
+          </StyledButton>
+
         </form>
-        <TextEditor />
+        <p>{this.state.content}</p>
       </StyledPage>
     )
   }
