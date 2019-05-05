@@ -11,6 +11,23 @@ import TextEditor from '../components/TextEditor'
 import { getIssues, createIssue } from '../actions/issuesActions'
 import { createArticle } from '../actions/articlesActions'
 
+const topics = [
+  { label: 'Health', value: 'Health' },
+  { label: 'Language', value: 'Language' },
+  { label: 'Personal Development', value: 'Personal Development' },
+  { label: 'Photography', value: 'Photography' },
+  { label: 'Music', value: 'Music' },
+  { label: 'Lifestyle', value: 'Lifestyle' },
+  { label: 'Politics', value: 'Politics' },
+  { label: 'Story', value: 'Story' },
+  { label: 'Tech', value: 'Tech' },
+  { label: 'Productivity', value: 'Productivity' },
+  { label: 'Travel', value: 'Travel' },
+  { label: 'History', value: 'History' },
+  { label: 'Fitness', value: 'Fitness' },
+  { label: 'Other', value: 'Other' }
+]
+
 class ArticleNew extends Component {
   constructor (props) {
     super(props)
@@ -19,6 +36,7 @@ class ArticleNew extends Component {
       description: '',
       issue: '',
       topic: '',
+      topicOther: '',
       errors: {}
     }
 
@@ -48,13 +66,14 @@ class ArticleNew extends Component {
     e.preventDefault()
 
     const { user } = this.props.auth
+    const topic = this.state.topic === 'Other' ? this.state.topicOther : this.state.topic
 
     const newArticle = {
       name: this.state.name,
       text: this.state.text,
       avatar: user.avatar,
       issue: this.state.issue,
-      topic: this.state.topic
+      topic: topic
     }
 
     this.props.createArticle(newArticle)
@@ -62,7 +81,8 @@ class ArticleNew extends Component {
       name: '',
       text: '',
       description: '',
-      topic: ''
+      topic: '',
+      topicOther: ''
     })
   }
 
@@ -101,13 +121,24 @@ class ArticleNew extends Component {
               onChange={this.onChange}
               error={errors.name}
             />
-            <TextFieldGroup
-              placeholder='topic'
+            <SelectListGroup
+              placeholder='Topic'
               name='topic'
               value={this.state.topic}
               onChange={this.onChange}
+              options={topics}
               error={errors.topic}
+              info='Select a topic for this article'
             />
+            {this.state.topic === 'Other' && (
+              <TextFieldGroup
+                placeholder='New Topic'
+                name='topicOther'
+                value={this.state.topicOther}
+                onChange={this.onChange}
+                error={errors.topic}
+              />
+            )}
             <TextFieldGroup
               placeholder='text'
               name='text'
