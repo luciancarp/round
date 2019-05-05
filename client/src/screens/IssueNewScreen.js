@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import StyledPage from '../components/layout/StyledPage'
+import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import StyledTitle from '../components/layout/StyledTitle'
-import IssuesItem from '../components/IssuesItem'
 import TextFieldGroup from '../components/common/TextFieldGroup'
+import StyledButtonRight from '../components/layout/StyledButtonRight'
+import StyledButton from '../components/common/StyledButton'
 
 import { getIssues, createIssue } from '../actions/issuesActions'
 
@@ -59,42 +61,35 @@ class IssueNew extends Component {
   }
 
   render () {
-    const { issues } = this.props.issues
     const { errors } = this.state
     return (
       <StyledPage>
-        <StyledTitle>New Issue</StyledTitle>
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <TextFieldGroup
-              placeholder='Title'
-              name='name'
-              value={this.state.name}
-              onChange={this.onChange}
-              error={errors.name}
-            />
-            <TextFieldGroup
-              placeholder='Description'
-              name='description'
-              value={this.state.description}
-              onChange={this.onChange}
-              error={errors.description}
-            />
-            <p>{JSON.stringify(errors)}</p>
-          </div>
-          <button type='submit'>
-                Submit
-          </button>
-        </form>
-        {
-          issues.map(issue => <IssuesItem
-            key={issue._id}
-            id={issue._id}
-            name={issue.name}
-            description={issue.description}
-            date={issue.date}
-          />)
-        }
+        <StyledNarrowSection>
+          <StyledTitle>New Issue</StyledTitle>
+          <form onSubmit={this.onSubmit}>
+            <div>
+              <TextFieldGroup
+                placeholder='Title'
+                name='name'
+                value={this.state.name}
+                onChange={this.onChange}
+                error={errors.name}
+              />
+              <TextFieldGroup
+                placeholder='Description'
+                name='description'
+                value={this.state.description}
+                onChange={this.onChange}
+                error={errors.description}
+              />
+            </div>
+            <StyledButtonRight>
+              <StyledButton big type='submit'>
+                  Submit
+              </StyledButton>
+            </StyledButtonRight>
+          </form>
+        </StyledNarrowSection>
       </StyledPage>
     )
   }

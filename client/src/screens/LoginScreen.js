@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { loginUser } from '../actions/authActions'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import StyledPage from '../components/layout/StyledPage'
+import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 
 class LoginScreen extends Component {
   constructor () {
@@ -57,27 +58,29 @@ class LoginScreen extends Component {
     const { errors } = this.state
     return (
       <StyledPage>
-        <form onSubmit={this.onSubmit}>
-          <TextFieldGroup
-            placeholder='Email Address'
-            name='email'
-            type='email'
-            value={this.state.email}
-            onChange={this.onChange}
-            error={errors.email}
-          />
+        <StyledNarrowSection>
+          <form onSubmit={this.onSubmit}>
+            <TextFieldGroup
+              placeholder='Email Address'
+              name='email'
+              type='email'
+              value={this.state.email}
+              onChange={this.onChange}
+              error={errors.email}
+            />
 
-          <TextFieldGroup
-            placeholder='Password'
-            name='password'
-            type='password'
-            value={this.state.password}
-            onChange={this.onChange}
-            error={errors.password}
-          />
+            <TextFieldGroup
+              placeholder='Password'
+              name='password'
+              type='password'
+              value={this.state.password}
+              onChange={this.onChange}
+              error={errors.password}
+            />
 
-          <input type='submit' />
-        </form>
+            <input type='submit' />
+          </form>
+        </StyledNarrowSection>
       </StyledPage>
     )
   }

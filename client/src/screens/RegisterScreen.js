@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { registerUser } from '../actions/authActions'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import StyledPage from '../components/layout/StyledPage'
+import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 
 class RegisterScreen extends Component {
   constructor () {
@@ -58,50 +59,52 @@ class RegisterScreen extends Component {
 
     return (
       <StyledPage>
-        <h1>Sign Up</h1>
-        <p>
+        <StyledNarrowSection>
+          <h1>Sign Up</h1>
+          <p>
                 Create your account
-        </p>
-        <form noValidate onSubmit={e => this.onSubmit(e)}>
-          <TextFieldGroup
-            placeholder='Name'
-            name='name'
-            value={this.state.name}
-            onChange={this.onChange}
-            error={errors.name}
-          />
+          </p>
+          <form noValidate onSubmit={e => this.onSubmit(e)}>
+            <TextFieldGroup
+              placeholder='Name'
+              name='name'
+              value={this.state.name}
+              onChange={this.onChange}
+              error={errors.name}
+            />
 
-          <TextFieldGroup
-            placeholder='Email Address'
-            name='email'
-            type='email'
-            value={this.state.email}
-            onChange={this.onChange}
-            error={errors.email}
-            info='This site uses Gravatar so, if you want a profile image, use
+            <TextFieldGroup
+              placeholder='Email Address'
+              name='email'
+              type='email'
+              value={this.state.email}
+              onChange={this.onChange}
+              error={errors.email}
+              info='This site uses Gravatar so, if you want a profile image, use
                   a Gravatar email'
-          />
+            />
 
-          <TextFieldGroup
-            placeholder='Password'
-            name='password'
-            type='password'
-            value={this.state.password}
-            onChange={this.onChange}
-            error={errors.password}
-          />
+            <TextFieldGroup
+              placeholder='Password'
+              name='password'
+              type='password'
+              value={this.state.password}
+              onChange={this.onChange}
+              error={errors.password}
+            />
 
-          <TextFieldGroup
-            placeholder='Confirm Password'
-            name='password2'
-            type='password'
-            value={this.state.password2}
-            onChange={this.onChange}
-            error={errors.password2}
-          />
+            <TextFieldGroup
+              placeholder='Confirm Password'
+              name='password2'
+              type='password'
+              value={this.state.password2}
+              onChange={this.onChange}
+              error={errors.password2}
+            />
 
-          <input type='submit' />
-        </form>
+            <input type='submit' />
+          </form>
+        </StyledNarrowSection>
       </StyledPage>
     )
   }

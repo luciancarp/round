@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const gravatar = require('gravatar')
 const passport = require('passport')
 
 // Load input Validation
@@ -32,10 +33,17 @@ router.post('/register', (req, res) => {
       errors.email = 'Email already exists'
       return res.status(400).json(errors)
     } else {
+      const avatar = gravatar.url(req.body.email, {
+        s: '200', //  Size
+        r: 'pg', //  Rating
+        d: 'mm' //  default
+      })
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        avatar,
+        role: '2'
       })
 
       bcrypt.genSalt(10, (err, salt) => {

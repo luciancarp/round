@@ -55,14 +55,15 @@ class ArticleScreen extends Component {
       <StyledPage>
         {this.state.loading && <Spinner />}
         <BackButton path={`/issue/${this.state.issue}`} />
-        <h1>{this.state.nme}</h1>
+        <h1>{this.state.name}</h1>
         <small>{<DateText date={this.state.date} />}</small>
         <p>
           <Editor editorState={this.state.editorState} readOnly />
         </p>
         <StyledNarrowSection>
-          <h3>Comments</h3>
+          <h3>Post a comment</h3>
           <CommentInput ArticleId={this.state.id} />
+          <h3>Comments</h3>
           <Comments
             articleId={this.state.id}
             comments={this.state.comments}

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import StyledPage from '../components/layout/StyledPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
+import StyledButtonRight from '../components/layout/StyledButtonRight'
 import StyledTitle from '../components/layout/StyledTitle'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import SelectListGroup from '../components/common/SelectListGroup'
@@ -172,9 +173,11 @@ class ArticleNew extends Component {
               sendContentFunction={this.getContent}
             />
 
-            <StyledButton big type='submit'>
-                Submit
-            </StyledButton>
+            <StyledButtonRight>
+              <StyledButton big type='submit'>
+          Submit
+              </StyledButton>
+            </StyledButtonRight>
 
           </form>
           <p>{this.state.content}</p>

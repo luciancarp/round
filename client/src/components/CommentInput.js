@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import StyledButton from '../components/common/StyledButton'
+import StyledButtonRight from '../components/layout/StyledButtonRight'
 
 import { addComment } from '../actions/articlesActions'
 
@@ -62,9 +64,11 @@ class CommentInput extends Component {
             onChange={this.onChange}
             error={errors.text}
           />
-          <StyledButton big type='submit'>
+          <StyledButtonRight>
+            <StyledButton big type='submit'>
           Post
-          </StyledButton>
+            </StyledButton>
+          </StyledButtonRight>
 
         </form>
       </div>

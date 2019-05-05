@@ -119,7 +119,7 @@ router.post(
     Article.findById(req.params.id).then(article => {
       const newComment = {
         text: req.body.text,
-        name: req.body.name,
+        name: req.user.name,
         avatar: req.body.avatar,
         user: req.user.id
       }
