@@ -6,6 +6,7 @@ import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import StyledPage from '../components/layout/StyledPage'
 import Spinner from '../components/common/Spinner'
 import DateText from '../components/common/DateText'
+import BackButton from '../components/common/BackButton'
 import CommentInput from '../components/CommentInput'
 import Comments from '../components/Comments'
 
@@ -19,6 +20,7 @@ class ArticleScreen extends Component {
       name: '',
       date: '',
       comments: [],
+      issue: '',
       loading: true
     }
   }
@@ -41,6 +43,7 @@ class ArticleScreen extends Component {
         date: article.date,
         comments: comments,
         id: article._id,
+        issue: article.issue,
         loading: false
       })
     }
@@ -50,7 +53,8 @@ class ArticleScreen extends Component {
     return (
       <StyledPage>
         {this.state.loading && <Spinner />}
-        <h1>{this.state.name}</h1>
+        <BackButton path={`/issue/${this.state.issue}`} />
+        <h1>{this.state.nme}</h1>
         <small>{<DateText date={this.state.date} />}</small>
         <p>
           <Editor editorState={this.state.editorState} readOnly />
@@ -61,7 +65,6 @@ class ArticleScreen extends Component {
           articleId={this.state.id}
           comments={this.state.comments}
         />
-        {/* <p>{this.state.text}</p> */}
       </StyledPage>
     )
   }

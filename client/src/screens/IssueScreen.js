@@ -9,6 +9,7 @@ import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import ArticlesItem from '../components/ArticlesItem'
 import Spinner from '../components/common/Spinner'
 import StyledButton from '../components/common/StyledButton'
+import BackButton from '../components/common/BackButton'
 
 import { getArticlesByIssue } from '../actions/articlesActions'
 
@@ -59,8 +60,8 @@ class IssueScreen extends Component {
     return (
       <StyledPage>
         {this.state.loading && <Spinner />}
+        <BackButton path={'/'} />
         <h1>{issueName}</h1>
-        {/* <h5>Topics: </h5> */}
         {
           topicsInIssue.map(topic =>
             <span>
