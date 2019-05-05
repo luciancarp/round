@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
 
 import StyledPage from '../components/layout/StyledPage'
+import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import Spinner from '../components/common/Spinner'
 import DateText from '../components/common/DateText'
 import BackButton from '../components/common/BackButton'
@@ -59,12 +60,14 @@ class ArticleScreen extends Component {
         <p>
           <Editor editorState={this.state.editorState} readOnly />
         </p>
-        <h3>Comments</h3>
-        <CommentInput ArticleId={this.state.id} />
-        <Comments
-          articleId={this.state.id}
-          comments={this.state.comments}
-        />
+        <StyledNarrowSection>
+          <h3>Comments</h3>
+          <CommentInput ArticleId={this.state.id} />
+          <Comments
+            articleId={this.state.id}
+            comments={this.state.comments}
+          />
+        </StyledNarrowSection>
       </StyledPage>
     )
   }

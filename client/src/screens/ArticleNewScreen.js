@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import StyledPage from '../components/layout/StyledPage'
+import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import StyledTitle from '../components/layout/StyledTitle'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import SelectListGroup from '../components/common/SelectListGroup'
@@ -126,57 +127,58 @@ class ArticleNew extends Component {
     return (
       <StyledPage>
         {this.state.loading && <Spinner />}
-        <StyledTitle>New Article</StyledTitle>
-        <SelectListGroup
-          placeholder='Issue'
-          name='issue'
-          value={this.state.issue}
-          onChange={this.onChange}
-          options={issuesOptions}
-          error={errors.issue}
-          info='Select the issue in which to post this article'
-        />
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <TextFieldGroup
-              placeholder='Title'
-              name='name'
-              value={this.state.name}
-              onChange={this.onChange}
-              error={errors.name}
-            />
-            <SelectListGroup
-              placeholder='Topic'
-              name='topic'
-              value={this.state.topic}
-              sendContentFunction onChange={this.onChange}
-              options={topics}
-              error={errors.topic}
-              info='Select a topic for this article'
-            />
-            {this.state.topic === 'Other' && (
-              <TextFieldGroup
-                placeholder='New Topic'
-                name='topicOther'
-                value={this.state.topicOther}
-                onChange={this.onChange}
-                error={errors.topic}
-              />
-            )}
-            <p>{JSON.stringify(errors)}</p>
-          </div>
-
-          <TextEditor
-            sendContent={this.state.getContent}
-            sendContentFunction={this.getContent}
+        <StyledNarrowSection>
+          <StyledTitle>New Article</StyledTitle>
+          <SelectListGroup
+            placeholder='Issue'
+            name='issue'
+            value={this.state.issue}
+            onChange={this.onChange}
+            options={issuesOptions}
+            error={errors.issue}
+            info='Select the issue in which to post this article'
           />
+          <form onSubmit={this.onSubmit}>
+            <div>
+              <TextFieldGroup
+                placeholder='Title'
+                name='name'
+                value={this.state.name}
+                onChange={this.onChange}
+                error={errors.name}
+              />
+              <SelectListGroup
+                placeholder='Topic'
+                name='topic'
+                value={this.state.topic}
+                sendContentFunction onChange={this.onChange}
+                options={topics}
+                error={errors.topic}
+                info='Select a topic for this article'
+              />
+              {this.state.topic === 'Other' && (
+                <TextFieldGroup
+                  placeholder='New Topic'
+                  name='topicOther'
+                  value={this.state.topicOther}
+                  onChange={this.onChange}
+                  error={errors.topic}
+                />
+              )}
+            </div>
 
-          <StyledButton big type='submit'>
+            <TextEditor
+              sendContent={this.state.getContent}
+              sendContentFunction={this.getContent}
+            />
+
+            <StyledButton big type='submit'>
                 Submit
-          </StyledButton>
+            </StyledButton>
 
-        </form>
-        <p>{this.state.content}</p>
+          </form>
+          <p>{this.state.content}</p>
+        </StyledNarrowSection>
       </StyledPage>
     )
   }

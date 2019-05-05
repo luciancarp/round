@@ -14,7 +14,8 @@ const StyledInput = styled.input`
   font-size: inherit;
   color: ${palette.text};
   margin-bottom: ${spaces.narrow}px;
-  min-width: 300px;
+  /* min-width: 300px; */
+  width: 100%;
 
   -webkit-transition: border-color 0.2s; /* Safari */
   transition: border-color 0.2s;

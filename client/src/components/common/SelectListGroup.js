@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import StyledSelect from './StyledSelect'
+import ErrorMsg from './ErrorMsg'
 
 const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
   const selectOptions = options.map(option => (
@@ -18,8 +19,11 @@ const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
       >
         {selectOptions}
       </StyledSelect>
-      {info && <small >{info}</small>}
-      {error && <div>{error}</div>}
+      {/* {info && <small >{info}</small>} */}
+      {/* {error && <div>{error}</div>} */}
+      <ErrorMsg
+        error={error}
+        msg={error} />
     </div>
   )
 }

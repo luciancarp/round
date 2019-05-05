@@ -22,7 +22,8 @@ export const palette = {
   BackgroundColor: '#141315',
   text: '#ffffff',
   darkText: '#d3d3d3',
-  darkTextSecundary: '#808080'
+  darkTextSecundary: '#808080',
+  error: '#a33'
 }
 
 const size = {

@@ -10,11 +10,11 @@ module.exports = function validateArticleInput (data) {
   data.topic = !isEmpty(data.topic) ? data.topic : ''
 
   if (Validator.isEmpty(data.name)) {
-    errors.name = 'Name field is required'
+    errors.name = 'Title field is required'
   }
 
   if (Validator.isEmpty(data.topic)) {
-    errors.topic = 'topic field is required'
+    errors.topic = 'Topic field is required'
   }
 
   if (Validator.isEmpty(data.issue)) {

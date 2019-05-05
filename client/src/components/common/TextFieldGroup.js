@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import StyledInput from './StyledInput'
+import ErrorMsg from './ErrorMsg'
 
 const TextFieldGroup = ({
   name,
@@ -24,8 +25,11 @@ const TextFieldGroup = ({
         onChange={onChange}
         disabled={disabled}
       />
-      {info && <small >{info}</small>}
-      {error && <div >{error}</div>}
+      {/* {info && <small >{info}</small>} */}
+      {/* {error && <div >{error}</div>} */}
+      <ErrorMsg
+        error={error}
+        msg={error} />
     </div>
   )
 }
