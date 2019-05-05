@@ -4,6 +4,7 @@ const passport = require('passport')
 
 // Load input Validation
 const validateArticleInput = require('../../validation/article')
+const validateCommentInput = require('../../validation/comment')
 
 // Load User model
 const Issue = require('../../models/Issue')
@@ -98,6 +99,77 @@ router.get(
         res.json(articles)
       })
       .catch(err => console.log(err))
+  }
+)
+
+// @route  POST api/articles/comment/:id
+// @desc   Add comment to article
+// @access Private
+router.post(
+  '/comment/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateCommentInput(req.body)
+
+    // Check Validation
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
+
+    Article.findById(req.params.id).then(article => {
+      const newComment = {
+        text: req.body.text,
+        name: req.body.name,
+        avatar: req.body.avatar,
+        user: req.user.id
+      }
+
+      // Add to comments array
+      article.comments.unshift(newComment)
+
+      // Save
+      article
+        .save()
+        .then(article => res.json(article))
+        .catch(err => {
+          console.log(err)
+          res.status(404).json({ articlenotfound: 'No article found' })
+        })
+    })
+  }
+)
+
+// @route  DELETE api/articles/comment/:id/:comment_id
+// @desc   Remove comment from article
+// @access Private
+router.delete(
+  '/comment/:id/:comment_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Article.findById(req.params.id)
+      .then(article => {
+        // Check to see if comment exists
+        if (
+          article.comments.filter(
+            comment => comment._id.toString() === req.params.comment_id
+          ).length === 0
+        ) {
+          return res
+            .status(404)
+            .json({ commentnotexists: 'Comment does not exist' })
+        }
+
+        // Get remove index
+        const removeIndex = article.comments
+          .map(item => item._id.toString())
+          .indexOf(req.params.comment_id)
+
+        // Splice comment out of array
+        article.comments.splice(removeIndex, 1)
+
+        article.save().then(article => res.json(article))
+      })
+      .catch(err => res.status(404).json({ articlenotfound: 'No article found' }))
   }
 )
 

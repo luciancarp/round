@@ -6,6 +6,8 @@ import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import StyledPage from '../components/layout/StyledPage'
 import Spinner from '../components/common/Spinner'
 import DateText from '../components/common/DateText'
+import CommentInput from '../components/CommentInput'
+import Comments from '../components/Comments'
 
 import { getArticle } from '../actions/articlesActions'
 
@@ -16,6 +18,7 @@ class ArticleScreen extends Component {
       editorState: EditorState.createEmpty(),
       name: '',
       date: '',
+      comments: [],
       loading: true
     }
   }
@@ -28,11 +31,16 @@ class ArticleScreen extends Component {
     if (prevProps.articles.article !== this.props.articles.article &&
         this.props.articles.article._id === this.props.match.params.id) {
       const { article } = this.props.articles
+      const { comments } = article
+
       const content = convertFromRaw(JSON.parse(article.text))
+
       this.setState({
         name: article.name,
         editorState: EditorState.createWithContent(content),
         date: article.date,
+        comments: comments,
+        id: article._id,
         loading: false
       })
     }
@@ -47,6 +55,12 @@ class ArticleScreen extends Component {
         <p>
           <Editor editorState={this.state.editorState} readOnly />
         </p>
+        <h3>Comments</h3>
+        <CommentInput ArticleId={this.state.id} />
+        <Comments
+          articleId={this.state.id}
+          comments={this.state.comments}
+        />
         {/* <p>{this.state.text}</p> */}
       </StyledPage>
     )

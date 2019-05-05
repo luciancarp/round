@@ -66,6 +66,43 @@ export const createArticle = (articleData, history) => dispatch => {
     )
 }
 
+// Add comment
+export const addComment = (postId, commentData) => dispatch => {
+  dispatch(clearErrors())
+  axios
+    .post(`/api/articles/comment/${postId}`, commentData)
+    .then(res =>
+      dispatch({
+        type: GET_ARTICLE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
+// Delete comment
+export const deleteComment = (articleId, commentId) => dispatch => {
+  axios
+    .delete(`/api/articles/comment/${articleId}/${commentId}`)
+    .then(res =>
+      dispatch({
+        type: GET_ARTICLE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
 // Clear errors
 export const clearErrors = () => {
   return {
