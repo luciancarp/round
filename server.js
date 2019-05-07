@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const passport = require('passport')
+const path = require('path')
 require('dotenv').config()
 
 const users = require('./routes/api/users')
@@ -37,6 +38,16 @@ require('./config/passport')(passport)
 app.use('/api/users', users)
 app.use('/api/issues', issues)
 app.use('/api/articles', articles)
+
+// Static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // Static folder
+  app.use(express.static('client/build'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
 
 const port = process.env.PORT || 5000
 
