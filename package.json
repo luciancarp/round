@@ -2,6 +2,10 @@
   "name": "node-server",
   "version": "1.0.0",
   "description": "Template NodeJS server",
+  "engines": {
+    "node": "11.14.0",
+    "yarn": "1.13.0"
+  },
   "main": "server.js",
   "scripts": {
     "client-install": "cd client/ && yarn install",
