@@ -4,12 +4,14 @@
   "description": "Template NodeJS server",
   "main": "server.js",
   "scripts": {
-    "client-install": "cd .. && cd client/ && yarn install",
+    "client-install": "cd client/ && yarn install",
+    "client-build": "cd client/ && yarn run build",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "cd .. && cd client/ && yarn start",
+    "client": "cd client/ && yarn start",
     "full-install": "yarn install & yarn client-install",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "heroku-postbuild": "YARN_PRODUCTION=false yarn client-install && yarn client-build"
   },
   "author": "Lucian Carp",
   "license": "MIT",
