@@ -5,17 +5,38 @@ import { logOutUser } from '../actions/authActions'
 import StyledPage from '../components/layout/StyledPage'
 
 class ProfileScreen extends Component {
-  onLogoutClick (e) {
+  constructor() {
+    super()
+    this.state = {
+      role: ''
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.auth.user.role === '2') {
+      this.props.history.push('/')
+    }
+    this.setState({
+      role: this.props.auth.user.role
+    })
+  }
+
+  onLogoutClick(e) {
     e.preventDefault()
     this.props.logOutUser()
   }
 
-  render () {
+  render() {
     return (
       <StyledPage>
+        <h1>{this.state.role}</h1>
         <button onClick={e => this.onLogoutClick(e)}>Log Out</button>
-        <button onClick={() => this.props.history.push('/new-article')}>New Article</button>
-        <button onClick={() => this.props.history.push('/new-issue')}>New Issue</button>
+        <button onClick={() => this.props.history.push('/new-article')}>
+          New Article
+        </button>
+        <button onClick={() => this.props.history.push('/new-issue')}>
+          New Issue
+        </button>
       </StyledPage>
     )
   }
@@ -32,4 +53,7 @@ const mapStatetoProps = state => ({
   errors: state.errors
 })
 
-export default connect(mapStatetoProps, { logOutUser })(ProfileScreen)
+export default connect(
+  mapStatetoProps,
+  { logOutUser }
+)(ProfileScreen)

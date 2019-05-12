@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { palette, spaces, fontSizes, device } from '../styles/styles'
 import styled from 'styled-components'
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'
+import StyledLink from './common/StyledLink'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+import { logOutUser } from '../actions/authActions'
 
 const StyledNavBar = styled.div`
   display: flex;
@@ -21,11 +25,11 @@ const StyledNavBarContent = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media ${device.mobileS} {  
+  @media ${device.mobileS} {
     min-width: 100%;
   }
 
-    @media ${device.laptop} {  
+  @media ${device.laptop} {
     min-width: 1000px;
   }
 
@@ -48,22 +52,44 @@ const StyledSocial = styled.div`
   margin-left: ${spaces.wide}px;
 `
 
-const StyledLogo = styled.img`
-  height: 50px;
-  width: 50px;
+// const StyledLogo = styled.img`
+//   height: 50px;
+//   width: 50px;
+// `
+
+const StyledMap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 `
 
 class Footer extends Component {
-  render () {
+  onLogoutClick(e) {
+    e.preventDefault()
+    this.props.logOutUser()
+  }
+
+  render() {
     let currentYear = new Date().getFullYear()
     return (
       <div>
         <StyledNavBar>
           <StyledNavBarContent>
-            <Link to='/'>
+            {/* <Link to='/'>
               <StyledLogo src={require('../assets/images/logo_small.png')} />
-            </Link>
-            <StyledCopy>© Copyright {currentYear}.<br />All right reserved.</StyledCopy>
+            </Link> */}
+            <StyledMap>
+              <button onClick={e => this.onLogoutClick(e)}>Log Out</button>
+              <StyledLink to='/login'>Login</StyledLink>
+              <StyledLink to='/register'>Register</StyledLink>
+              <StyledLink to='/profile'>Profile</StyledLink>
+            </StyledMap>
+
+            <StyledCopy>
+              © Copyright {currentYear}.<br />
+              All right reserved.
+            </StyledCopy>
             <StyledLinks>
               <StyledSocial>
                 <FaFacebookF size='30px' color={palette.darkTextSecundary} />
@@ -82,4 +108,15 @@ class Footer extends Component {
   }
 }
 
-export default Footer
+Footer.propTypes = {
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+export default connect(
+  mapStateToProps,
+  { logOutUser }
+)(Footer)

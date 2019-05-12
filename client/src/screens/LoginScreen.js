@@ -7,7 +7,7 @@ import StyledPage from '../components/layout/StyledPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 
 class LoginScreen extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       email: '',
@@ -19,13 +19,13 @@ class LoginScreen extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/')
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/')
     }
@@ -37,13 +37,13 @@ class LoginScreen extends Component {
     }
   }
 
-  onChange (e) {
+  onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  onSubmit (e) {
+  onSubmit(e) {
     e.preventDefault()
 
     const userData = {
@@ -54,7 +54,7 @@ class LoginScreen extends Component {
     this.props.loginUser(userData)
   }
 
-  render () {
+  render() {
     const { errors } = this.state
     return (
       <StyledPage>
@@ -97,4 +97,7 @@ const mapStatetoProps = state => ({
   errors: state.errors
 })
 
-export default connect(mapStatetoProps, { loginUser })(LoginScreen)
+export default connect(
+  mapStatetoProps,
+  { loginUser }
+)(LoginScreen)
