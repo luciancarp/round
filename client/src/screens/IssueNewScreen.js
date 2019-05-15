@@ -8,11 +8,12 @@ import StyledTitle from '../components/layout/StyledTitle'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import StyledButtonRight from '../components/layout/StyledButtonRight'
 import StyledButton from '../components/common/StyledButton'
+import BackButton from '../components/common/BackButton'
 
 import { getIssues, createIssue } from '../actions/issuesActions'
 
 class IssueNew extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       text: '',
@@ -24,7 +25,7 @@ class IssueNew extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     if (newProps.errors) {
       this.setState({
         errors: newProps.errors
@@ -32,11 +33,11 @@ class IssueNew extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getIssues()
   }
 
-  onSubmit (e) {
+  onSubmit(e) {
     e.preventDefault()
 
     const { user } = this.props.auth
@@ -51,19 +52,21 @@ class IssueNew extends Component {
     this.props.createIssue(newIssue)
     this.setState({
       text: '',
-      description: '' })
+      description: ''
+    })
   }
 
-  onChange (e) {
+  onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  render () {
+  render() {
     const { errors } = this.state
     return (
       <StyledPage>
+        <BackButton path={'/profile'} />
         <StyledNarrowSection>
           <StyledTitle>New Issue</StyledTitle>
           <form onSubmit={this.onSubmit}>
@@ -85,7 +88,7 @@ class IssueNew extends Component {
             </div>
             <StyledButtonRight>
               <StyledButton big type='submit'>
-                  Submit
+                Submit
               </StyledButton>
             </StyledButtonRight>
           </form>

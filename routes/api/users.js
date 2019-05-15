@@ -116,16 +116,44 @@ router.post('/login', (req, res) => {
   })
 })
 
+// @route  GET api/users/writers/
+// @desc   GET writers
+// @access Private
+router.get(
+  '/writers/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user.id).then(user => {
+      // Check if the user is an admin
+      if (user.role !== '0') {
+        return res.status(401).json({ notauthorized: 'User not authorized' })
+      } else {
+        User.find({ role: '1' })
+          .select('name')
+          .sort({ date: -1 })
+          .then(writers => {
+            res.json(writers)
+          })
+          .catch(err => console.log(err))
+      }
+    })
+  }
+)
+
 // @route  GET api/users/current
 // @desc   Return current user
 // @access Private
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.json({
-    id: req.user.id,
-    name: req.user.name,
-    email: req.user.email,
-    role: req.user.role
-  })
-})
+router.get(
+  '/current',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email,
+      role: req.user.role
+    })
+  }
+)
 
 module.exports = router

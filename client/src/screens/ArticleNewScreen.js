@@ -11,6 +11,7 @@ import SelectListGroup from '../components/common/SelectListGroup'
 import TextEditor from '../components/TextEditor'
 import Spinner from '../components/common/Spinner'
 import StyledButton from '../components/common/StyledButton'
+import BackButton from '../components/common/BackButton'
 
 import { getIssues, createIssue } from '../actions/issuesActions'
 import { createArticle } from '../actions/articlesActions'
@@ -33,7 +34,7 @@ const topics = [
 ]
 
 class ArticleNew extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       description: '',
@@ -51,7 +52,7 @@ class ArticleNew extends Component {
     this.getContent = this.getContent.bind(this)
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.errors !== this.props.errors) {
       this.setState({
         errors: this.props.errors
@@ -68,7 +69,8 @@ class ArticleNew extends Component {
     // if content received from text editor, continue creating the article
     if (prevState.getContent === true && this.state.getContent === false) {
       const { user } = this.props.auth
-      const topic = this.state.topic === 'Other' ? this.state.topicOther : this.state.topic
+      const topic =
+        this.state.topic === 'Other' ? this.state.topicOther : this.state.topic
 
       const newArticle = {
         name: this.state.name,
@@ -90,11 +92,11 @@ class ArticleNew extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getIssues()
   }
 
-  onSubmit (e) {
+  onSubmit(e) {
     e.preventDefault()
 
     // enable to get content from TextEditor
@@ -104,20 +106,20 @@ class ArticleNew extends Component {
     })
   }
 
-  onChange (e) {
+  onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  getContent (rawContent) {
+  getContent(rawContent) {
     this.setState({
       content: rawContent,
       getContent: false
     })
   }
 
-  render () {
+  render() {
     const { issues } = this.props.issues
     const { errors } = this.state
 
@@ -127,6 +129,7 @@ class ArticleNew extends Component {
     })
     return (
       <StyledPage>
+        <BackButton path={'/profile'} />
         {this.state.loading && <Spinner />}
         <StyledNarrowSection>
           <StyledTitle>New Article</StyledTitle>
@@ -152,7 +155,8 @@ class ArticleNew extends Component {
                 placeholder='Topic'
                 name='topic'
                 value={this.state.topic}
-                sendContentFunction onChange={this.onChange}
+                sendContentFunction
+                onChange={this.onChange}
                 options={topics}
                 error={errors.topic}
                 info='Select a topic for this article'
@@ -175,10 +179,9 @@ class ArticleNew extends Component {
 
             <StyledButtonRight>
               <StyledButton big type='submit'>
-          Submit
+                Submit
               </StyledButton>
             </StyledButtonRight>
-
           </form>
           <p>{this.state.content}</p>
         </StyledNarrowSection>
@@ -201,4 +204,7 @@ const mapStateToProps = state => ({
   articles: state.articles
 })
 
-export default connect(mapStateToProps, { getIssues, createIssue, createArticle })(ArticleNew)
+export default connect(
+  mapStateToProps,
+  { getIssues, createIssue, createArticle }
+)(ArticleNew)
