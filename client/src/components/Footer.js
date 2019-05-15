@@ -3,6 +3,7 @@ import { palette, spaces, fontSizes, device } from '../styles/styles'
 import styled from 'styled-components'
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'
 import StyledLink from './common/StyledLink'
+import StyledButton from './common/StyledButton'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -11,7 +12,7 @@ import { logOutUser } from '../actions/authActions'
 const StyledNavBar = styled.div`
   display: flex;
   margin: 0px;
-  background-color: ${palette.darkBackgroundColor};
+  background-color: ${palette.BackgroundColor};
   height: 150px;
   padding: ${spaces.medium}px;
   flex-direction: row;
@@ -72,6 +73,7 @@ class Footer extends Component {
 
   render() {
     let currentYear = new Date().getFullYear()
+    const isAuthenticated = this.props.auth.isAuthenticated
     return (
       <div>
         <StyledNavBar>
@@ -80,10 +82,15 @@ class Footer extends Component {
               <StyledLogo src={require('../assets/images/logo_small.png')} />
             </Link> */}
             <StyledMap>
-              <button onClick={e => this.onLogoutClick(e)}>Log Out</button>
-              <StyledLink to='/login'>Login</StyledLink>
-              <StyledLink to='/register'>Register</StyledLink>
-              <StyledLink to='/profile'>Profile</StyledLink>
+              {isAuthenticated && (
+                <StyledButton onClick={e => this.onLogoutClick(e)}>
+                  Log Out
+                </StyledButton>
+              )}
+              {!isAuthenticated && <StyledLink to='/login'>Login</StyledLink>}
+              {!isAuthenticated && (
+                <StyledLink to='/register'>Register</StyledLink>
+              )}
             </StyledMap>
 
             <StyledCopy>

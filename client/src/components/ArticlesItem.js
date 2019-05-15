@@ -10,14 +10,15 @@ const StyledTitleArticleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: ${props => props.selected ? `${palette.primaryColor}` : `${palette.text}`};
+  color: ${props =>
+    props.selected ? `${palette.primaryColor}` : `${palette.text}`};
   white-space: nowrap;
 `
 
 class ArticlesItem extends Component {
-  render () {
+  render() {
     return (
-      <StyledTitleArticleWrapper >
+      <StyledTitleArticleWrapper>
         <li>
           <StyledLink
             to={`/article/${this.props.id}`}

@@ -6,23 +6,29 @@ import { palette, spaces, fontSizes } from '../../styles/styles'
 const StyledButton = styled.button`
   cursor: pointer;
   text-decoration: none;
-  color: ${props => props.selected ? `${palette.primaryColor}` : `${palette.text}`};
+  color: ${props =>
+    props.selected ? `${palette.primaryColor}` : `${palette.text}`};
   border: none;
   background: none;
   font-family: inherit;
-  font-size: ${props => props.big ? `${fontSizes.subTitle}px` : `inherit`};;
-  padding-top: ${spaces.narrow}px;
-  padding-bottom: ${spaces.narrow}px;
+  font-size: ${props => (props.big ? `${fontSizes.subTitle}px` : `inherit`)};
+  padding: ${spaces.narrow}px;
+  /* padding-top: ${spaces.narrow}px;
+  padding-bottom: ${spaces.narrow}px; */
 
   -webkit-transition: color 0.2s, text-shadow 0.2s; /* Safari */
   transition: color 0.2s, text-shadow 0.2s;
   transition-timing-function: ease-out;
 
-  &:focus, &:visited, &:link, &:active {
-      text-decoration: none;
+  &:focus,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
   }
 
-  &:focus, &:target {
+  &:focus,
+  &:target {
     color: ${palette.primaryColor};
   }
 
@@ -39,4 +45,4 @@ const StyledButton = styled.button`
   }
 `
 
-export default (props) => <StyledButton {...props} />
+export default props => <StyledButton {...props} />

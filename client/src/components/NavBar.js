@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { palette, spaces, fontSizes, device } from '../styles/styles'
+import { palette, spaces, device } from '../styles/styles'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
+
+import StyledLink from './common/StyledLink'
 
 const StyledNavBar = styled.div`
   margin: 0px;
   display: flex;
-  background-color: ${palette.darkBackgroundColor};
+  background-color: ${palette.BackgroundColor};
   height: 75px;
   padding: ${spaces.medium}px;
   flex-direction: row;
@@ -20,11 +24,11 @@ const StyledNavBarContent = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media ${device.mobileS} {  
+  @media ${device.mobileS} {
     min-width: 100%;
   }
 
-    @media ${device.laptop} {  
+  @media ${device.laptop} {
     min-width: 1000px;
   }
 
@@ -38,12 +42,12 @@ const StyledLinks = styled.div`
   flex-direction: row;
 `
 
-const StyledLink = styled(Link)`
-  margin-left: ${spaces.medium}px;
-  color: ${palette.darkText};
-  text-decoration: none;
-  font-size: ${fontSizes.subTitle}px;
-`
+// const StyledLink = styled(Link)`
+//   margin-left: ${spaces.medium}px;
+//   color: ${palette.darkText};
+//   text-decoration: none;
+//   font-size: ${fontSizes.subTitle}px;
+// `
 
 const StyledLogo = styled.img`
   height: 50px;
@@ -51,19 +55,28 @@ const StyledLogo = styled.img`
 `
 
 class NavBar extends Component {
-  render () {
+  render() {
+    const hasProfile =
+      this.props.auth.isAuthenticated &&
+      (this.props.auth.user.role === '0' || this.props.auth.user.role === '1')
+
+    let name = ''
+    if (this.props.auth.isAuthenticated)
+      name = this.props.auth.user.name.split(' ')
+
     return (
       <div>
         <StyledNavBar>
           <StyledNavBarContent>
-            <Link to='/'>
+            {/* <Link to='/'>
               <StyledLogo src={require('../assets/images/logo_small.png')} />
-            </Link>
+            </Link> */}
+            {this.props.auth.isAuthenticated && <div>{`Hi, ${name[0]}`}</div>}
             <StyledLinks>
-              <StyledLink to='/'>Home</StyledLink>
-              <StyledLink to='/login'>Login</StyledLink>
-              <StyledLink to='/register'>Register</StyledLink>
-              <StyledLink to='/profile'>Profile</StyledLink>
+              {/* <StyledLink to='/'>Home</StyledLink> */}
+              {hasProfile && (
+                <StyledLink to='/profile'>Your Profile</StyledLink>
+              )}
             </StyledLinks>
           </StyledNavBarContent>
         </StyledNavBar>
@@ -72,4 +85,15 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar
+NavBar.propTypes = {
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+export default connect(
+  mapStateToProps,
+  {}
+)(NavBar)

@@ -8,8 +8,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${props =>
     props.selected ? `${palette.primaryColor}` : `${palette.text}`};
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: ${spaces.narrow}px;
 
   -webkit-transition: color 0.2s; /* Safari */
   transition: color 0.2s;
