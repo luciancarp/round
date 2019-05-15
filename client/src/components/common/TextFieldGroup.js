@@ -13,7 +13,8 @@ const TextFieldGroup = ({
   info,
   type,
   onChange,
-  disabled
+  disabled,
+  noMargin
 }) => {
   return (
     <div>
@@ -24,12 +25,11 @@ const TextFieldGroup = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
+        noMargin={noMargin}
       />
       {/* {info && <small >{info}</small>} */}
       {/* {error && <div >{error}</div>} */}
-      <ErrorMsg
-        error={error}
-        msg={error} />
+      <ErrorMsg error={error} msg={error} />
     </div>
   )
 }

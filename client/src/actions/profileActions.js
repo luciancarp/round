@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { GET_WRITERS, GET_ERRORS, CLEAR_ERRORS } from './types'
+import { GET_WRITERS, CLEAR_ERRORS } from './types'
 
 // get writers
 export const getWriters = () => dispatch => {

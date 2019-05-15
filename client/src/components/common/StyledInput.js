@@ -7,13 +7,16 @@ const StyledInput = styled.input`
   padding: ${spaces.narrow}px;
   border-style: solid;
   border-width: 2px 2px 2px 2px;
-  border-radius: 5px 5px 5px 5px; 
+  border-radius: 5px 5px 5px 5px;
   border-color: ${palette.text};
   background: ${palette.darkBackgroundColor};
   font-family: inherit;
   font-size: inherit;
   color: ${palette.text};
-  margin-bottom: ${spaces.narrow}px;
+
+  margin-bottom: ${props => (props.noMargin ? `0px` : `${spaces.narrow}px`)};
+
+  /* margin-bottom: ${spaces.narrow}px; */
   /* min-width: 300px; */
   width: 100%;
 
@@ -36,4 +39,4 @@ const StyledInput = styled.input`
   }
 `
 
-export default (props) => <StyledInput {...props} />
+export default props => <StyledInput {...props} />

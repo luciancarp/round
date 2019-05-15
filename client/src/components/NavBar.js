@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { palette, spaces, device } from '../styles/styles'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -42,17 +41,10 @@ const StyledLinks = styled.div`
   flex-direction: row;
 `
 
-// const StyledLink = styled(Link)`
-//   margin-left: ${spaces.medium}px;
-//   color: ${palette.darkText};
-//   text-decoration: none;
-//   font-size: ${fontSizes.subTitle}px;
+// const StyledLogo = styled.img`
+//   height: 50px;
+//   width: 50px;
 // `
-
-const StyledLogo = styled.img`
-  height: 50px;
-  width: 50px;
-`
 
 class NavBar extends Component {
   render() {
@@ -73,7 +65,6 @@ class NavBar extends Component {
             </Link> */}
             {this.props.auth.isAuthenticated && <div>{`Hi, ${name[0]}`}</div>}
             <StyledLinks>
-              {/* <StyledLink to='/'>Home</StyledLink> */}
               {hasProfile && (
                 <StyledLink to='/profile'>Your Profile</StyledLink>
               )}
