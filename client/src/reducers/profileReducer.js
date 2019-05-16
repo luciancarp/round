@@ -1,4 +1,4 @@
-import { GET_WRITERS } from '../actions/types'
+import { GET_WRITERS, ADD_WRITER } from '../actions/types'
 
 const initialState = {
   writers: []
@@ -10,6 +10,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         writers: action.payload
+      }
+    case ADD_WRITER:
+      return {
+        ...state,
+        writers: [action.payload, ...state.writers]
       }
     default:
       return state

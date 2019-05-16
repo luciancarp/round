@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import StyledButton from './common/StyledButton'
 import TextFieldGroup from '../components/common/TextFieldGroup'
+import { addWriter } from '../actions/profileActions'
 
 import { spaces } from '../styles/styles'
 
@@ -41,6 +42,10 @@ class NewWriter extends Component {
         errors: this.props.errors
       })
     }
+
+    if (prevProps.profile.writers !== this.props.profile.writers) {
+      this._showInput()
+    }
   }
 
   onChange(e) {
@@ -52,22 +57,18 @@ class NewWriter extends Component {
   onSubmit(e) {
     e.preventDefault()
 
-    const { user } = this.props.auth
+    // const { user } = this.props.auth
 
-    // const newIssue = {
-    //   name: this.state.name,
-    //   description: this.state.description,
-    //   user: user.id,
-    //   avatar: user.avatar
-    // }
+    const newWriter = {
+      email: this.state.email
+    }
 
-    // this.props.createIssue(newIssue)
-    // this.setState({
-    //   text: '',
-    //   description: ''
-    // })
+    this.props.addWriter(newWriter)
+    this.setState({
+      email: ''
+    })
 
-    this._showInput()
+    // this._showInput()
   }
 
   _showInput() {
@@ -106,15 +107,17 @@ class NewWriter extends Component {
 
 NewWriter.propTypes = {
   auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  profile: state.profile,
   errors: state.errors
 })
 
 export default connect(
   mapStateToProps,
-  {}
+  { addWriter }
 )(NewWriter)

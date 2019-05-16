@@ -140,6 +140,48 @@ router.get(
   }
 )
 
+// @route  POST api/users/add-writer/
+// @desc   Add writer using email
+// @access Private
+router.post(
+  '/add-writer/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    let errors = {}
+    User.findById(req.user.id).then(user => {
+      // Check if the user is an admin
+      if (user.role !== '0') {
+        return res.status(401).json({ notauthorized: 'User not authorized' })
+      } else {
+        User.findOne({ email: req.body.email })
+          .then(user => {
+            if (!user) {
+              errors.email = 'User not found'
+              return res.status(404).json(errors)
+            }
+            if (user.role === `1`) {
+              errors.email = 'User is already a writer'
+              return res.status(404).json(errors)
+            }
+            user.role = '1'
+            user
+              .save()
+              .then(user =>
+                res.json({
+                  _id: user._id,
+                  name: user.name
+                })
+              )
+              .catch(err => {
+                console.log(err)
+              })
+          })
+          .catch(err => console.log(err))
+      }
+    })
+  }
+)
+
 // @route  GET api/users/current
 // @desc   Return current user
 // @access Private
