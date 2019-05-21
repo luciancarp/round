@@ -131,60 +131,62 @@ class ArticleNew extends Component {
       <StyledPage>
         <BackButton path={'/profile'} />
         {this.state.loading && <Spinner />}
-        <StyledNarrowSection>
-          <StyledTitle>New Article</StyledTitle>
-          <SelectListGroup
-            placeholder='Issue'
-            name='issue'
-            value={this.state.issue}
-            onChange={this.onChange}
-            options={issuesOptions}
-            error={errors.issue}
-            info='Select the issue in which to post this article'
-          />
-          <form onSubmit={this.onSubmit}>
-            <div>
-              <TextFieldGroup
-                placeholder='Title'
-                name='name'
-                value={this.state.name}
-                onChange={this.onChange}
-                error={errors.name}
-              />
-              <SelectListGroup
-                placeholder='Topic'
-                name='topic'
-                value={this.state.topic}
-                sendContentFunction
-                onChange={this.onChange}
-                options={topics}
-                error={errors.topic}
-                info='Select a topic for this article'
-              />
-              {this.state.topic === 'Other' && (
-                <TextFieldGroup
-                  placeholder='New Topic'
-                  name='topicOther'
-                  value={this.state.topicOther}
-                  onChange={this.onChange}
-                  error={errors.topic}
-                />
-              )}
-            </div>
-
-            <TextEditor
-              sendContent={this.state.getContent}
-              sendContentFunction={this.getContent}
+        {!this.state.loading && (
+          <StyledNarrowSection>
+            <StyledTitle>New Article</StyledTitle>
+            <SelectListGroup
+              placeholder='Issue'
+              name='issue'
+              value={this.state.issue}
+              onChange={this.onChange}
+              options={issuesOptions}
+              error={errors.issue}
+              info='Select the issue in which to post this article'
             />
+            <form onSubmit={this.onSubmit}>
+              <div>
+                <TextFieldGroup
+                  placeholder='Title'
+                  name='name'
+                  value={this.state.name}
+                  onChange={this.onChange}
+                  error={errors.name}
+                />
+                <SelectListGroup
+                  placeholder='Topic'
+                  name='topic'
+                  value={this.state.topic}
+                  sendContentFunction
+                  onChange={this.onChange}
+                  options={topics}
+                  error={errors.topic}
+                  info='Select a topic for this article'
+                />
+                {this.state.topic === 'Other' && (
+                  <TextFieldGroup
+                    placeholder='New Topic'
+                    name='topicOther'
+                    value={this.state.topicOther}
+                    onChange={this.onChange}
+                    error={errors.topic}
+                  />
+                )}
+              </div>
 
-            <StyledButtonRight>
-              <StyledButton big type='submit'>
-                Submit
-              </StyledButton>
-            </StyledButtonRight>
-          </form>
-          <p>{this.state.content}</p>
-        </StyledNarrowSection>
+              <TextEditor
+                sendContent={this.state.getContent}
+                sendContentFunction={this.getContent}
+              />
+
+              <StyledButtonRight>
+                <StyledButton big type='submit'>
+                  Submit
+                </StyledButton>
+              </StyledButtonRight>
+            </form>
+            <p>{this.state.content}</p>
+          </StyledNarrowSection>
+        )}
       </StyledPage>
     )
   }

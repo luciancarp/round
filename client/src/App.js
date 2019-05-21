@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import setAuthToken from './utils/setAuthToken'
 import { setCurrentUser, logOutUser } from './actions/authActions'
 
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { palette, spaces } from './styles/styles'
 
 import Navbar from './components/NavBar'
@@ -12,7 +13,7 @@ import HomeScreen from './screens/HomeScreen'
 import IssueScreen from './screens/IssueScreen'
 import IssueNew from './screens/IssueNewScreen'
 import ArticleNew from './screens/ArticleNewScreen'
-import Footer from './components/Footer'
+// import Footer from './components/Footer'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
@@ -76,32 +77,89 @@ const GlobalStyle = createGlobalStyle`
 }
 `
 
+const Wrapper = styled.div`
+  // omitted
+
+  div.transition-group {
+    position: relative;
+  }
+  section.route-section {
+    position: absolute;
+    width: 100%;
+    top: 75;
+    left: 0;
+  }
+`
+
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <Router>
-          <div>
+          <Wrapper>
             <Navbar />
+            <Route
+              render={({ location }) => {
+                return (
+                  <TransitionGroup
+                    component={null}
+                    className='transition-group'
+                  >
+                    <CSSTransition
+                      key={location.key}
+                      timeout={{
+                        enter: 500,
+                        exit: 100
+                      }}
+                      classNames='fade'
+                    >
+                      {/* <section className='route-section'> */}
+                      <Switch location={location}>
+                        <Route exact path='/' component={HomeScreen} />
+                        <Route exact path='/login' component={LoginScreen} />
+                        <Route
+                          exact
+                          path='/register'
+                          component={RegisterScreen}
+                        />
+                        <Route
+                          exact
+                          path='/issue/:id'
+                          component={IssueScreen}
+                        />
+                        <Route
+                          exact
+                          path='/article/:id'
+                          component={ArticleScreen}
+                        />
+                        <Switch>
+                          <PrivateRoute
+                            exact
+                            path='/profile'
+                            component={ProfileScreen}
+                          />
+                          <PrivateRoute
+                            exact
+                            path='/new-issue'
+                            component={IssueNew}
+                          />
+                          <PrivateRoute
+                            exact
+                            path='/new-article'
+                            component={ArticleNew}
+                          />
+                        </Switch>
+                      </Switch>
+                      {/* <Footer /> */}
+                      {/* </section> */}
+                    </CSSTransition>
+                  </TransitionGroup>
+                )
+              }}
+            />
 
-            <Route exact path='/' component={HomeScreen} />
-            <Route exact path='/login' component={LoginScreen} />
-            <Route exact path='/register' component={RegisterScreen} />
-            <Switch>
-              <PrivateRoute exact path='/profile' component={ProfileScreen} />
-            </Switch>
-            <Route exact path='/issue/:id' component={IssueScreen} />
-            <Route exact path='/article/:id' component={ArticleScreen} />
-            <Switch>
-              <PrivateRoute exact path='/new-issue' component={IssueNew} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path='/new-article' component={ArticleNew} />
-            </Switch>
-
-            <Footer />
             <GlobalStyle />
-          </div>
+          </Wrapper>
         </Router>
       </Provider>
     )

@@ -10,6 +10,8 @@ import ArticlesItem from '../components/ArticlesItem'
 import Spinner from '../components/common/Spinner'
 import StyledButton from '../components/common/StyledButton'
 import BackButton from '../components/common/BackButton'
+import FadeTransition from '../components/FadeTransition'
+import FadeWrapper from '../components/FadeWrapper'
 
 import { getArticlesByIssue } from '../actions/articlesActions'
 
@@ -66,34 +68,38 @@ class IssueScreen extends Component {
       <StyledPage>
         <BackButton path={'/'} />
         {this.state.loading && <Spinner />}
-        <h1>{issueName}</h1>
-        {topicsInIssue.map(topic => (
-          <span>
-            <StyledButton
-              onClick={() => this.setState({ topicSelected: topic })}
-              selected={this.state.topicSelected === topic}
-            >
-              {topic}
+        <FadeTransition in={!this.state.loading}>
+          <FadeWrapper>
+            <h1>{issueName}</h1>
+            {topicsInIssue.map(topic => (
+              <span>
+                <StyledButton
+                  onClick={() => this.setState({ topicSelected: topic })}
+                  selected={this.state.topicSelected === topic}
+                >
+                  {topic}
+                </StyledButton>
+                <span> • </span>
+              </span>
+            ))}
+            <StyledButton onClick={() => this.setState({ topicSelected: '' })}>
+              all
             </StyledButton>
-            <span> • </span>
-          </span>
-        ))}
-        <StyledButton onClick={() => this.setState({ topicSelected: '' })}>
-          all
-        </StyledButton>
-        <StyledUnorderedList>
-          {articlesByIssue.map(article => (
-            <ArticlesItem
-              key={article._id}
-              id={article._id}
-              name={article.name}
-              author={article.user}
-              text={article.text}
-              date={article.date}
-              selected={article.selected}
-            />
-          ))}
-        </StyledUnorderedList>
+            <StyledUnorderedList>
+              {articlesByIssue.map(article => (
+                <ArticlesItem
+                  key={article._id}
+                  id={article._id}
+                  name={article.name}
+                  author={article.user}
+                  text={article.text}
+                  date={article.date}
+                  selected={article.selected}
+                />
+              ))}
+            </StyledUnorderedList>
+          </FadeWrapper>
+        </FadeTransition>
       </StyledPage>
     )
   }

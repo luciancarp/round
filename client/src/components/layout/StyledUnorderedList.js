@@ -8,8 +8,31 @@ const StyledUnorderedList = styled.ul`
   list-style-type: none;
   border-style: solid;
   border-width: 0px 0px 0px 3px;
-  border-radius: 0px 0px 0px 0px; 
+  border-radius: 0px 0px 0px 0px;
   border-color: ${palette.primaryColor};
+
+  transition: opacity 0.5s;
+  transition-timing-function: ease-out;
+
+  // enter from
+  &.fade-enter {
+    opacity: 0;
+  }
+
+  // enter to
+  &.fade-enter-active {
+    opacity: 1;
+  }
+
+  // exit from
+  &.fade-exit {
+    opacity: 1;
+  }
+
+  // exit to
+  &.fade-exit-active {
+    opacity: 0;
+  }
 `
 
 export default StyledUnorderedList

@@ -11,8 +11,10 @@ import DateText from '../components/common/DateText'
 import BackButton from '../components/common/BackButton'
 import CommentInput from '../components/CommentInput'
 import Comments from '../components/Comments'
+import FadeTransition from '../components/FadeTransition'
+import FadeWrapper from '../components/FadeWrapper'
 
-import { palette, spaces } from '../styles/styles'
+import { spaces } from '../styles/styles'
 
 import { getArticle } from '../actions/articlesActions'
 
@@ -69,17 +71,24 @@ class ArticleScreen extends Component {
       <StyledPage>
         <BackButton path={`/issue/${this.state.issue}`} />
         {this.state.loading && <Spinner />}
-        <h1>{this.state.name}</h1>
-        <small>{<DateText date={this.state.date} />}</small>
-        <StyledText>
-          <Editor editorState={this.state.editorState} readOnly />
-        </StyledText>
-        <StyledNarrowSection>
-          <StyledSubTitle>Post a comment</StyledSubTitle>
-          <CommentInput ArticleId={this.state.id} />
-          <h3>Comments</h3>
-          <Comments articleId={this.state.id} comments={this.state.comments} />
-        </StyledNarrowSection>
+        <FadeTransition in={!this.state.loading}>
+          <FadeWrapper>
+            <h1>{this.state.name}</h1>
+            <small>{<DateText date={this.state.date} />}</small>
+            <StyledText>
+              <Editor editorState={this.state.editorState} readOnly />
+            </StyledText>
+            <StyledNarrowSection>
+              <StyledSubTitle>Post a comment</StyledSubTitle>
+              <CommentInput ArticleId={this.state.id} />
+              <h3>Comments</h3>
+              <Comments
+                articleId={this.state.id}
+                comments={this.state.comments}
+              />
+            </StyledNarrowSection>
+          </FadeWrapper>
+        </FadeTransition>
       </StyledPage>
     )
   }

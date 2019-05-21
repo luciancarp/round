@@ -25,14 +25,17 @@ class LoginScreen extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.auth.isAuthenticated !== this.props.auth.isAuthenticated &&
+      this.props.auth.isAuthenticated === true
+    ) {
       this.props.history.push('/')
     }
 
-    if (nextProps.errors) {
+    if (prevProps.errors !== this.props.errors) {
       this.setState({
-        errors: nextProps.errors
+        errors: this.props.errors
       })
     }
   }
