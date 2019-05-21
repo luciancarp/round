@@ -14,7 +14,7 @@ import BackButton from '../components/common/BackButton'
 import { getArticlesByIssue } from '../actions/articlesActions'
 
 class IssueScreen extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       topicSelected: '',
@@ -23,12 +23,14 @@ class IssueScreen extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getArticlesByIssue(this.props.match.params.id)
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    if (prevProps.articles.articlesByIssue !== this.props.articles.articlesByIssue) {
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.articles.articlesByIssue !== this.props.articles.articlesByIssue
+    ) {
       const { articlesByIssue } = this.props.articles
       this.setState({
         articlesByIssue: articlesByIssue,
@@ -37,7 +39,7 @@ class IssueScreen extends Component {
     }
   }
 
-  render () {
+  render() {
     const { articlesByIssue } = this.state
 
     let issueName = ''
@@ -48,37 +50,40 @@ class IssueScreen extends Component {
     let topicsInIssue = []
 
     articlesByIssue.forEach(article => {
-      if (article.topic !== null && topicsInIssue.indexOf(article.topic) === -1) {
+      if (
+        article.topic !== null &&
+        topicsInIssue.indexOf(article.topic) === -1
+      ) {
         topicsInIssue.push(article.topic)
       }
     })
 
     articlesByIssue.forEach(article => {
-      article.selected = (article.topic === this.state.topicSelected)
+      article.selected = article.topic === this.state.topicSelected
     })
 
     return (
       <StyledPage>
-        {this.state.loading && <Spinner />}
         <BackButton path={'/'} />
+        {this.state.loading && <Spinner />}
         <h1>{issueName}</h1>
-        {
-          topicsInIssue.map(topic =>
-            <span>
-              <StyledButton
-                onClick={() => this.setState({ topicSelected: topic })}
-                selected={(this.state.topicSelected === topic)}
-              >
-                {topic}
-              </StyledButton>
-              <span> • </span>
-            </span>
-          )
-        }
-        <StyledButton onClick={() => this.setState({ topicSelected: '' })}>all</StyledButton>
+        {topicsInIssue.map(topic => (
+          <span>
+            <StyledButton
+              onClick={() => this.setState({ topicSelected: topic })}
+              selected={this.state.topicSelected === topic}
+            >
+              {topic}
+            </StyledButton>
+            <span> • </span>
+          </span>
+        ))}
+        <StyledButton onClick={() => this.setState({ topicSelected: '' })}>
+          all
+        </StyledButton>
         <StyledUnorderedList>
-          {
-            articlesByIssue.map(article => <ArticlesItem
+          {articlesByIssue.map(article => (
+            <ArticlesItem
               key={article._id}
               id={article._id}
               name={article.name}
@@ -86,8 +91,8 @@ class IssueScreen extends Component {
               text={article.text}
               date={article.date}
               selected={article.selected}
-            />)
-          }
+            />
+          ))}
         </StyledUnorderedList>
       </StyledPage>
     )

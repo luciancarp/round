@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import styled from 'styled-components'
 
 import StyledPage from '../components/layout/StyledPage'
 import StyledTitle from '../components/layout/StyledTitle'
@@ -11,7 +13,7 @@ import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import { getIssues } from '../actions/issuesActions'
 
 class HomeScreen extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       title: '',
@@ -20,11 +22,11 @@ class HomeScreen extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getIssues()
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.issues.issues !== this.props.issues.issues) {
       const { issues } = this.props.issues
       this.setState({
@@ -35,22 +37,23 @@ class HomeScreen extends Component {
     }
   }
 
-  render () {
+  render() {
     const { issues } = this.state
     return (
       <StyledPage>
         {this.state.loading && <Spinner />}
         <StyledTitle>{this.state.title}</StyledTitle>
         <StyledUnorderedList>
-          {
-            issues.map(issue => <IssuesItem
+          {issues.map((issue, index) => (
+            <IssuesItem
+              index
               key={issue._id}
               id={issue._id}
               name={issue.name}
               description={issue.description}
               date={issue.date}
-            />)
-          }
+            />
+          ))}
         </StyledUnorderedList>
       </StyledPage>
     )

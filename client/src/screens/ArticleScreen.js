@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
+import styled from 'styled-components'
 
 import StyledPage from '../components/layout/StyledPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
@@ -11,10 +12,21 @@ import BackButton from '../components/common/BackButton'
 import CommentInput from '../components/CommentInput'
 import Comments from '../components/Comments'
 
+import { palette, spaces } from '../styles/styles'
+
 import { getArticle } from '../actions/articlesActions'
 
+const StyledSubTitle = styled.h2`
+  padding-top: ${spaces.wide}px;
+`
+
+const StyledText = styled.p`
+  padding-bottom: ${spaces.wide}px;
+  line-height: 1.5em;
+`
+
 class ArticleScreen extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       editorState: EditorState.createEmpty(),
@@ -26,13 +38,15 @@ class ArticleScreen extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getArticle(this.props.match.params.id)
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    if (prevProps.articles.article !== this.props.articles.article &&
-        this.props.articles.article._id === this.props.match.params.id) {
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.articles.article !== this.props.articles.article &&
+      this.props.articles.article._id === this.props.match.params.id
+    ) {
       const { article } = this.props.articles
       const { comments } = article
 
@@ -50,24 +64,21 @@ class ArticleScreen extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <StyledPage>
-        {this.state.loading && <Spinner />}
         <BackButton path={`/issue/${this.state.issue}`} />
+        {this.state.loading && <Spinner />}
         <h1>{this.state.name}</h1>
         <small>{<DateText date={this.state.date} />}</small>
-        <p>
+        <StyledText>
           <Editor editorState={this.state.editorState} readOnly />
-        </p>
+        </StyledText>
         <StyledNarrowSection>
-          <h3>Post a comment</h3>
+          <StyledSubTitle>Post a comment</StyledSubTitle>
           <CommentInput ArticleId={this.state.id} />
           <h3>Comments</h3>
-          <Comments
-            articleId={this.state.id}
-            comments={this.state.comments}
-          />
+          <Comments articleId={this.state.id} comments={this.state.comments} />
         </StyledNarrowSection>
       </StyledPage>
     )
@@ -84,4 +95,7 @@ const mapStateToProps = state => ({
   articles: state.articles
 })
 
-export default connect(mapStateToProps, { getArticle })(ArticleScreen)
+export default connect(
+  mapStateToProps,
+  { getArticle }
+)(ArticleScreen)

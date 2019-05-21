@@ -15,13 +15,11 @@ const StyleTitleIssueWrapper = styled.div`
 `
 
 class IssuesItem extends Component {
-  render () {
+  render() {
     return (
       <StyleTitleIssueWrapper>
         <li>
-          <StyledLink
-            to={`/issue/${this.props.id}`}
-          >
+          <StyledLink to={`/issue/${this.props.id}`}>
             {this.props.name} • {<DateText date={this.props.date} issue />}
           </StyledLink>
         </li>
