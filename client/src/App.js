@@ -69,11 +69,15 @@ const GlobalStyle = createGlobalStyle`
   font-family: 'Acre-Medium';
   padding: ${spaces.narrow};
   font-size: 1em;
+
+  button {
+    cursor: pointer;
+  }
 }
 `
 
 class App extends Component {
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <Router>

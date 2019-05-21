@@ -1,6 +1,12 @@
 import axios from 'axios'
 
-import { GET_WRITERS, CLEAR_ERRORS, GET_ERRORS, ADD_WRITER } from './types'
+import {
+  GET_WRITERS,
+  CLEAR_ERRORS,
+  GET_ERRORS,
+  ADD_WRITER,
+  REMOVE_WRITER
+} from './types'
 
 // get writers
 export const getWriters = () => dispatch => {
@@ -28,6 +34,24 @@ export const addWriter = data => dispatch => {
     .then(res =>
       dispatch({
         type: ADD_WRITER,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
+export const removeWriter = id => dispatch => {
+  dispatch(clearErrors())
+  axios
+    .post(`/api/users/remove-writer/${id}`, id)
+    .then(res =>
+      dispatch({
+        type: REMOVE_WRITER,
         payload: res.data
       })
     )

@@ -67,10 +67,10 @@ export const createArticle = (articleData, history) => dispatch => {
 }
 
 // Add comment
-export const addComment = (postId, commentData) => dispatch => {
+export const addComment = (articleId, commentData) => dispatch => {
   dispatch(clearErrors())
   axios
-    .post(`/api/articles/comment/${postId}`, commentData)
+    .post(`/api/articles/comment/${articleId}`, commentData)
     .then(res =>
       dispatch({
         type: GET_ARTICLE,

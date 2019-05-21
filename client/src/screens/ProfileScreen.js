@@ -8,6 +8,7 @@ import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import BackButton from '../components/common/BackButton'
 import StyledButton from '../components/common/StyledButton'
 import NewWriter from '../components/NewWriter'
+import WriterItem from '../components/WriterItem'
 import { spaces, palette } from '../styles/styles'
 import styled from 'styled-components'
 
@@ -99,7 +100,7 @@ class ProfileScreen extends Component {
             </StyledActions>
             <StyledUnorderedList>
               {writers.map(writer => (
-                <div>{writer.name}</div>
+                <WriterItem name={writer.name} id={writer._id} />
               ))}
             </StyledUnorderedList>
           </div>

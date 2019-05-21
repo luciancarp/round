@@ -1,4 +1,4 @@
-import { GET_WRITERS, ADD_WRITER } from '../actions/types'
+import { GET_WRITERS, ADD_WRITER, REMOVE_WRITER } from '../actions/types'
 
 const initialState = {
   writers: []
@@ -15,6 +15,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         writers: [action.payload, ...state.writers]
+      }
+    case REMOVE_WRITER:
+      return {
+        ...state,
+        writers: state.writers.filter(
+          writer => writer._id !== action.payload._id
+        )
       }
     default:
       return state

@@ -8,6 +8,7 @@ const passport = require('passport')
 // Load input Validation
 const validateRegisterInput = require('../../validation/register')
 const validateLoginInput = require('../../validation/login')
+const validateWriterInput = require('../../validation/writer')
 
 // Load User model
 const User = require('../../models/User')
@@ -147,7 +148,12 @@ router.post(
   '/add-writer/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    let errors = {}
+    const { errors, isValid } = validateWriterInput(req.body)
+
+    // Check Validation
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
     User.findById(req.user.id).then(user => {
       // Check if the user is an admin
       if (user.role !== '0') {
@@ -163,7 +169,54 @@ router.post(
               errors.email = 'User is already a writer'
               return res.status(404).json(errors)
             }
+            if (user.role === '0') {
+              errors.email = 'The Admin is already a writer'
+              return res.status(404).json(errors)
+            }
             user.role = '1'
+            user
+              .save()
+              .then(user =>
+                res.json({
+                  _id: user._id,
+                  name: user.name
+                })
+              )
+              .catch(err => {
+                console.log(err)
+              })
+          })
+          .catch(err => console.log(err))
+      }
+    })
+  }
+)
+
+// @route  POST api/users/remove-writer/:id
+// @desc   Change role of writer to reader using id
+// @access Private
+router.post(
+  '/remove-writer/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const errors = {}
+
+    User.findById(req.user.id).then(user => {
+      // Check if the user is an admin
+      if (user.role !== '0') {
+        return res.status(401).json({ notauthorized: 'User not authorized' })
+      } else {
+        User.findById(req.params.id)
+          .then(user => {
+            if (!user) {
+              errors.email = 'User not found'
+              return res.status(404).json(errors)
+            }
+            if (user.role === `2` || user.role === '0') {
+              errors.email = 'User is not a writer'
+              return res.status(404).json(errors)
+            }
+            user.role = '2'
             user
               .save()
               .then(user =>

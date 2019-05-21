@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { IoIosClose } from 'react-icons/io'
 
 import StyledButton from './common/StyledButton'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import { addWriter } from '../actions/profileActions'
 
-import { spaces } from '../styles/styles'
+import { spaces, palette } from '../styles/styles'
 
 const StyledWrapper = styled.span`
   display: flex;
   align-items: center;
-  padding-left: ${spaces.narrow}px;
 `
 
 const StyledForm = styled.form`
@@ -20,6 +20,14 @@ const StyledForm = styled.form`
   flex-direction: row;
   align-items: center;
   padding-left: ${spaces.narrow}px;
+`
+
+const StyledCloseButton = styled.button`
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background: none;
+  color: ${palette.text};
 `
 
 class NewWriter extends Component {
@@ -43,7 +51,10 @@ class NewWriter extends Component {
       })
     }
 
-    if (prevProps.profile.writers !== this.props.profile.writers) {
+    if (
+      prevProps.profile.writers === [] &&
+      prevProps.profile.writers !== this.props.profile.writers
+    ) {
       this._showInput()
     }
   }
@@ -88,6 +99,9 @@ class NewWriter extends Component {
         )}
         {this.state.showInput && (
           <StyledForm onSubmit={this.onSubmit}>
+            <StyledCloseButton onClick={() => this._showInput()}>
+              <IoIosClose size={28} />
+            </StyledCloseButton>
             <TextFieldGroup
               placeholder='Email Address'
               name='email'
