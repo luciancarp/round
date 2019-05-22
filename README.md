@@ -8,8 +8,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* NodeJS
-* npm
+- NodeJS
+- npm
+- yarn
 
 ### Installing
 
@@ -20,25 +21,31 @@ npm install
 ```
 
 ### Set Up .env
+
 Example of .env file:
+
 ```
 MONGO_URI=mongodb://<dbuser>:<dbpassword>@ds026898.mlab.com:26898/web-tech
 SECRET_OR_KEY=secret
 ```
 
 ### Start Server
+
 To start the server use:
+
 ```
-npm start
+yarn start
 ```
+
 To start the server using nodemon use:
+
 ```
-npm run server
+yarn server
 ```
 
-### Visual Studio Code Extensions 
-* StandardJS
+### Visual Studio Code Extensions
 
+- StandardJS
 
 ## Deployment
 
@@ -46,10 +53,10 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* ExpressJS
-* Mongoosew
-* JsonWebToken
+- ExpressJS
+- Mongoosew
+- JsonWebToken
 
 ## Authors
 
-* **Lucian Carp**
+- **Lucian Carp**

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import ReactDropzone from 'react-dropzone'
 
 import StyledPage from '../components/layout/StyledPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
@@ -9,6 +10,7 @@ import TextFieldGroup from '../components/common/TextFieldGroup'
 import StyledButtonRight from '../components/layout/StyledButtonRight'
 import StyledButton from '../components/common/StyledButton'
 import BackButton from '../components/common/BackButton'
+import { Dropzone } from '../components/Dropzone'
 
 import { createIssue } from '../actions/issuesActions'
 
@@ -58,6 +60,10 @@ class IssueNew extends Component {
     })
   }
 
+  onDrop = files => {
+    console.log(files)
+  }
+
   render() {
     const { errors } = this.state
     return (
@@ -83,6 +89,8 @@ class IssueNew extends Component {
                 onChange={this.onChange}
                 error={errors.description}
               />
+              <p>Upload the cover for this issue</p>
+              <Dropzone />
             </div>
             <StyledButtonRight>
               <StyledButton big type='submit'>

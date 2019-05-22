@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const uuid = require('uuid/v4')
+const multer = require('multer')
+
+const Upload = require('../../utils/upload')
 
 // Load input Validation
 const validateIssueInput = require('../../validation/issue')
@@ -65,6 +69,17 @@ router.get('/:id', (req, res) => {
       res.status(404).json({ noissuefound: 'No issue found with that ID' })
     })
 })
+
+// @route  POST api/issues/upload-image
+// @desc   Upload issue image to GCS
+// @access Private
+router.post(
+  '/upload-image',
+  passport.authenticate('jwt', { session: false }),
+  multer().single('image'),
+  Upload.create,
+  (req, res) => {}
+)
 
 // @route  GET api/issues/test
 // @desc   Tests issues route
