@@ -9,6 +9,7 @@ import IssuesItem from '../components/IssuesItem'
 import Spinner from '../components/common/Spinner'
 import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import FadeTransition from '../components/FadeTransition'
+// import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import Footer from '../components/Footer'
 
 import { getIssues } from '../actions/issuesActions'
@@ -43,6 +44,7 @@ class HomeScreen extends Component {
     return (
       <StyledPage>
         {this.state.loading && <Spinner />}
+
         <StyledTitle>{this.state.title}</StyledTitle>
         <FadeTransition in={!this.state.loading}>
           <StyledUnorderedList>

@@ -10,6 +10,7 @@ import StyledButton from '../components/common/StyledButton'
 import NewWriter from '../components/NewWriter'
 import WriterItem from '../components/WriterItem'
 import FadeTransition from '../components/FadeTransition'
+// import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import { spaces, palette } from '../styles/styles'
 import styled from 'styled-components'
 
@@ -78,27 +79,51 @@ class ProfileScreen extends Component {
     if (this.props.auth.isAuthenticated)
       name = this.props.auth.user.name.split(' ')
 
+    let displayName = name[0]
+    if (name.length > 1) displayName = name[0] + ' ' + name[name.length - 1]
+
     const { writers } = this.props.profile
     return (
       <StyledPage>
         <BackButton path={'/'} />
+
         <StyledActions>
           <StyledTitle>
-            <StyledRole>{`${role} `}</StyledRole>
-            {name[0]}
+            <StyledRole>{displayName}</StyledRole>
           </StyledTitle>
           <span>•</span>
           <StyledButton onClick={e => this.onLogoutClick(e)}>
             Log Out
           </StyledButton>
-          <span>•</span>
-          <StyledButton onClick={() => this.props.history.push('/new-article')}>
-            New Article
-          </StyledButton>
-          <span>•</span>
-          <StyledButton onClick={() => this.props.history.push('/new-issue')}>
-            New Issue
-          </StyledButton>
+        </StyledActions>
+        <StyledActions>
+          <StyledTitle>
+            {/* <StyledRole>{`${role} `}</StyledRole> */}
+            {role}
+          </StyledTitle>
+
+          {(this.props.auth.user.role === '0' ||
+            this.props.auth.user.role === '1') && (
+            <span>
+              <span>•</span>
+              <StyledButton
+                onClick={() => this.props.history.push('/new-article')}
+              >
+                New Article
+              </StyledButton>
+            </span>
+          )}
+
+          {this.props.auth.user.role === '0' && (
+            <span>
+              <span>•</span>
+              <StyledButton
+                onClick={() => this.props.history.push('/new-issue')}
+              >
+                New Issue
+              </StyledButton>
+            </span>
+          )}
         </StyledActions>
 
         {this.props.auth.user.role === '0' && (

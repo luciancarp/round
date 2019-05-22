@@ -10,7 +10,7 @@ import StyledButtonRight from '../components/layout/StyledButtonRight'
 import StyledButton from '../components/common/StyledButton'
 import BackButton from '../components/common/BackButton'
 
-import { getIssues, createIssue } from '../actions/issuesActions'
+import { createIssue } from '../actions/issuesActions'
 
 class IssueNew extends Component {
   constructor(props) {
@@ -31,10 +31,6 @@ class IssueNew extends Component {
         errors: newProps.errors
       })
     }
-  }
-
-  componentDidMount() {
-    this.props.getIssues()
   }
 
   onSubmit(e) {
@@ -68,18 +64,20 @@ class IssueNew extends Component {
       <StyledPage>
         <BackButton path={'/profile'} />
         <StyledNarrowSection>
-          <StyledTitle>New Issue</StyledTitle>
+          <h1>New Issue</h1>
           <form onSubmit={this.onSubmit}>
             <div>
+              <p>Title of the Issue</p>
               <TextFieldGroup
-                placeholder='Title'
+                placeholder=''
                 name='name'
                 value={this.state.name}
                 onChange={this.onChange}
                 error={errors.name}
               />
+              <p>Description</p>
               <TextFieldGroup
-                placeholder='Description'
+                placeholder=''
                 name='description'
                 value={this.state.description}
                 onChange={this.onChange}
@@ -88,7 +86,7 @@ class IssueNew extends Component {
             </div>
             <StyledButtonRight>
               <StyledButton big type='submit'>
-                Submit
+                Publish
               </StyledButton>
             </StyledButtonRight>
           </form>
@@ -100,8 +98,7 @@ class IssueNew extends Component {
 
 IssueNew.propTypes = {
   auth: PropTypes.object.isRequired,
-  issues: PropTypes.object.isRequired,
-  getIssues: PropTypes.func.isRequired,
+  createIssue: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 }
 
@@ -113,5 +110,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getIssues, createIssue }
+  { createIssue }
 )(IssueNew)

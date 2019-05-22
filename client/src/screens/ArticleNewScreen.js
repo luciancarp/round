@@ -182,7 +182,7 @@ class ArticleNew extends Component {
 
               <StyledButtonRight>
                 <StyledButton big type='submit'>
-                  Submit
+                  Publish
                 </StyledButton>
               </StyledButtonRight>
             </form>
