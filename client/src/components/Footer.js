@@ -65,6 +65,13 @@ const StyledMap = styled.div`
   justify-content: center;
 `
 
+const Wrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+`
+
 class Footer extends Component {
   onLogoutClick(e) {
     e.preventDefault()
@@ -75,13 +82,14 @@ class Footer extends Component {
     let currentYear = new Date().getFullYear()
     const isAuthenticated = this.props.auth.isAuthenticated
     return (
-      <div>
+      <Wrapper>
         <StyledNavBar>
           <StyledNavBarContent>
             {/* <Link to='/'>
               <StyledLogo src={require('../assets/images/logo_small.png')} />
             </Link> */}
             <StyledMap>
+              <StyledLink to='/'>Home</StyledLink>
               {isAuthenticated && (
                 <StyledButton onClick={e => this.onLogoutClick(e)}>
                   Log Out
@@ -110,7 +118,7 @@ class Footer extends Component {
             </StyledLinks>
           </StyledNavBarContent>
         </StyledNavBar>
-      </div>
+      </Wrapper>
     )
   }
 }

@@ -10,7 +10,7 @@ const StyledNavBar = styled.div`
   margin: 0px;
   display: flex;
   background-color: ${palette.BackgroundColor};
-  height: 75px;
+  height: 50px;
   padding: ${spaces.medium}px;
   flex-direction: row;
   align-items: center;

@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import StyledPage from '../components/layout/StyledPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import StyledButtonRight from '../components/layout/StyledButtonRight'
-import StyledTitle from '../components/layout/StyledTitle'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import SelectListGroup from '../components/common/SelectListGroup'
 import TextEditor from '../components/TextEditor'
@@ -55,7 +54,8 @@ class ArticleNew extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.errors !== this.props.errors) {
       this.setState({
-        errors: this.props.errors
+        errors: this.props.errors,
+        loading: false
       })
     }
 
@@ -86,8 +86,7 @@ class ArticleNew extends Component {
         description: '',
         topic: '',
         topicOther: '',
-        content: '',
-        loading: false
+        content: ''
       })
     }
   }
@@ -98,7 +97,6 @@ class ArticleNew extends Component {
 
   onSubmit(e) {
     e.preventDefault()
-
     // enable to get content from TextEditor
     this.setState({
       getContent: true,
@@ -131,11 +129,13 @@ class ArticleNew extends Component {
       <StyledPage>
         <BackButton path={'/profile'} />
         {this.state.loading && <Spinner />}
-        {!this.state.loading && (
+        {(!this.state.loading ||
+          (this.state.loading && this.state.getContent)) && (
           <StyledNarrowSection>
-            <StyledTitle>New Article</StyledTitle>
+            <h1>New Article</h1>
+            <p>Select the Issue in which you want to post the Article</p>
             <SelectListGroup
-              placeholder='Issue'
+              placeholder='Issue Name'
               name='issue'
               value={this.state.issue}
               onChange={this.onChange}
@@ -145,6 +145,7 @@ class ArticleNew extends Component {
             />
             <form onSubmit={this.onSubmit}>
               <div>
+                <p>Title of the Article</p>
                 <TextFieldGroup
                   placeholder='Title'
                   name='name'
@@ -152,6 +153,7 @@ class ArticleNew extends Component {
                   onChange={this.onChange}
                   error={errors.name}
                 />
+                <p>Topic</p>
                 <SelectListGroup
                   placeholder='Topic'
                   name='topic'
@@ -172,7 +174,7 @@ class ArticleNew extends Component {
                   />
                 )}
               </div>
-
+              <p>Article</p>
               <TextEditor
                 sendContent={this.state.getContent}
                 sendContentFunction={this.getContent}

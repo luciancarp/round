@@ -12,9 +12,9 @@ const StyledButton = styled.button`
   background: none;
   font-family: inherit;
   font-size: ${props => (props.big ? `${fontSizes.subTitle}px` : `inherit`)};
-  padding: ${spaces.narrow}px;
-  /* padding-top: ${spaces.narrow}px;
-  padding-bottom: ${spaces.narrow}px; */
+  padding: ${props => (props.narrow ? `5px` : `${spaces.narrow}px`)};
+  padding-top: ${spaces.narrow}px;
+  padding-bottom: ${spaces.narrow}px;
 
   -webkit-transition: color 0.2s, text-shadow 0.2s; /* Safari */
   transition: color 0.2s, text-shadow 0.2s;

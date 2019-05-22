@@ -9,6 +9,7 @@ import BackButton from '../components/common/BackButton'
 import StyledButton from '../components/common/StyledButton'
 import NewWriter from '../components/NewWriter'
 import WriterItem from '../components/WriterItem'
+import FadeTransition from '../components/FadeTransition'
 import { spaces, palette } from '../styles/styles'
 import styled from 'styled-components'
 
@@ -32,7 +33,8 @@ class ProfileScreen extends Component {
   constructor() {
     super()
     this.state = {
-      role: ''
+      role: '',
+      loadingWriters: true
     }
   }
 
@@ -46,6 +48,14 @@ class ProfileScreen extends Component {
 
     if (this.props.auth.user.role === '0') {
       this.props.getWriters()
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.profile.writers !== this.props.profile.writers) {
+      this.setState({
+        loadingWriters: false
+      })
     }
   }
 
@@ -98,11 +108,13 @@ class ProfileScreen extends Component {
               <span>•</span>
               <NewWriter />
             </StyledActions>
-            <StyledUnorderedList>
-              {writers.map(writer => (
-                <WriterItem name={writer.name} id={writer._id} />
-              ))}
-            </StyledUnorderedList>
+            <FadeTransition in={!this.state.loadingWriters}>
+              <StyledUnorderedList>
+                {writers.map(writer => (
+                  <WriterItem name={writer.name} id={writer._id} />
+                ))}
+              </StyledUnorderedList>
+            </FadeTransition>
           </div>
         )}
       </StyledPage>

@@ -5,6 +5,9 @@ import { loginUser } from '../actions/authActions'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import StyledPage from '../components/layout/StyledPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
+import StyledButton from '../components/common/StyledButton'
+import StyledButtonRight from '../components/layout/StyledButtonRight'
+import Footer from '../components/Footer'
 
 class LoginScreen extends Component {
   constructor() {
@@ -62,18 +65,20 @@ class LoginScreen extends Component {
     return (
       <StyledPage>
         <StyledNarrowSection>
+          <h1>Log in</h1>
           <form onSubmit={this.onSubmit}>
+            <p>Email Address</p>
             <TextFieldGroup
-              placeholder='Email Address'
+              placeholder=''
               name='email'
               type='email'
               value={this.state.email}
               onChange={this.onChange}
               error={errors.email}
             />
-
+            <p>Password</p>
             <TextFieldGroup
-              placeholder='Password'
+              placeholder=''
               name='password'
               type='password'
               value={this.state.password}
@@ -81,9 +86,14 @@ class LoginScreen extends Component {
               error={errors.password}
             />
 
-            <input type='submit' />
+            <StyledButtonRight>
+              <StyledButton big type='submit'>
+                Log In
+              </StyledButton>
+            </StyledButtonRight>
           </form>
         </StyledNarrowSection>
+        <Footer />
       </StyledPage>
     )
   }

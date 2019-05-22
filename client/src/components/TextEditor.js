@@ -11,17 +11,17 @@ import 'draft-js/dist/Draft.css'
 const StyledEditorWrapper = styled.div`
   border-style: solid;
   border-width: 2px 2px 2px 2px;
-  border-radius: 5px 5px 5px 5px; 
+  border-radius: 5px 5px 5px 5px;
   border-color: ${palette.text};
   background: ${palette.darkBackgroundColor};
-  min-height: 6em;
+  min-height: 12em;
   padding: ${spaces.medium}px;
   min-width: 300px;
 
   &:hover {
-  border-color: ${palette.primaryColor};
+    border-color: ${palette.primaryColor};
   }
-  
+
   -webkit-transition: border-color 0.2s; /* Safari */
   transition: border-color 0.2s;
   transition-timing-function: ease-out;
@@ -47,22 +47,26 @@ const inlineStyles = [
 ]
 
 class TextEditor extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { editorState: EditorState.createEmpty() }
-    this.onChange = (editorState) => this.setState({ editorState })
+    this.onChange = editorState => this.setState({ editorState })
     this.handleKeyCommand = this.handleKeyCommand.bind(this)
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    if (prevProps.sendContent !== this.props.sendContent &&
-       this.props.sendContent === true) {
-      const rawState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.sendContent !== this.props.sendContent &&
+      this.props.sendContent === true
+    ) {
+      const rawState = JSON.stringify(
+        convertToRaw(this.state.editorState.getCurrentContent())
+      )
       this.props.sendContentFunction(rawState)
     }
   }
 
-  handleKeyCommand (command, editorState) {
+  handleKeyCommand(command, editorState) {
     const newState = RichUtils.handleKeyCommand(editorState, command)
     if (newState) {
       this.onChange(newState)
@@ -71,24 +75,38 @@ class TextEditor extends React.Component {
     return 'not-handled'
   }
 
-  _onStyleClick (e, inlineStyle) {
+  _onStyleClick(e, inlineStyle) {
     e.preventDefault()
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle))
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle)
+    )
   }
 
-  _onBlockTypeClick (e, blockType) {
+  _onBlockTypeClick(e, blockType) {
     e.preventDefault()
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType))
-  };
+  }
 
-  render () {
+  render() {
     return (
       <div>
         {inlineStyles.map(style => (
-          <StyledButton type={'button'} onMouseDown={(e) => this._onStyleClick(e, style.style)}>{style.label}</StyledButton>
+          <StyledButton
+            narrow
+            type={'button'}
+            onMouseDown={e => this._onStyleClick(e, style.style)}
+          >
+            {style.label}
+          </StyledButton>
         ))}
         {blockTypes.map(block => (
-          <StyledButton type={'button'} onMouseDown={(e) => this._onBlockTypeClick(e, block.style)}>{block.label}</StyledButton>
+          <StyledButton
+            narrow
+            type={'button'}
+            onMouseDown={e => this._onBlockTypeClick(e, block.style)}
+          >
+            {block.label}
+          </StyledButton>
         ))}
 
         <StyledEditorWrapper>

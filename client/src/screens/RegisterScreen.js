@@ -6,9 +6,12 @@ import { registerUser } from '../actions/authActions'
 import TextFieldGroup from '../components/common/TextFieldGroup'
 import StyledPage from '../components/layout/StyledPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
+import StyledButton from '../components/common/StyledButton'
+import StyledButtonRight from '../components/layout/StyledButtonRight'
+import Footer from '../components/Footer'
 
 class RegisterScreen extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       name: '',
@@ -22,13 +25,13 @@ class RegisterScreen extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/')
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -36,13 +39,13 @@ class RegisterScreen extends Component {
     }
   }
 
-  onChange (e) {
+  onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  onSubmit (e) {
+  onSubmit(e) {
     e.preventDefault()
     const newUser = {
       name: this.state.name,
@@ -54,27 +57,25 @@ class RegisterScreen extends Component {
     this.props.registerUser(newUser, this.props.history)
   }
 
-  render () {
+  render() {
     const { errors } = this.state
 
     return (
       <StyledPage>
         <StyledNarrowSection>
-          <h1>Sign Up</h1>
-          <p>
-                Create your account
-          </p>
+          <h1>Register</h1>
+          <p>Name</p>
           <form noValidate onSubmit={e => this.onSubmit(e)}>
             <TextFieldGroup
-              placeholder='Name'
+              placeholder='Jane Doe'
               name='name'
               value={this.state.name}
               onChange={this.onChange}
               error={errors.name}
             />
-
+            <p>Email Address</p>
             <TextFieldGroup
-              placeholder='Email Address'
+              placeholder='jane@round.com'
               name='email'
               type='email'
               value={this.state.email}
@@ -83,18 +84,18 @@ class RegisterScreen extends Component {
               info='This site uses Gravatar so, if you want a profile image, use
                   a Gravatar email'
             />
-
+            <p>Password</p>
             <TextFieldGroup
-              placeholder='Password'
+              placeholder=''
               name='password'
               type='password'
               value={this.state.password}
               onChange={this.onChange}
               error={errors.password}
             />
-
+            <p>Confirm Password</p>
             <TextFieldGroup
-              placeholder='Confirm Password'
+              placeholder=''
               name='password2'
               type='password'
               value={this.state.password2}
@@ -102,9 +103,14 @@ class RegisterScreen extends Component {
               error={errors.password2}
             />
 
-            <input type='submit' />
+            <StyledButtonRight>
+              <StyledButton big type='submit'>
+                Register
+              </StyledButton>
+            </StyledButtonRight>
           </form>
         </StyledNarrowSection>
+        <Footer />
       </StyledPage>
     )
   }
@@ -121,4 +127,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 })
 
-export default connect(mapStateToProps, { registerUser })(withRouter(RegisterScreen))
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(RegisterScreen))

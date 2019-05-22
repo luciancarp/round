@@ -13,13 +13,6 @@ import Footer from '../components/Footer'
 
 import { getIssues } from '../actions/issuesActions'
 
-const StyledFooter = styled.div`
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-`
-
 class HomeScreen extends Component {
   constructor(props) {
     super(props)
@@ -65,9 +58,8 @@ class HomeScreen extends Component {
             ))}
           </StyledUnorderedList>
         </FadeTransition>
-        <StyledFooter>
-          <Footer />
-        </StyledFooter>
+
+        <Footer />
       </StyledPage>
     )
   }
