@@ -1,10 +1,11 @@
-import { GET_ISSUES, CREATE_ISSUE } from '../actions/types'
+import { GET_ISSUES, CREATE_ISSUE, SET_NEW_ISSUE_COVER } from '../actions/types'
 
 const initialState = {
-  issues: []
+  issues: [],
+  newIssueCover: ''
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ISSUES:
       return {
@@ -15,6 +16,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         issues: [action.payload, ...state.issues]
+      }
+
+    case SET_NEW_ISSUE_COVER:
+      return {
+        ...state,
+        newIssueCover: action.payload
       }
     default:
       return state

@@ -5,11 +5,12 @@ const { Storage } = require('@google-cloud/storage')
 const config = require('../config')
 
 exports.create = async (req, res, next) => {
+  // console.log(req.file.originalname)
   const type = mime.lookup(req.file.originalname)
 
   const storage = new Storage({
     projectId: config.google.projectId,
-    keyFilename: './google.json'
+    keyFilename: './gcs.json'
   })
 
   const bucket = storage.bucket(config.google.bucket)

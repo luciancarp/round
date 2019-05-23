@@ -4,7 +4,8 @@ import {
   GET_ISSUES,
   CREATE_ISSUE,
   GET_ERRORS,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  SET_NEW_ISSUE_COVER
 } from './types'
 
 // get issues
@@ -43,6 +44,23 @@ export const createIssue = issueData => dispatch => {
         payload: err.response.data
       })
     )
+}
+
+// Upload issue cover
+export const uploadImage = file => dispatch => {
+  axios
+    .post('/api/issues/upload-image', file)
+
+    .then(res => dispatch(setNewIssueCover(res.data.data.url)))
+    .catch(err => console.log(err))
+}
+
+// Set logged in user
+export const setNewIssueCover = url => {
+  return {
+    type: SET_NEW_ISSUE_COVER,
+    payload: url
+  }
 }
 
 // Clear errors

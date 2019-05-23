@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const uuid = require('uuid/v4')
-const multer = require('multer')
+const Multer = require('multer')
 
 const Upload = require('../../utils/upload')
 
@@ -12,6 +12,13 @@ const validateIssueInput = require('../../validation/issue')
 // Load User model
 const Issue = require('../../models/Issue')
 const User = require('../../models/User')
+
+const multer = Multer({
+  storage: Multer.MemoryStorage,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // no larger than 5mb
+  }
+})
 
 // @route  POST api/issues
 // @desc   Create issue
@@ -36,7 +43,8 @@ router.post(
           name: req.body.name,
           description: req.body.description,
           avatar: req.user.avatar,
-          user: req.user.id
+          user: req.user.id,
+          cover: req.body.cover
         })
 
         newIssue.save().then(issue => res.json(issue))
@@ -76,7 +84,7 @@ router.get('/:id', (req, res) => {
 router.post(
   '/upload-image',
   passport.authenticate('jwt', { session: false }),
-  multer().single('image'),
+  multer.single('image'),
   Upload.create,
   (req, res) => {}
 )
