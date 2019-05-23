@@ -9,8 +9,10 @@ import IssuesItem from '../components/IssuesItem'
 import Spinner from '../components/common/Spinner'
 import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import FadeTransition from '../components/FadeTransition'
+import FadeWrapper from '../components/FadeWrapper'
 // import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import Footer from '../components/Footer'
+import LatestIssue from '../components/LatestIssue'
 
 import { getIssues } from '../actions/issuesActions'
 
@@ -43,10 +45,25 @@ class HomeScreen extends Component {
 
   render() {
     const { issues } = this.state
+    let latestIssue = {}
+    if (issues.length > 0) latestIssue = issues[0]
+
     return (
       <StyledSpacedPage>
         <StyledWrapper>
           {this.state.loading && <Spinner />}
+
+          <FadeTransition in={!this.state.loading}>
+            <FadeWrapper>
+              <LatestIssue
+                title={latestIssue.name}
+                cover={latestIssue.cover}
+                onClick={() =>
+                  this.props.history.push(`/issue/${latestIssue._id}`)
+                }
+              />
+            </FadeWrapper>
+          </FadeTransition>
 
           <StyledTitle>{this.state.title}</StyledTitle>
           <FadeTransition in={!this.state.loading}>
