@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import StyledPage from '../components/layout/StyledPage'
+import StyledSpacedPage from '../components/StyledSpacedPage'
 import StyledTitle from '../components/layout/StyledTitle'
 import IssuesItem from '../components/IssuesItem'
 import Spinner from '../components/common/Spinner'
@@ -13,6 +13,8 @@ import FadeTransition from '../components/FadeTransition'
 import Footer from '../components/Footer'
 
 import { getIssues } from '../actions/issuesActions'
+
+const StyledWrapper = styled.div``
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -42,27 +44,28 @@ class HomeScreen extends Component {
   render() {
     const { issues } = this.state
     return (
-      <StyledPage>
-        {this.state.loading && <Spinner />}
+      <StyledSpacedPage>
+        <StyledWrapper>
+          {this.state.loading && <Spinner />}
 
-        <StyledTitle>{this.state.title}</StyledTitle>
-        <FadeTransition in={!this.state.loading}>
-          <StyledUnorderedList>
-            {issues.map((issue, index) => (
-              <IssuesItem
-                index
-                key={issue._id}
-                id={issue._id}
-                name={issue.name}
-                description={issue.description}
-                date={issue.date}
-              />
-            ))}
-          </StyledUnorderedList>
-        </FadeTransition>
-
+          <StyledTitle>{this.state.title}</StyledTitle>
+          <FadeTransition in={!this.state.loading}>
+            <StyledUnorderedList>
+              {issues.map((issue, index) => (
+                <IssuesItem
+                  index
+                  key={issue._id}
+                  id={issue._id}
+                  name={issue.name}
+                  description={issue.description}
+                  date={issue.date}
+                />
+              ))}
+            </StyledUnorderedList>
+          </FadeTransition>
+        </StyledWrapper>
         <Footer />
-      </StyledPage>
+      </StyledSpacedPage>
     )
   }
 }

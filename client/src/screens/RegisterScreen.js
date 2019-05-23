@@ -4,11 +4,16 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { registerUser } from '../actions/authActions'
 import TextFieldGroup from '../components/common/TextFieldGroup'
-import StyledPage from '../components/layout/StyledPage'
+import StyledSpacedPage from '../components/StyledSpacedPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import StyledButton from '../components/common/StyledButton'
 import StyledButtonRight from '../components/layout/StyledButtonRight'
 import Footer from '../components/Footer'
+import styled from 'styled-components'
+
+const StyledContentWrapper = styled.div`
+  display: block;
+`
 
 class RegisterScreen extends Component {
   constructor() {
@@ -61,57 +66,59 @@ class RegisterScreen extends Component {
     const { errors } = this.state
 
     return (
-      <StyledPage>
-        <StyledNarrowSection>
-          <h1>Register</h1>
-          <p>Name</p>
-          <form noValidate onSubmit={e => this.onSubmit(e)}>
-            <TextFieldGroup
-              placeholder='Jane Doe'
-              name='name'
-              value={this.state.name}
-              onChange={this.onChange}
-              error={errors.name}
-            />
-            <p>Email Address</p>
-            <TextFieldGroup
-              placeholder='jane@round.com'
-              name='email'
-              type='email'
-              value={this.state.email}
-              onChange={this.onChange}
-              error={errors.email}
-              info='This site uses Gravatar so, if you want a profile image, use
+      <StyledSpacedPage>
+        <StyledContentWrapper>
+          <StyledNarrowSection>
+            <h1>Register</h1>
+            <p>Name</p>
+            <form noValidate onSubmit={e => this.onSubmit(e)}>
+              <TextFieldGroup
+                placeholder='Jane Doe'
+                name='name'
+                value={this.state.name}
+                onChange={this.onChange}
+                error={errors.name}
+              />
+              <p>Email Address</p>
+              <TextFieldGroup
+                placeholder='jane@round.com'
+                name='email'
+                type='email'
+                value={this.state.email}
+                onChange={this.onChange}
+                error={errors.email}
+                info='This site uses Gravatar so, if you want a profile image, use
                   a Gravatar email'
-            />
-            <p>Password</p>
-            <TextFieldGroup
-              placeholder=''
-              name='password'
-              type='password'
-              value={this.state.password}
-              onChange={this.onChange}
-              error={errors.password}
-            />
-            <p>Confirm Password</p>
-            <TextFieldGroup
-              placeholder=''
-              name='password2'
-              type='password'
-              value={this.state.password2}
-              onChange={this.onChange}
-              error={errors.password2}
-            />
+              />
+              <p>Password</p>
+              <TextFieldGroup
+                placeholder=''
+                name='password'
+                type='password'
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              <p>Confirm Password</p>
+              <TextFieldGroup
+                placeholder=''
+                name='password2'
+                type='password'
+                value={this.state.password2}
+                onChange={this.onChange}
+                error={errors.password2}
+              />
 
-            <StyledButtonRight>
-              <StyledButton big type='submit'>
-                Register
-              </StyledButton>
-            </StyledButtonRight>
-          </form>
-        </StyledNarrowSection>
+              <StyledButtonRight>
+                <StyledButton big type='submit'>
+                  Register
+                </StyledButton>
+              </StyledButtonRight>
+            </form>
+          </StyledNarrowSection>
+        </StyledContentWrapper>
         <Footer />
-      </StyledPage>
+      </StyledSpacedPage>
     )
   }
 }

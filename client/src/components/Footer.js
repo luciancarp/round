@@ -66,10 +66,11 @@ const StyledMap = styled.div`
 `
 
 const Wrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  left: 0;
+  // position: absolute;
+  // width: 100%;
+  // bottom: 0;
+  // left: 0;
+  // display: flex;
 `
 
 class Footer extends Component {
