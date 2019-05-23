@@ -5,6 +5,8 @@ import styled, { keyframes } from 'styled-components'
 import { spaces, palette, device } from '../styles/styles'
 
 import SvgRoundBg from './SvgRoundBg'
+import FadeTransition from './FadeTransition'
+import FadeWrapper from './FadeWrapper'
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -43,6 +45,8 @@ const pulse = keyframes`
 `
 
 const StyledCoverButton = styled.button`
+  position: relative;
+
   cursor: pointer;
   text-decoration: none;
   border: none;
@@ -51,12 +55,6 @@ const StyledCoverButton = styled.button`
   font-size: inherit;
   padding: 0px;
 
-  border-style: solid;
-  border-width: 4px 4px 4px 4px;
-  border-radius: 5px 5px 5px 5px;
-  border-color: ${palette.primaryColor};
-  border-radius: 50%;
-  animation: ${pulse} 2s ease-in-out infinite
   -webkit-transition: color 0.2s, text-shadow 0.2s; /* Safari */
   transition: color 0.2s, text-shadow 0.2s;
   transition-timing-function: ease-out;
@@ -90,7 +88,12 @@ const StyledCover = styled.img`
   width: 125px;
   height: 125px;
   object-fit: cover;
+  border-style: solid;
+  border-width: 4px 4px 4px 4px;
+  border-radius: 5px 5px 5px 5px;
+  border-color: ${palette.primaryColor};
   border-radius: 50%;
+  animation: ${pulse} 2s ease-in-out infinite;
 
   @media ${device.mobileS} {
     width: 175px;
@@ -128,6 +131,24 @@ const StyledCover = styled.img`
   }
 `
 
+const StyledButtonTitleWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const StyledButtonTitle = styled.h1`
+  color: ${palette.text}
+  text-shadow: 0 0 5px ${palette.BackgroundColor};
+`
+
 class LatestIssue extends Component {
   constructor(props) {
     super(props)
@@ -157,6 +178,16 @@ class LatestIssue extends Component {
               onMouseLeave={this.hoverOff}
             >
               <StyledCover src={this.props.cover} />
+              <FadeTransition in={this.state.hover}>
+                <FadeWrapper noTransform>
+                  <StyledButtonTitleWrapper>
+                    <StyledButtonTitle>
+                      Latest Issue: <br />
+                      {this.props.title}
+                    </StyledButtonTitle>
+                  </StyledButtonTitleWrapper>
+                </FadeWrapper>
+              </FadeTransition>
             </StyledCoverButton>
           </StyledContent>
         </StyledContentWrapper>
