@@ -56,7 +56,6 @@ const StyledPreviewWrapper = styled.div`
 
 export function Dropzone({ uploading, upload }) {
   const maxSize = 5242880
-  const [uri, setLocalUri] = useState('')
   const [preview, setPreview] = useState(null)
   const onDrop = useCallback(acceptedFiles => {
     setPreview(URL.createObjectURL(acceptedFiles[0]))
