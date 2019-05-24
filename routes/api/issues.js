@@ -4,6 +4,9 @@ const passport = require('passport')
 const uuid = require('uuid/v4')
 const Multer = require('multer')
 
+const { Storage } = require('@google-cloud/storage')
+const config = require('../../config')
+
 const Upload = require('../../utils/upload')
 
 // Load input Validation
@@ -12,6 +15,7 @@ const validateIssueInput = require('../../validation/issue')
 // Load User model
 const Issue = require('../../models/Issue')
 const User = require('../../models/User')
+const Article = require('../../models/Article')
 
 const multer = Multer({
   storage: Multer.MemoryStorage,
@@ -49,6 +53,48 @@ router.post(
 
         newIssue.save().then(issue => res.json(issue))
       }
+    })
+  }
+)
+
+// @route  DELETE api/issues/:id
+// @desc   Delete issue
+// @access Private
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user.id).then(user => {
+      if (user.role !== '0') {
+        return res.status(401).json({ notauthorized: 'User not authorized' })
+      }
+
+      Issue.findById(req.params.id).then(issue => {
+        Article.deleteMany({ issue: issue._id })
+          .then(res => {
+            const storage = new Storage({
+              projectId: config.google.projectId,
+              keyFilename: './gcs.json'
+            })
+
+            // const bucket = storage.bucket(config.google.bucket)
+            const splitCoverUrl = issue.cover.split('/')
+            const fileName = splitCoverUrl[splitCoverUrl.length - 1]
+
+            storage
+              .bucket(config.google.bucket)
+              .file(fileName)
+              .delete()
+              .catch(err => console.log(err))
+          })
+          .catch(err => console.log(err))
+        issue
+          .remove()
+          .then(() => res.json({ success: true }))
+          .catch(err =>
+            res.status(404).json({ issuenotfound: 'No issue found' })
+          )
+      })
     })
   }
 )

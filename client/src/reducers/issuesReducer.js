@@ -1,4 +1,9 @@
-import { GET_ISSUES, CREATE_ISSUE, SET_NEW_ISSUE_COVER } from '../actions/types'
+import {
+  GET_ISSUES,
+  CREATE_ISSUE,
+  SET_NEW_ISSUE_COVER,
+  DELETE_ISSUE
+} from '../actions/types'
 
 const initialState = {
   issues: [],
@@ -22,6 +27,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         newIssueCover: action.payload
+      }
+    case DELETE_ISSUE:
+      return {
+        ...state,
+        issues: state.issues.filter(issue => issue._id !== action.payload)
       }
     default:
       return state

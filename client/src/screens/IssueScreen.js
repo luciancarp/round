@@ -9,11 +9,14 @@ import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import ArticlesItem from '../components/ArticlesItem'
 import Spinner from '../components/common/Spinner'
 import StyledButton from '../components/common/StyledButton'
+import StyledTitle from '../components/layout/StyledTitle'
+import StyledTitleActions from '../components/StyledTitleActions'
 import BackButton from '../components/common/BackButton'
 import FadeTransition from '../components/FadeTransition'
 import FadeWrapper from '../components/FadeWrapper'
 
 import { getArticlesByIssue } from '../actions/articlesActions'
+import { deleteIssue } from '../actions/issuesActions'
 
 class IssueScreen extends Component {
   constructor(props) {
@@ -41,8 +44,19 @@ class IssueScreen extends Component {
     }
   }
 
+  _handleDelete() {
+    if (
+      window.confirm(
+        'Are you sure you want to delete this issue? All the articles will be delete as well!'
+      )
+    ) {
+      this.props.deleteIssue(this.props.match.params.id, this.props.history)
+    }
+  }
+
   render() {
     const { articlesByIssue } = this.state
+    let showDelete = false
 
     let issueName = ''
     if (!isEmpty(articlesByIssue)) {
@@ -50,19 +64,24 @@ class IssueScreen extends Component {
     }
 
     let topicsInIssue = []
+    if (articlesByIssue.length > 0) {
+      articlesByIssue.forEach(article => {
+        if (
+          article.topic !== null &&
+          topicsInIssue.indexOf(article.topic) === -1
+        ) {
+          topicsInIssue.push(article.topic)
+        }
+      })
 
-    articlesByIssue.forEach(article => {
-      if (
-        article.topic !== null &&
-        topicsInIssue.indexOf(article.topic) === -1
-      ) {
-        topicsInIssue.push(article.topic)
-      }
-    })
+      articlesByIssue.forEach(article => {
+        article.selected = article.topic === this.state.topicSelected
+      })
+    }
 
-    articlesByIssue.forEach(article => {
-      article.selected = article.topic === this.state.topicSelected
-    })
+    if (this.props.auth.isAuthenticated && this.props.auth.user.role === '0') {
+      showDelete = true
+    }
 
     return (
       <StyledPage>
@@ -70,7 +89,21 @@ class IssueScreen extends Component {
         {this.state.loading && <Spinner />}
         <FadeTransition in={!this.state.loading}>
           <FadeWrapper>
-            <h1>{issueName}</h1>
+            <StyledTitleActions>
+              <StyledTitle>{issueName}</StyledTitle>
+              {showDelete && (
+                <span>
+                  <span>•</span>
+                  <StyledButton
+                    onClick={() => {
+                      this._handleDelete()
+                    }}
+                  >
+                    delete
+                  </StyledButton>
+                </span>
+              )}
+            </StyledTitleActions>
             {topicsInIssue.map(topic => (
               <span>
                 <StyledButton
@@ -108,7 +141,8 @@ class IssueScreen extends Component {
 IssueScreen.propTypes = {
   auth: PropTypes.object.isRequired,
   articlesByIssue: PropTypes.object.isRequired,
-  getArticlesByIssue: PropTypes.func.isRequired
+  getArticlesByIssue: PropTypes.func.isRequired,
+  deleteIssue: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -118,5 +152,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getArticlesByIssue }
+  { getArticlesByIssue, deleteIssue }
 )(IssueScreen)

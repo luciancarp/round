@@ -13,6 +13,7 @@ const StyledPage = styled.div`
   margin-right: auto;
   margin-bottom: 0px;
   padding: ${spaces.medium}px;
+  padding-top: ${spaces.narrow}px;
   // min-height: calc(100vh - 225px);
   min-height: calc(100vh - 50px);
   /* text-align: center; */
