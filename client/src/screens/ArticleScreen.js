@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import styled from 'styled-components'
 
+import { mediaBlockRenderer } from '../utils/mediaBlockRenderer'
 import StyledPage from '../components/layout/StyledPage'
 import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import Spinner from '../components/common/Spinner'
@@ -76,7 +77,11 @@ class ArticleScreen extends Component {
             <h1>{this.state.name}</h1>
             <small>{<DateText date={this.state.date} />}</small>
             <StyledText>
-              <Editor editorState={this.state.editorState} readOnly />
+              <Editor
+                blockRendererFn={mediaBlockRenderer}
+                editorState={this.state.editorState}
+                readOnly
+              />
             </StyledText>
             <StyledNarrowSection>
               <StyledSubTitle>Post a comment</StyledSubTitle>

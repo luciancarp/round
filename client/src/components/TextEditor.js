@@ -1,8 +1,15 @@
 import React from 'react'
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js'
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  convertToRaw,
+  AtomicBlockUtils
+} from 'draft-js'
 import styled from 'styled-components'
 
 import StyledButton from './common/StyledButton'
+import { mediaBlockRenderer } from '../utils/mediaBlockRenderer'
 
 import { palette, spaces } from '../styles/styles'
 
@@ -25,6 +32,14 @@ const StyledEditorWrapper = styled.div`
   -webkit-transition: border-color 0.2s; /* Safari */
   transition: border-color 0.2s;
   transition-timing-function: ease-out;
+`
+
+const StyledButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `
 
 const blockTypes = [
@@ -87,34 +102,73 @@ class TextEditor extends React.Component {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType))
   }
 
+  focus = () => this.refs.editor.focus()
+
+  onAddImage = e => {
+    e.preventDefault()
+    const editorState = this.state.editorState
+    const urlValue = window.prompt('Paste Image Link')
+    const contentState = editorState.getCurrentContent()
+    const contentStateWithEntity = contentState.createEntity(
+      'image',
+      'IMMUTABLE',
+      { src: urlValue }
+    )
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+    const newEditorState = EditorState.set(
+      editorState,
+      { currentContent: contentStateWithEntity },
+      'create-entity'
+    )
+    this.setState(
+      {
+        editorState: AtomicBlockUtils.insertAtomicBlock(
+          newEditorState,
+          entityKey,
+          ' '
+        )
+      },
+      () => {
+        setTimeout(() => this.focus(), 0)
+      }
+    )
+  }
+
   render() {
     return (
       <div>
-        {inlineStyles.map(style => (
-          <StyledButton
-            narrow
-            type={'button'}
-            onMouseDown={e => this._onStyleClick(e, style.style)}
-          >
-            {style.label}
+        <StyledButtons>
+          {inlineStyles.map(style => (
+            <StyledButton
+              narrow
+              type={'button'}
+              onMouseDown={e => this._onStyleClick(e, style.style)}
+            >
+              {style.label}
+            </StyledButton>
+          ))}
+          {blockTypes.map(block => (
+            <StyledButton
+              narrow
+              type={'button'}
+              onMouseDown={e => this._onBlockTypeClick(e, block.style)}
+            >
+              {block.label}
+            </StyledButton>
+          ))}
+          <StyledButton type={'button'} narrow onClick={this.onAddImage}>
+            <div>Image</div>
           </StyledButton>
-        ))}
-        {blockTypes.map(block => (
-          <StyledButton
-            narrow
-            type={'button'}
-            onMouseDown={e => this._onBlockTypeClick(e, block.style)}
-          >
-            {block.label}
-          </StyledButton>
-        ))}
+        </StyledButtons>
 
         <StyledEditorWrapper>
           <Editor
+            blockRendererFn={mediaBlockRenderer}
             editorState={this.state.editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             placeholder={'Share your story...'}
+            ref='editor'
           />
         </StyledEditorWrapper>
       </div>
