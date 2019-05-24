@@ -11,7 +11,7 @@ const StyledNavBar = styled.div`
   display: flex;
   background-color: ${palette.BackgroundColor};
   height: 50px;
-  padding: ${spaces.medium}px;
+  padding: ${spaces.narrow}px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -41,6 +41,10 @@ const StyledLinks = styled.div`
   flex-direction: row;
 `
 
+const StyledGreeting = styled.div`
+  padding: ${spaces.narrow}px;
+`
+
 // const StyledLogo = styled.img`
 //   height: 50px;
 //   width: 50px;
@@ -63,7 +67,9 @@ class NavBar extends Component {
             {/* <Link to='/'>
               <StyledLogo src={require('../assets/images/logo_small.png')} />
             </Link> */}
-            {this.props.auth.isAuthenticated && <div>{`Hi, ${name[0]}`}</div>}
+            {this.props.auth.isAuthenticated && (
+              <StyledGreeting>{`Hi, ${name[0]}`}</StyledGreeting>
+            )}
             <StyledLinks>
               {hasProfile && (
                 <StyledLink to='/profile'>Your Profile</StyledLink>

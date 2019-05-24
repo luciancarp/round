@@ -17,6 +17,7 @@ import FadeWrapper from '../components/FadeWrapper'
 import StyledTitle from '../components/layout/StyledTitle'
 import StyledTitleActions from '../components/StyledTitleActions'
 import StyledButton from '../components/common/StyledButton'
+import StyledLink from '../components/common/StyledLink'
 
 import { spaces } from '../styles/styles'
 
@@ -82,7 +83,9 @@ class ArticleScreen extends Component {
 
   render() {
     let showDelete = false
+    let showCommentInput = false
     if (this.props.auth.isAuthenticated) {
+      showCommentInput = true
       const ownArticle =
         this.props.articles.article.user === this.props.auth.user.id
       // Only the writer who posted the article or an admin can delete an article
@@ -90,6 +93,10 @@ class ArticleScreen extends Component {
         (this.props.auth.user.role === '1' && ownArticle) ||
         this.props.auth.user.role === '0'
     }
+
+    let showComments = false
+    if (this.state.comments.length > 0) showComments = true
+
     return (
       <StyledPage>
         <BackButton path={`/issue/${this.state.issue}`} />
@@ -120,13 +127,33 @@ class ArticleScreen extends Component {
               />
             </StyledText>
             <StyledNarrowSection>
-              <StyledSubTitle>Post a comment</StyledSubTitle>
-              <CommentInput ArticleId={this.state.id} />
-              <h3>Comments</h3>
-              <Comments
-                articleId={this.state.id}
-                comments={this.state.comments}
-              />
+              {showCommentInput && (
+                <div>
+                  <StyledSubTitle>Post a comment</StyledSubTitle>
+                  <CommentInput ArticleId={this.state.id} />
+                </div>
+              )}
+              {!showCommentInput && (
+                <div>
+                  <StyledSubTitle>
+                    You need to login to post a comment.
+                  </StyledSubTitle>
+                  <span>
+                    <StyledLink to='/login'>Login</StyledLink>
+                    <span>•</span>
+                    <StyledLink to='/register'>Register</StyledLink>
+                  </span>
+                </div>
+              )}
+              {showComments && (
+                <div>
+                  <h3>Comments</h3>
+                  <Comments
+                    articleId={this.state.id}
+                    comments={this.state.comments}
+                  />
+                </div>
+              )}
             </StyledNarrowSection>
           </FadeWrapper>
         </FadeTransition>

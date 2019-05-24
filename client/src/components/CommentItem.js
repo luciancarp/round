@@ -52,40 +52,47 @@ const StyledTime = styled.div`
 `
 
 class CommentItem extends Component {
-  render () {
+  render() {
     const { comment, auth, articleId } = this.props
-
+    let userName = ''
+    const splitUserName = comment.name.split(' ')
+    if (splitUserName.length > 1) {
+      userName =
+        splitUserName[0] + ' ' + splitUserName[splitUserName.length - 1]
+    } else {
+      userName = splitUserName[0]
+    }
     return (
       <div>
         <Divider />
 
         <StyledHeader>
           <StyledUser>
-
             <StyledAvatar>
               <Avatar src={comment.avatar} />
             </StyledAvatar>
 
-            <StyledUserName>{comment.name}</StyledUserName>
+            <StyledUserName>{userName}</StyledUserName>
 
-            { comment.user === auth.user.id && (
+            {comment.user === auth.user.id && (
               <div>
                 <span> • </span>
                 <StyledButton
-                  onClick={() => this.props.deleteComment(articleId, comment._id)}
+                  onClick={() =>
+                    this.props.deleteComment(articleId, comment._id)
+                  }
                   type='button'
-                >delete
+                >
+                  delete
                 </StyledButton>
               </div>
             )}
-
           </StyledUser>
           <StyledTime>
             <DateText date={comment.date} since />
           </StyledTime>
         </StyledHeader>
         <StyledText>{comment.text}</StyledText>
-
       </div>
     )
   }
@@ -101,4 +108,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, { deleteComment })(CommentItem)
+export default connect(
+  mapStateToProps,
+  { deleteComment }
+)(CommentItem)
