@@ -4,6 +4,13 @@ import styled from 'styled-components'
 
 import StyledLink from './StyledLink'
 
+const StyledButtonContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+`
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -12,13 +19,16 @@ const Wrapper = styled.div`
 `
 
 export default class BackButton extends React.Component {
-  render () {
+  render() {
     return (
-      <StyledLink to={this.props.path}>
-        <Wrapper>
-          <IoIosArrowBack />Go Back
-        </Wrapper>
-      </StyledLink>
+      <Wrapper>
+        <StyledLink to={this.props.path}>
+          <StyledButtonContent>
+            <IoIosArrowBack />
+            Go Back
+          </StyledButtonContent>
+        </StyledLink>
+      </Wrapper>
     )
   }
 }

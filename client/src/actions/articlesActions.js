@@ -6,7 +6,8 @@ import {
   GET_ERRORS,
   CLEAR_ERRORS,
   CREATE_ARTICLE,
-  DELETE_ARTICLE
+  DELETE_ARTICLE,
+  GET_ARTICLES_USER
 } from './types'
 
 // get article by id
@@ -43,6 +44,25 @@ export const getArticlesByIssue = id => dispatch => {
       dispatch({
         type: GET_ARTICLES_BY_ISSUE,
         payload: {}
+      })
+    })
+}
+
+// get article by user
+export const getArticlesUser = id => dispatch => {
+  axios
+    .get(`/api/articles/user/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_ARTICLES_USER,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      console.log(err)
+      dispatch({
+        type: GET_ARTICLES_USER,
+        payload: []
       })
     })
 }

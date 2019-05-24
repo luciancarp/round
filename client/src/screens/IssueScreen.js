@@ -116,7 +116,7 @@ class IssueScreen extends Component {
               </span>
             ))}
             <StyledButton onClick={() => this.setState({ topicSelected: '' })}>
-              all
+              clear
             </StyledButton>
             <StyledUnorderedList>
               {articlesByIssue.map(article => (

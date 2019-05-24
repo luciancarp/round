@@ -20,7 +20,8 @@ class IssuesItem extends Component {
       <StyleTitleIssueWrapper>
         <li>
           <StyledLink to={`/issue/${this.props.id}`}>
-            {this.props.name} • {<DateText date={this.props.date} issue />}
+            {this.props.name} •{' '}
+            {<DateText date={this.props.date} issue={this.props.issue} />}
           </StyledLink>
         </li>
       </StyleTitleIssueWrapper>

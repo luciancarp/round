@@ -2,13 +2,15 @@ import {
   GET_ARTICLE,
   GET_ARTICLES_BY_ISSUE,
   CREATE_ARTICLE,
-  DELETE_ARTICLE
+  DELETE_ARTICLE,
+  GET_ARTICLES_USER
 } from '../actions/types'
 
 const initialState = {
   article: {},
   articles: [],
-  articlesByIssue: []
+  articlesByIssue: [],
+  articlesUser: []
 }
 
 export default function(state = initialState, action) {
@@ -22,6 +24,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         articlesByIssue: action.payload
+      }
+    case GET_ARTICLES_USER:
+      return {
+        ...state,
+        articlesUser: action.payload
       }
     case CREATE_ARTICLE:
       return {

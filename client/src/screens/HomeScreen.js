@@ -70,6 +70,7 @@ class HomeScreen extends Component {
               {issues.map((issue, index) => (
                 <IssuesItem
                   index
+                  issue
                   key={issue._id}
                   id={issue._id}
                   name={issue.name}

@@ -133,6 +133,26 @@ router.get('/from-issue/:id', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// @route  GET api/articles/user/:id
+// @desc   GET Articles by user id
+// @access Public
+router.get('/user/:id', (req, res) => {
+  Article.find({ user: req.params.id })
+    .populate({
+      path: 'user',
+      select: 'name'
+    })
+    .populate({
+      path: 'issue',
+      select: 'name'
+    })
+    .sort({ date: -1 })
+    .then(articles => {
+      res.json(articles)
+    })
+    .catch(err => console.log(err))
+})
+
 // @route  POST api/articles/comment/:id
 // @desc   Add comment to article
 // @access Private

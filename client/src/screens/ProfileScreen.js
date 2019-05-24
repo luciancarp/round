@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logOutUser } from '../actions/authActions'
 import { getWriters } from '../actions/profileActions'
+import { getIssues } from '../actions/issuesActions'
+import { getArticlesUser } from '../actions/articlesActions'
 import StyledPage from '../components/layout/StyledPage'
 import StyledTitle from '../components/layout/StyledTitle'
 import StyledTitleActions from '../components/StyledTitleActions'
@@ -12,6 +14,9 @@ import StyledButton from '../components/common/StyledButton'
 import NewWriter from '../components/NewWriter'
 import WriterItem from '../components/WriterItem'
 import FadeTransition from '../components/FadeTransition'
+import IssuesItem from '../components/IssuesItem'
+import FadeWrapper from '../components/FadeWrapper'
+import ArticlesItem from '../components/ArticlesItem'
 // import StyledNarrowSection from '../components/layout/StyledNarrowSection'
 import { palette } from '../styles/styles'
 import styled from 'styled-components'
@@ -25,7 +30,11 @@ class ProfileScreen extends Component {
     super()
     this.state = {
       role: '',
-      loadingWriters: true
+      loadingWriters: true,
+      loadingIssues: true,
+      loadingArticlesUser: true,
+      issues: [],
+      articlesUser: []
     }
   }
 
@@ -39,13 +48,31 @@ class ProfileScreen extends Component {
 
     if (this.props.auth.user.role === '0') {
       this.props.getWriters()
+      this.props.getIssues()
     }
+    this.props.getArticlesUser(this.props.auth.user.id)
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.profile.writers !== this.props.profile.writers) {
       this.setState({
         loadingWriters: false
+      })
+    }
+
+    if (prevProps.issues.issues !== this.props.issues.issues) {
+      const { issues } = this.props.issues
+      this.setState({
+        loadingIssues: false,
+        issues: issues
+      })
+    }
+
+    if (prevProps.articles.articlesUser !== this.props.articles.articlesUser) {
+      const { articlesUser } = this.props.articles
+      this.setState({
+        loadingArticlesUser: false,
+        articlesUser: articlesUser
       })
     }
   }
@@ -73,47 +100,21 @@ class ProfileScreen extends Component {
     if (name.length > 1) displayName = name[0] + ' ' + name[name.length - 1]
 
     const { writers } = this.props.profile
+    const { issues } = this.state
+    const { articlesUser } = this.state
     return (
       <StyledPage>
         <BackButton path={'/'} />
 
         <StyledTitleActions>
           <StyledTitle>
-            <StyledRole>{displayName}</StyledRole>
+            <StyledRole>{role} </StyledRole>
+            <span>{displayName}</span>
           </StyledTitle>
           <span>•</span>
           <StyledButton onClick={e => this.onLogoutClick(e)}>
             Log Out
           </StyledButton>
-        </StyledTitleActions>
-        <StyledTitleActions>
-          <StyledTitle>
-            {/* <StyledRole>{`${role} `}</StyledRole> */}
-            {role}
-          </StyledTitle>
-
-          {(this.props.auth.user.role === '0' ||
-            this.props.auth.user.role === '1') && (
-            <span>
-              <span>•</span>
-              <StyledButton
-                onClick={() => this.props.history.push('/new-article')}
-              >
-                New Article
-              </StyledButton>
-            </span>
-          )}
-
-          {this.props.auth.user.role === '0' && (
-            <span>
-              <span>•</span>
-              <StyledButton
-                onClick={() => this.props.history.push('/new-issue')}
-              >
-                New Issue
-              </StyledButton>
-            </span>
-          )}
         </StyledTitleActions>
 
         {this.props.auth.user.role === '0' && (
@@ -124,11 +125,77 @@ class ProfileScreen extends Component {
               <NewWriter />
             </StyledTitleActions>
             <FadeTransition in={!this.state.loadingWriters}>
-              <StyledUnorderedList>
-                {writers.map(writer => (
-                  <WriterItem name={writer.name} id={writer._id} />
-                ))}
-              </StyledUnorderedList>
+              <FadeWrapper>
+                <StyledUnorderedList>
+                  {writers.map(writer => (
+                    <WriterItem name={writer.name} id={writer._id} />
+                  ))}
+                </StyledUnorderedList>
+              </FadeWrapper>
+            </FadeTransition>
+          </div>
+        )}
+
+        {(this.props.auth.user.role === '0' ||
+          this.props.auth.user.role === '1') && (
+          <div>
+            <StyledTitleActions>
+              <StyledTitle>Articles</StyledTitle>
+              <span>•</span>
+              <StyledButton
+                onClick={() => this.props.history.push('/new-article')}
+              >
+                New Article
+              </StyledButton>
+            </StyledTitleActions>
+            <FadeTransition in={!this.state.loadingArticlesUser}>
+              <FadeWrapper>
+                <StyledUnorderedList>
+                  {articlesUser.map(article => (
+                    <ArticlesItem
+                      profile
+                      issue={article.issue.name}
+                      key={article._id}
+                      id={article._id}
+                      name={article.name}
+                      author={article.user}
+                      text={article.text}
+                      date={article.date}
+                      selected={article.selected}
+                    />
+                  ))}
+                </StyledUnorderedList>
+              </FadeWrapper>
+            </FadeTransition>
+          </div>
+        )}
+
+        {this.props.auth.user.role === '0' && (
+          <div>
+            <StyledTitleActions>
+              <StyledTitle>Issues</StyledTitle>
+              <span>•</span>
+              <StyledButton
+                onClick={() => this.props.history.push('/new-issue')}
+              >
+                New Issue
+              </StyledButton>
+            </StyledTitleActions>
+            <FadeTransition in={!this.state.loadingIssues}>
+              <FadeWrapper>
+                <StyledUnorderedList>
+                  {issues.map((issue, index) => (
+                    <IssuesItem
+                      index
+                      key={issue._id}
+                      id={issue._id}
+                      name={issue.name}
+                      description={issue.description}
+                      date={issue.date}
+                    />
+                  ))}
+                </StyledUnorderedList>
+              </FadeWrapper>
             </FadeTransition>
           </div>
         )}
@@ -141,16 +208,22 @@ ProfileScreen.propTypes = {
   logOutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  issues: PropTypes.object.isRequired,
+  getIssues: PropTypes.func.isRequired,
+  articles: PropTypes.object.isRequired,
+  getArticlesUser: PropTypes.func.isRequired
 }
 
 const mapStatetoProps = state => ({
   auth: state.auth,
   errors: state.errors,
-  profile: state.profile
+  profile: state.profile,
+  issues: state.issues,
+  articles: state.articles
 })
 
 export default connect(
   mapStatetoProps,
-  { logOutUser, getWriters }
+  { logOutUser, getWriters, getIssues, getArticlesUser }
 )(ProfileScreen)
