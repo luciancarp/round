@@ -6,7 +6,8 @@ import {
   GET_ERRORS,
   CLEAR_ERRORS,
   SET_NEW_ISSUE_COVER,
-  DELETE_ISSUE
+  DELETE_ISSUE,
+  UPLOADING_ISSUE_COVER
 } from './types'
 
 // get issues
@@ -34,10 +35,16 @@ export const createIssue = issueData => dispatch => {
   axios
     .post('/api/issues', issueData)
     .then(res =>
-      dispatch({
-        type: CREATE_ISSUE,
-        payload: res.data
-      })
+      // dispatch({
+      //   type: CREATE_ISSUE,
+      //   payload: res.data
+      // })
+      dispatch(
+        setUploadingIssueCover({
+          uploadingIssueCover: true,
+          newIssueId: res.data._id
+        })
+      )
     )
     .catch(err =>
       dispatch({
@@ -66,19 +73,38 @@ export const deleteIssue = (id, history) => dispatch => {
 }
 
 // Upload issue cover
-export const uploadImage = file => dispatch => {
+export const uploadImage = (file, issueId, history) => dispatch => {
   axios
     .post('/api/issues/upload-image', file)
 
-    .then(res => dispatch(setNewIssueCover(res.data.data.url)))
+    .then(res => {
+      dispatch(setNewIssueCover(res.data.data.url))
+
+      axios
+        .post(`/api/issues/add-cover/${issueId}`, { cover: res.data.data.url })
+        .then(res => {
+          dispatch({
+            type: CREATE_ISSUE,
+            payload: res.data
+          })
+          history.push(`/`)
+        })
+        .catch(err => console.log(err))
+    })
     .catch(err => console.log(err))
 }
 
-// Set logged in user
 export const setNewIssueCover = url => {
   return {
     type: SET_NEW_ISSUE_COVER,
     payload: url
+  }
+}
+
+export const setUploadingIssueCover = uploading => {
+  return {
+    type: UPLOADING_ISSUE_COVER,
+    payload: uploading
   }
 }
 

@@ -57,6 +57,34 @@ router.post(
   }
 )
 
+// @route  POST api/issues/add-cover
+// @desc   Add cover to issue
+// @access Private
+router.post(
+  '/add-cover/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user.id).then(user => {
+      if (user.role !== '0') {
+        return res.status(401).json({ notauthorized: 'User not authorized' })
+      }
+
+      Issue.findById(req.params.id).then(issue => {
+        issue.cover = req.body.cover
+
+        // Save
+        issue
+          .save()
+          .then(article => res.json(issue))
+          .catch(err => {
+            console.log(err)
+            res.status(404).json({ issuenotfound: 'No issue found' })
+          })
+      })
+    })
+  }
+)
+
 // @route  DELETE api/issues/:id
 // @desc   Delete issue
 // @access Private

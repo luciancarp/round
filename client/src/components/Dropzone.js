@@ -54,11 +54,12 @@ const StyledPreviewWrapper = styled.div`
   flex-direction: column;
 `
 
-export function Dropzone({ uploading, upload }) {
+export function Dropzone({ uploading, upload, handleCoverSelected }) {
   const maxSize = 5242880
   const [preview, setPreview] = useState(null)
   const onDrop = useCallback(acceptedFiles => {
     setPreview(URL.createObjectURL(acceptedFiles[0]))
+    handleCoverSelected()
   }, [])
   const {
     acceptedFiles,

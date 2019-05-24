@@ -36,7 +36,8 @@ if (window.localStorage.jwtToken) {
   const currentTime = Date.now() / 1000
   if (decoded.exp < currentTime) {
     // Logout User
-    store.dispatch(logOutUser())
+    const noWarning = true
+    store.dispatch(logOutUser(noWarning))
     // Redirect to login
     // window.location.href = '/login'
   }

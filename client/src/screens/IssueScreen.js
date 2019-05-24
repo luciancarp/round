@@ -16,7 +16,7 @@ import FadeTransition from '../components/FadeTransition'
 import FadeWrapper from '../components/FadeWrapper'
 
 import { getArticlesByIssue } from '../actions/articlesActions'
-import { deleteIssue } from '../actions/issuesActions'
+import { deleteIssue, getIssues } from '../actions/issuesActions'
 
 class IssueScreen extends Component {
   constructor(props) {
@@ -30,6 +30,10 @@ class IssueScreen extends Component {
 
   componentDidMount() {
     this.props.getArticlesByIssue(this.props.match.params.id)
+    const { issues } = this.props.issues
+    if (issues.length === 0) {
+      this.props.getIssues()
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,6 +41,7 @@ class IssueScreen extends Component {
       prevProps.articles.articlesByIssue !== this.props.articles.articlesByIssue
     ) {
       const { articlesByIssue } = this.props.articles
+
       this.setState({
         articlesByIssue: articlesByIssue,
         loading: false
@@ -58,10 +63,10 @@ class IssueScreen extends Component {
     const { articlesByIssue } = this.state
     let showDelete = false
 
-    let issueName = ''
-    if (!isEmpty(articlesByIssue)) {
-      issueName = articlesByIssue[0].issue.name
-    }
+    // let issueName = ''
+    // if (!isEmpty(articlesByIssue)) {
+    //   issueName = articlesByIssue[0].issue.name
+    // }
 
     let topicsInIssue = []
     if (articlesByIssue.length > 0) {
@@ -83,14 +88,25 @@ class IssueScreen extends Component {
       showDelete = true
     }
 
+    let title = ''
+    const { issues } = this.props.issues
+    if (issues.length > 0) {
+      let issue = issues.filter(
+        issue => issue._id === this.props.match.params.id
+      )[0]
+      if (!isEmpty(issue)) title = issue.name
+    }
+
     return (
       <StyledPage>
         <BackButton path={'/'} />
+
         {this.state.loading && <Spinner />}
+
         <FadeTransition in={!this.state.loading}>
           <FadeWrapper>
             <StyledTitleActions>
-              <StyledTitle>{issueName}</StyledTitle>
+              <StyledTitle>{title}</StyledTitle>
               {showDelete && (
                 <span>
                   <span>•</span>
@@ -104,6 +120,7 @@ class IssueScreen extends Component {
                 </span>
               )}
             </StyledTitleActions>
+
             {topicsInIssue.map(topic => (
               <span>
                 <StyledButton
@@ -115,9 +132,14 @@ class IssueScreen extends Component {
                 <span> • </span>
               </span>
             ))}
-            <StyledButton onClick={() => this.setState({ topicSelected: '' })}>
-              clear
-            </StyledButton>
+            {topicsInIssue.length > 0 && (
+              <StyledButton
+                onClick={() => this.setState({ topicSelected: '' })}
+              >
+                clear
+              </StyledButton>
+            )}
+
             <StyledUnorderedList>
               {articlesByIssue.map(article => (
                 <ArticlesItem
@@ -140,6 +162,7 @@ class IssueScreen extends Component {
 
 IssueScreen.propTypes = {
   auth: PropTypes.object.isRequired,
+  issues: PropTypes.object.isRequired,
   articlesByIssue: PropTypes.object.isRequired,
   getArticlesByIssue: PropTypes.func.isRequired,
   deleteIssue: PropTypes.func.isRequired
@@ -147,10 +170,11 @@ IssueScreen.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  articles: state.articles
+  articles: state.articles,
+  issues: state.issues
 })
 
 export default connect(
   mapStateToProps,
-  { getArticlesByIssue, deleteIssue }
+  { getArticlesByIssue, deleteIssue, getIssues }
 )(IssueScreen)

@@ -15,7 +15,8 @@ import Spinner from '../components/common/Spinner'
 import {
   createIssue,
   uploadImage,
-  setNewIssueCover
+  setNewIssueCover,
+  setUploadingIssueCover
 } from '../actions/issuesActions'
 
 class IssueNew extends Component {
@@ -26,12 +27,14 @@ class IssueNew extends Component {
       description: '',
       errors: {},
       uploading: false,
-      loading: false
+      loading: false,
+      coverSelected: false
     }
 
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.upload = this.upload.bind(this)
+    this._handleCoverSelected = this._handleCoverSelected.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -47,37 +50,54 @@ class IssueNew extends Component {
     }
 
     if (
-      prevProps.issues.newIssueCover !== this.props.issues.newIssueCover &&
-      this.props.issues.newIssueCover !== ''
+      prevProps.issues.uploadingIssueCover === false &&
+      this.props.issues.uploadingIssueCover === true
     ) {
+      this.setState({
+        uploading: true
+      })
+    }
+
+    // if (
+    //   prevProps.issues.newIssueCover !== this.props.issues.newIssueCover &&
+    //   this.props.issues.newIssueCover !== ''
+    // ) {
+    //   const { user } = this.props.auth
+
+    //   const newIssue = {
+    //     name: this.state.name,
+    //     description: this.state.description,
+    //     user: user.id,
+    //     avatar: user.avatar,
+    //     cover: this.props.issues.newIssueCover
+    //   }
+
+    //   this.props.createIssue(newIssue)
+    //   this.setState({
+    //     text: '',
+    //     description: '',
+    //     loading: false
+    //   })
+    //   this.props.setNewIssueCover('')
+    //   this.props.history.push(`/`)
+    // }
+  }
+
+  onSubmit(e) {
+    e.preventDefault()
+
+    if (this.state.coverSelected) {
       const { user } = this.props.auth
 
       const newIssue = {
         name: this.state.name,
         description: this.state.description,
         user: user.id,
-        avatar: user.avatar,
-        cover: this.props.issues.newIssueCover
+        avatar: user.avatar
       }
 
       this.props.createIssue(newIssue)
-      this.setState({
-        text: '',
-        description: '',
-        loading: false
-      })
-      this.props.setNewIssueCover('')
-      this.props.history.push(`/`)
-    }
-  }
-
-  onSubmit(e) {
-    e.preventDefault()
-
-    this.setState({
-      uploading: true,
-      loading: true
-    })
+    } else window.alert('You need to upload a cover for this issue!')
   }
 
   onChange(e) {
@@ -89,9 +109,26 @@ class IssueNew extends Component {
   upload(file) {
     const img = new FormData()
     img.append('image', file)
-    this.props.uploadImage(img)
+    this.setState({
+      loading: true
+    })
+    this.props.uploadImage(
+      img,
+      this.props.issues.newIssueId,
+      this.props.history
+    )
     this.setState({
       uploading: false
+    })
+    this.props.setUploadingIssueCover({
+      uploadingIssueCover: false,
+      newIssueId: ''
+    })
+  }
+
+  _handleCoverSelected() {
+    this.setState({
+      coverSelected: true
     })
   }
 
@@ -126,6 +163,7 @@ class IssueNew extends Component {
                 <p>Upload the cover for this issue</p>
                 <Dropzone
                   upload={this.upload}
+                  handleCoverSelected={this._handleCoverSelected}
                   uploading={this.state.uploading}
                 />
               </div>
@@ -135,7 +173,7 @@ class IssueNew extends Component {
                 </StyledButton>
               </StyledButtonRight>
             </form>
-            <div>{this.props.issues.newIssueCover}</div>
+            {/* <div>{this.props.issues.newIssueCover}</div> */}
           </StyledNarrowSection>
         )}
       </StyledPage>
@@ -157,5 +195,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createIssue, uploadImage, setNewIssueCover }
+  { createIssue, uploadImage, setNewIssueCover, setUploadingIssueCover }
 )(IssueNew)
