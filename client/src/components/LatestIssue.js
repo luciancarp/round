@@ -12,8 +12,9 @@ const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${spaces.wide}px;
-  padding-top: ${spaces.narrow}px;
+  
+  // padding-top: ${spaces.narrow}px;
+  padding-bottom: ${spaces.wide}px;
   flex-grow: 1;
 `
 
@@ -53,7 +54,7 @@ const StyledCoverButton = styled.button`
   background: none;
   font-family: inherit;
   font-size: inherit;
-  padding: 0px;
+  padding: 15px;
 
   -webkit-transition: color 0.2s, text-shadow 0.2s; /* Safari */
   transition: color 0.2s, text-shadow 0.2s;
@@ -101,33 +102,33 @@ const StyledCover = styled.img`
   }
 
   @media ${device.mobileM} {
-    width: 185px;
-    height: 185px;
-  }
-
-  @media ${device.mobileL} {
     width: 200px;
     height: 200px;
   }
 
+  @media ${device.mobileL} {
+    width: 230px;
+    height: 230px;
+  }
+
   @media ${device.tablet} {
-    width: 400px;
-    height: 400px;
+    width: 430px;
+    height: 430px;
   }
 
   @media ${device.laptop} {
-    width: 525px;
-    height: 525px;
+    width: 550px;
+    height: 550px;
   }
 
   @media ${device.laptopL} {
-    width: 525px;
-    height: 525px;
+    width: 550px;
+    height: 550px;
   }
 
   @media ${device.desktop} {
-    width: 525px;
-    height: 525px;
+    width: 550px;
+    height: 550px;
   }
 `
 
