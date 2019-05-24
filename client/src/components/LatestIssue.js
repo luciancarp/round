@@ -143,11 +143,14 @@ const StyledButtonTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background-color: rgb(20, 19, 21, 0.5);
+  border-radius: 50%;
 `
 
 const StyledButtonTitle = styled.h1`
   color: ${palette.text}
-  text-shadow: 0 0 5px ${palette.BackgroundColor};
+  text-shadow: 0 0 5px rgb(20, 19, 21, 0.5);
 `
 
 class LatestIssue extends Component {
