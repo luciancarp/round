@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import StyledSpacedPage from '../components/StyledSpacedPage'
-import StyledTitle from '../components/layout/StyledTitle'
 import IssuesItem from '../components/IssuesItem'
 import Spinner from '../components/common/Spinner'
 import StyledUnorderedList from '../components/layout/StyledUnorderedList'
@@ -65,7 +64,7 @@ class HomeScreen extends Component {
             </FadeWrapper>
           </FadeTransition>
 
-          <StyledTitle>{this.state.title}</StyledTitle>
+          <h1>{this.state.title}</h1>
           <FadeTransition in={!this.state.loading}>
             <StyledUnorderedList>
               {issues.map((issue, index) => (

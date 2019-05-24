@@ -14,10 +14,13 @@ import CommentInput from '../components/CommentInput'
 import Comments from '../components/Comments'
 import FadeTransition from '../components/FadeTransition'
 import FadeWrapper from '../components/FadeWrapper'
+import StyledTitle from '../components/layout/StyledTitle'
+import StyledTitleActions from '../components/StyledTitleActions'
+import StyledButton from '../components/common/StyledButton'
 
 import { spaces } from '../styles/styles'
 
-import { getArticle } from '../actions/articlesActions'
+import { getArticle, deleteArticle } from '../actions/articlesActions'
 
 const StyledSubTitle = styled.h2`
   padding-top: ${spaces.wide}px;
@@ -67,14 +70,47 @@ class ArticleScreen extends Component {
     }
   }
 
+  _handleDelete() {
+    if (window.confirm('Are you sure you want to delete this article?')) {
+      this.props.deleteArticle(
+        this.state.id,
+        this.state.issue,
+        this.props.history
+      )
+    }
+  }
+
   render() {
+    let showDelete = false
+    if (this.props.auth.isAuthenticated) {
+      const ownArticle =
+        this.props.articles.article.user === this.props.auth.user.id
+      // Only the writer who posted the article or an admin can delete an article
+      showDelete =
+        (this.props.auth.user.role === '1' && ownArticle) ||
+        this.props.auth.user.role === '0'
+    }
     return (
       <StyledPage>
         <BackButton path={`/issue/${this.state.issue}`} />
         {this.state.loading && <Spinner />}
         <FadeTransition in={!this.state.loading}>
           <FadeWrapper>
-            <h1>{this.state.name}</h1>
+            <StyledTitleActions>
+              <StyledTitle>{this.state.name}</StyledTitle>
+              {showDelete && (
+                <span>
+                  <span>•</span>
+                  <StyledButton
+                    onClick={() => {
+                      this._handleDelete()
+                    }}
+                  >
+                    delete
+                  </StyledButton>
+                </span>
+              )}
+            </StyledTitleActions>
             <small>{<DateText date={this.state.date} />}</small>
             <StyledText>
               <Editor
@@ -111,5 +147,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getArticle }
+  { getArticle, deleteArticle }
 )(ArticleScreen)

@@ -52,6 +52,37 @@ router.post(
   }
 )
 
+// @route  POST api/articles/:id
+// @desc   Delete article
+// @access Private
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user.id).then(user => {
+      if (user.role !== '0' && user.role !== '1') {
+        return res.status(401).json({ notauthorized: 'User not authorized' })
+      }
+
+      Article.findById(req.params.id).then(article => {
+        const ownArticle = article.user.toString() === req.user.id
+        // Only the writer who posted the article or an admin can delete an article
+        if ((user.role !== '1' || !ownArticle) && user.role !== '0') {
+          return res.status(401).json({ notauthorized: 'User not authorized' })
+        }
+
+        // Delete
+        article
+          .remove()
+          .then(() => res.json({ success: true }))
+          .catch(err =>
+            res.status(404).json({ articlenotfound: 'No article found' })
+          )
+      })
+    })
+  }
+)
+
 // @route  GET api/articles
 // @desc   Get articles
 // @access Public
@@ -73,7 +104,9 @@ router.get('/:id', (req, res) => {
   Article.findById(req.params.id)
     .then(article => {
       if (!article) {
-        res.status(404).json({ noarticlefound: 'No article found with that ID' })
+        res
+          .status(404)
+          .json({ noarticlefound: 'No article found with that ID' })
       }
       res.json(article)
     })
@@ -83,24 +116,22 @@ router.get('/:id', (req, res) => {
 // @route  GET api/articles/from-issue/:id
 // @desc   GET Articles from issue id
 // @access Public
-router.get(
-  '/from-issue/:id', (req, res) => {
-    Article.find({ issue: req.params.id })
-      .populate({
-        path: 'user',
-        select: 'name'
-      })
-      .populate({
-        path: 'issue',
-        select: 'name'
-      })
-      .sort({ date: -1 })
-      .then(articles => {
-        res.json(articles)
-      })
-      .catch(err => console.log(err))
-  }
-)
+router.get('/from-issue/:id', (req, res) => {
+  Article.find({ issue: req.params.id })
+    .populate({
+      path: 'user',
+      select: 'name'
+    })
+    .populate({
+      path: 'issue',
+      select: 'name'
+    })
+    .sort({ date: -1 })
+    .then(articles => {
+      res.json(articles)
+    })
+    .catch(err => console.log(err))
+})
 
 // @route  POST api/articles/comment/:id
 // @desc   Add comment to article
@@ -169,7 +200,9 @@ router.delete(
 
         article.save().then(article => res.json(article))
       })
-      .catch(err => res.status(404).json({ articlenotfound: 'No article found' }))
+      .catch(err =>
+        res.status(404).json({ articlenotfound: 'No article found' })
+      )
   }
 )
 

@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { logOutUser } from '../actions/authActions'
 import { getWriters } from '../actions/profileActions'
 import StyledPage from '../components/layout/StyledPage'
+import StyledTitle from '../components/layout/StyledTitle'
+import StyledTitleActions from '../components/StyledTitleActions'
 import StyledUnorderedList from '../components/layout/StyledUnorderedList'
 import BackButton from '../components/common/BackButton'
 import StyledButton from '../components/common/StyledButton'
@@ -11,20 +13,8 @@ import NewWriter from '../components/NewWriter'
 import WriterItem from '../components/WriterItem'
 import FadeTransition from '../components/FadeTransition'
 // import StyledNarrowSection from '../components/layout/StyledNarrowSection'
-import { spaces, palette } from '../styles/styles'
+import { palette } from '../styles/styles'
 import styled from 'styled-components'
-
-const StyledTitle = styled.h1`
-  display: inline;
-  padding-right: ${spaces.wide}px;
-`
-
-const StyledActions = styled.span`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: ${spaces.wide} px;
-`
 
 const StyledRole = styled.span`
   color: ${palette.primaryColor};
@@ -87,7 +77,7 @@ class ProfileScreen extends Component {
       <StyledPage>
         <BackButton path={'/'} />
 
-        <StyledActions>
+        <StyledTitleActions>
           <StyledTitle>
             <StyledRole>{displayName}</StyledRole>
           </StyledTitle>
@@ -95,8 +85,8 @@ class ProfileScreen extends Component {
           <StyledButton onClick={e => this.onLogoutClick(e)}>
             Log Out
           </StyledButton>
-        </StyledActions>
-        <StyledActions>
+        </StyledTitleActions>
+        <StyledTitleActions>
           <StyledTitle>
             {/* <StyledRole>{`${role} `}</StyledRole> */}
             {role}
@@ -124,15 +114,15 @@ class ProfileScreen extends Component {
               </StyledButton>
             </span>
           )}
-        </StyledActions>
+        </StyledTitleActions>
 
         {this.props.auth.user.role === '0' && (
           <div>
-            <StyledActions>
+            <StyledTitleActions>
               <StyledTitle>Writers</StyledTitle>
               <span>•</span>
               <NewWriter />
-            </StyledActions>
+            </StyledTitleActions>
             <FadeTransition in={!this.state.loadingWriters}>
               <StyledUnorderedList>
                 {writers.map(writer => (

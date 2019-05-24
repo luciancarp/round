@@ -5,7 +5,8 @@ import {
   GET_ARTICLE,
   GET_ERRORS,
   CLEAR_ERRORS,
-  CREATE_ARTICLE
+  CREATE_ARTICLE,
+  DELETE_ARTICLE
 } from './types'
 
 // get article by id
@@ -57,6 +58,24 @@ export const createArticle = (articleData, history) => dispatch => {
         payload: res.data
       })
       history.push(`/article/${res.data._id}`)
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
+export const deleteArticle = (id, issueId, history) => dispatch => {
+  axios
+    .delete(`/api/articles/${id}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_ARTICLE,
+        payload: id
+      })
+      history.push(`/issue/${issueId}`)
     })
     .catch(err =>
       dispatch({

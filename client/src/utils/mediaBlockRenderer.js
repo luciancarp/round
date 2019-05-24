@@ -1,5 +1,4 @@
 import React from 'react'
-import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js'
 import styled from 'styled-components'
 
 const StyledImage = styled.img`
@@ -14,13 +13,6 @@ export const mediaBlockRenderer = block => {
       component: Media,
       editable: false
     }
-  }
-  return null
-}
-
-const Image = props => {
-  if (props.src) {
-    return <img src={props.src} />
   }
   return null
 }

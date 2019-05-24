@@ -52,9 +52,11 @@ const StyledCoverButton = styled.button`
   text-decoration: none;
   border: none;
   background: none;
+
   font-family: inherit;
   font-size: inherit;
   padding: 15px;
+  border-radius: 50%;
 
   -webkit-transition: color 0.2s, text-shadow 0.2s; /* Safari */
   transition: color 0.2s, text-shadow 0.2s;

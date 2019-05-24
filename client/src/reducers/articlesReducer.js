@@ -1,7 +1,8 @@
 import {
   GET_ARTICLE,
   GET_ARTICLES_BY_ISSUE,
-  CREATE_ARTICLE
+  CREATE_ARTICLE,
+  DELETE_ARTICLE
 } from '../actions/types'
 
 const initialState = {
@@ -10,7 +11,7 @@ const initialState = {
   articlesByIssue: []
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ARTICLE:
       return {
@@ -26,6 +27,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         articlesByIssue: [action.payload, ...state.articlesByIssue]
+      }
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        articles: state.articles.filter(
+          article => article._id !== action.payload
+        )
       }
     default:
       return state
