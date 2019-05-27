@@ -171,7 +171,7 @@ class Footer extends Component {
               </StyledSocial> */}
               <StyledSocial
                 noHorizPadRight
-                href='https://www.facebook.com/theroundmag/'
+                href='https://www.instagram.com/theroundmag/'
               >
                 <FaInstagram size='30px' />
               </StyledSocial>
