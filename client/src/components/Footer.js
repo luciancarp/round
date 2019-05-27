@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { palette, spaces, fontSizes, device } from '../styles/styles'
 import styled from 'styled-components'
-import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'
+import { FaFacebookF, FaInstagram } from 'react-icons/fa'
 import StyledLink from './common/StyledLink'
 import StyledButton from './common/StyledButton'
 import { connect } from 'react-redux'
