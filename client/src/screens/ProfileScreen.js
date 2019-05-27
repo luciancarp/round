@@ -104,7 +104,7 @@ class ProfileScreen extends Component {
     const { articlesUser } = this.state
     return (
       <StyledPage>
-        <BackButton path={'/'} />
+        <BackButton path={'/'} text='Home' />
 
         <StyledTitleActions>
           <StyledTitle>

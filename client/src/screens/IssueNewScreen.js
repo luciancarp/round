@@ -136,7 +136,7 @@ class IssueNew extends Component {
     const { errors } = this.state
     return (
       <StyledPage>
-        <BackButton path={'/profile'} />
+        <BackButton path={'/profile'} text='Your Profile' />
         {this.state.loading && <Spinner />}
 
         {(!this.state.loading || this.state.uploading) && (

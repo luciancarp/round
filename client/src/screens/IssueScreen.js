@@ -99,7 +99,7 @@ class IssueScreen extends Component {
 
     return (
       <StyledPage>
-        <BackButton path={'/'} />
+        <BackButton path={'/'} text='Home' />
 
         {this.state.loading && <Spinner />}
 

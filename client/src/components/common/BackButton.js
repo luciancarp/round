@@ -20,12 +20,16 @@ const Wrapper = styled.div`
 
 export default class BackButton extends React.Component {
   render() {
+    let text = 'Go Back'
+    if (this.props.text) {
+      text = this.props.text
+    }
     return (
       <Wrapper>
-        <StyledLink to={this.props.path}>
+        <StyledLink noHorizPadLeft to={this.props.path}>
           <StyledButtonContent>
             <IoIosArrowBack />
-            Go Back
+            {text}
           </StyledButtonContent>
         </StyledLink>
       </Wrapper>

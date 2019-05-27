@@ -12,6 +12,8 @@ const StyledNavBar = styled.div`
   background-color: ${palette.BackgroundColor};
   height: 50px;
   padding: ${spaces.narrow}px;
+  padding-left: ${spaces.medium}px;
+  padding-right: ${spaces.medium}px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -43,6 +45,7 @@ const StyledLinks = styled.div`
 
 const StyledGreeting = styled.div`
   padding: ${spaces.narrow}px;
+  padding-left: 0px;
 `
 
 // const StyledLogo = styled.img`
@@ -72,7 +75,9 @@ class NavBar extends Component {
             )}
             <StyledLinks>
               {hasProfile && (
-                <StyledLink to='/profile'>Your Profile</StyledLink>
+                <StyledLink noHorizPadRight to='/profile'>
+                  Your Profile
+                </StyledLink>
               )}
             </StyledLinks>
           </StyledNavBarContent>

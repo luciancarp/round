@@ -9,6 +9,10 @@ const StyledLink = styled(Link)`
   color: ${props =>
     props.selected ? `${palette.primaryColor}` : `${palette.text}`};
   padding: ${spaces.narrow}px;
+  padding-left: ${props =>
+    props.noHorizPadLeft ? `0px` : `${spaces.narrow}px`};
+  padding-right: ${props =>
+    props.noHorizPadRight ? `0px` : `${spaces.narrow}px`};
 
   -webkit-transition: color 0.2s; /* Safari */
   transition: color 0.2s;

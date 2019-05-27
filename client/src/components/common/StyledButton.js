@@ -15,6 +15,10 @@ const StyledButton = styled.button`
   padding: ${props => (props.narrow ? `5px` : `${spaces.narrow}px`)};
   padding-top: ${props => (props.icon ? `0px` : `${spaces.narrow}px`)};
   padding-bottom: ${props => (props.icon ? `0px` : `${spaces.narrow}px`)};
+  padding-left: ${props =>
+    props.noHorizPadLeft ? `0px` : `${spaces.narrow}px`};
+  padding-right: ${props =>
+    props.noHorizPadRight ? `0px` : `${spaces.narrow}px`};
 
   -webkit-transition: color 0.2s, text-shadow 0.2s; /* Safari */
   transition: color 0.2s, text-shadow 0.2s;

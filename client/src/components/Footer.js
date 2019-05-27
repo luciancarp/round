@@ -14,7 +14,7 @@ const StyledNavBar = styled.div`
   margin: 0px;
   background-color: ${palette.BackgroundColor};
   height: 150px;
-  padding: ${spaces.medium}px;
+  // padding: ${spaces.medium}px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -46,11 +46,56 @@ const StyledCopy = styled.span`
 
 const StyledLinks = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: row;
+  }
 `
 
-const StyledSocial = styled.div`
-  margin-left: ${spaces.wide}px;
+const StyledSocial = styled.a`
+  color: ${palette.text};
+
+  -webkit-transition: color 0.2s, text-shadow 0.2s; /* Safari */
+  transition: color 0.2s, text-shadow 0.2s;
+  transition-timing-function: ease-out;
+
+  &:focus,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+
+  &:focus,
+  &:target {
+    color: ${palette.primaryColor};
+  }
+
+  &:active {
+    text-shadow: 0 0 3px ${palette.primaryColor};
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: ${palette.primaryColor};
+  }
+
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: row;
+    padding-right: ${spaces.narrow}px;
+    padding-right: ${props =>
+      props.noHorizPadRight ? `0px` : `${spaces.narrow}px`};
+  }
+  padding: ${spaces.narrow}px;
+  padding-right: 0;
 `
 
 // const StyledLogo = styled.img`
@@ -90,15 +135,26 @@ class Footer extends Component {
               <StyledLogo src={require('../assets/images/logo_small.png')} />
             </Link> */}
             <StyledMap>
-              <StyledLink to='/'>Home</StyledLink>
+              <StyledLink noHorizPadLeft to='/'>
+                Home
+              </StyledLink>
               {isAuthenticated && (
-                <StyledButton onClick={e => this.onLogoutClick(e)}>
+                <StyledButton
+                  noHorizPadLeft
+                  onClick={e => this.onLogoutClick(e)}
+                >
                   Log Out
                 </StyledButton>
               )}
-              {!isAuthenticated && <StyledLink to='/login'>Login</StyledLink>}
               {!isAuthenticated && (
-                <StyledLink to='/register'>Register</StyledLink>
+                <StyledLink noHorizPadLeft to='/login'>
+                  Login
+                </StyledLink>
+              )}
+              {!isAuthenticated && (
+                <StyledLink noHorizPadLeft to='/register'>
+                  Register
+                </StyledLink>
               )}
             </StyledMap>
 
@@ -107,14 +163,17 @@ class Footer extends Component {
               All right reserved.
             </StyledCopy>
             <StyledLinks>
-              <StyledSocial>
-                <FaFacebookF size='30px' color={palette.darkTextSecundary} />
+              <StyledSocial href='https://www.facebook.com/theroundmag/'>
+                <FaFacebookF size='30px' />
               </StyledSocial>
-              <StyledSocial>
-                <FaTwitter size='30px' color={palette.darkTextSecundary} />
-              </StyledSocial>
-              <StyledSocial>
-                <FaInstagram size='30px' color={palette.darkTextSecundary} />
+              {/* <StyledSocial>
+                <FaTwitter size='30px'  />
+              </StyledSocial> */}
+              <StyledSocial
+                noHorizPadRight
+                href='https://www.facebook.com/theroundmag/'
+              >
+                <FaInstagram size='30px' />
               </StyledSocial>
             </StyledLinks>
           </StyledNavBarContent>

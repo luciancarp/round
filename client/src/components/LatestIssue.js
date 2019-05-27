@@ -99,8 +99,8 @@ const StyledCover = styled.img`
   animation: ${pulse} 2s ease-in-out infinite;
 
   @media ${device.mobileS} {
-    width: 175px;
-    height: 175px;
+    width: 160px;
+    height: 160px;
   }
 
   @media ${device.mobileM} {

@@ -99,7 +99,7 @@ class ArticleScreen extends Component {
 
     return (
       <StyledPage>
-        <BackButton path={`/issue/${this.state.issue}`} />
+        <BackButton path={`/issue/${this.state.issue}`} text='Issue' />
         {this.state.loading && <Spinner />}
         <FadeTransition in={!this.state.loading}>
           <FadeWrapper>
