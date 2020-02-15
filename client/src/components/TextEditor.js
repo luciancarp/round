@@ -38,8 +38,8 @@ const StyledButtons = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
+  margin-bottom: ${spaces.narrow}px;
 `
 
 const blockTypes = [
