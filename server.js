@@ -20,12 +20,14 @@ const db = process.env.MONGO_URI
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
+  .connect(db, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(Error(err)))
+  .catch((err) => console.log(Error(err)))
 
 // Passport middleware
 app.use(passport.initialize())
